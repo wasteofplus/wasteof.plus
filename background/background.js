@@ -21,11 +21,11 @@ async function doesContentScriptExist(tabId, contentScript) {
 function runAddon(tabId, contentScript) {
     chrome.scripting.executeScript({
         target: { tabId: tabId },
-        files: ["../addons/" + contentScript + "/addon.js"],
+        files: ["addons/" + contentScript + "/addon.js"],
     });
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
-        files: ["../addons/" + contentScript + "/addon.css"],
+        files: ["addons/" + contentScript + "/addon.css"],
     });
 }
 
