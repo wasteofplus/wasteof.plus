@@ -15,3 +15,6 @@ i am publishing the source code so that community can submit contributions, bug 
 - Make the extension work in firefox (right now it uses chrome.tabs/chrome.scripting, etc.)
 - Create emoji picker addon
 - Clean up code
+
+## License:
+wasteof.addons is licensed under the BSD-3 license. read it [here](LICENSE)
