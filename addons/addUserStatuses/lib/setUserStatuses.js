@@ -20,6 +20,7 @@ function setUserStatuses(profilePictures, onlineIndicator) {
         function showStatus(data, username, profilePicture) {
             // if (!profilePictureNodes.includes(profilePicture)) {
                 if (!profilePicture.parentElement.querySelector(".userstatusicon")) {
+                    if (!profilePicture.parentElement.parentElement.parentElement.classList.contains("grid")) {
                     console.log(username, "already has badges", profilePicture.parentElement.querySelectorAll(".userstatusicon"))
 
                     // console.log("showing icons", profilePicture, data.online)
@@ -65,7 +66,7 @@ function setUserStatuses(profilePictures, onlineIndicator) {
                     }
                     profilePictureNodes += profilePicture;
                 }
-            // }
+            }
         }
         const username = profilePicture.parentElement.href.split("/")[4];
         chrome.storage.local.get([username]).then((result) => {
