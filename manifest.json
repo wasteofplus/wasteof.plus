@@ -7,7 +7,7 @@
     "description": "adds helpful features to wasteof.money",
     "permissions": ["activeTab", "scripting", "storage", "tabs", "webNavigation"],
     "background": {
-      "service_worker": "service-worker.js"
+      "service_worker": "background/background.js"
     },
     "content_scripts": [
 
