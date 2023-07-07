@@ -1,4 +1,7 @@
 # wasteof.addons
+wasteof.addons is in early alpha stages. PLEASE DO NOT USE THIS FOR ACTUAL PURPOSES OR EXPECT IT TO WORK RIGHT IT HAS ONLY BEEN WORKED ON FOR 1 DAY.
+
+i am publishing the source code so that community can submit contributions, bug reports, and feature requests.
 
 ## Features:
 - Adds beta, banned, admin, and verified badges next to usernames across the site. (in messages, on your feed, on explore, and on profiles)
