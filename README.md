@@ -1,8 +1,8 @@
 # wasteof.addons
 
 ## Features:
-- Adds beta, banned, admin, and verified badges next to usernames across the site.
-- Shows online status dot indicator across the site.
+- Adds beta, banned, admin, and verified badges next to usernames across the site. (in messages, on your feed, on explore, and on profiles)
+- Shows online status dot indicator across the site. (same places as above)
 
 ## TODO (not in any particular order):
 - Typescript
