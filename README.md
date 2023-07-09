@@ -18,7 +18,7 @@ i am publishing the source code so that community can submit contributions, bug 
 - Create a logo and extension icon
 
 ## License:
-wasteof.addons is licensed under the BSD-3 license. read it [here](LICENSE). It is primarily maintained by @imadeanaccount1.
+wasteof.plus is licensed under the BSD-3 license. read it [here](LICENSE). It is primarily maintained by @imadeanaccount1.
 
 ## Motivation
 Make wasteof.money better by adding cool community-requested features that may or may not necessarily fit into the actual social media and may or may not be wanted by everybody (users will have the option to turn on/off addons.)
