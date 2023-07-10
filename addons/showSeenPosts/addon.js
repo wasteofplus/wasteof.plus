@@ -100,8 +100,8 @@ function addDot(post, post_id) {
             }
         });
 
-    const postHeader = post.querySelector("span > div.w-full")
-    postHeader.style.position = "relative";
+    // const postHeader = post.querySelector("span > div.w-full")
+    // postHeader.style.position = "relative";
 
     console.log("the post id is ", post_id)
 }
@@ -350,6 +350,35 @@ async function addon() {
     if (document.querySelectorAll('div.ml-6 > div.rounded-xl') != null) {
         checkPostReplies()
     }
+
+    // const observer = new IntersectionObserver((entries) => {
+    //     entries.forEach((entry) => {
+
+    //         if (entry.isIntersecting) {
+    //             timer = setTimeout(() => {
+    //                 console.log("user read post!", entry);
+    //                 entry.target.style.backgroundColor = "#80899c";
+
+    //                 //... push to data layer
+    //             }, 5000);
+    //         } else {
+    //             clearTimeout(timer);
+    //         }
+    //     });
+    // }, config);
+
+    // observer.observe(document.querySelector('main > div.max-w-2xl.mx-auto.my-4 > div:nth-child(1)'));
+
+    // const onIntersection = (entries) => {
+    //     for (const entry of entries) {
+    //         if (entry.isIntersecting) {
+    //             console.log("intersection", entry);
+    //         }
+    //     }
+    // };
+
+    // const observer = new IntersectionObserver(onIntersection);
+    // observer.observe(document.querySelector('main > div.max-w-2xl.mx-auto.my-4 > div:nth-child(1)'));
 
 }
 
