@@ -3,7 +3,7 @@ const openDropdowns = {};
 function markPostRead(post) {
     post.classList.remove("bg-gray-100")
     post.classList.remove("dark:bg-gray-800")
-    post.classList.add("bg-gray-300")
+    post.classList.add("bg-gray-200")
     post.classList.add("dark:bg-gray-700")
 }
 
@@ -350,35 +350,6 @@ async function addon() {
     if (document.querySelectorAll('div.ml-6 > div.rounded-xl') != null) {
         checkPostReplies()
     }
-
-    // const observer = new IntersectionObserver((entries) => {
-    //     entries.forEach((entry) => {
-
-    //         if (entry.isIntersecting) {
-    //             timer = setTimeout(() => {
-    //                 console.log("user read post!", entry);
-    //                 entry.target.style.backgroundColor = "#80899c";
-
-    //                 //... push to data layer
-    //             }, 5000);
-    //         } else {
-    //             clearTimeout(timer);
-    //         }
-    //     });
-    // }, config);
-
-    // observer.observe(document.querySelector('main > div.max-w-2xl.mx-auto.my-4 > div:nth-child(1)'));
-
-    // const onIntersection = (entries) => {
-    //     for (const entry of entries) {
-    //         if (entry.isIntersecting) {
-    //             console.log("intersection", entry);
-    //         }
-    //     }
-    // };
-
-    // const observer = new IntersectionObserver(onIntersection);
-    // observer.observe(document.querySelector('main > div.max-w-2xl.mx-auto.my-4 > div:nth-child(1)'));
 
 }
 
