@@ -1,5 +1,5 @@
 # wasteof.plus
-wasteof.plus is in early alpha stages. PLEASE DO NOT USE THIS FOR ACTUAL PURPOSES OR EXPECT IT TO WORK CORRECTLY. IT HAS ONLY BEEN WORKED ON FOR 1 DAY. Feel free to test and give feedback though ☺
+wasteof.plus is in early alpha stages. Feel free to test and give feedback though ☺
 
 i am publishing the source code so that community can submit contributions, bug reports, and feature requests.
 
