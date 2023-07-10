@@ -1,13 +1,19 @@
-function waitForElm(selector) {
+function waitForElm(selector, callback) {
     return new Promise(resolve => {
         if (document.querySelector(selector)) {
             return resolve(document.querySelector(selector));
         }
 
         const observer = new MutationObserver(mutations => {
+            console.log("mutation", mutations)
             if (document.querySelector(selector)) {
+                console.log("observer ended up!")
                 resolve(document.querySelector(selector));
-                observer.disconnect();
+                if (callback) {
+                    callback();
+                } else {
+                    observer.disconnect();
+                }
             }
         });
 
