@@ -1,5 +1,7 @@
 const openDropdowns = {};
 
+const replyCounts = {};
+
 function markPostRead(post) {
     post.classList.remove("bg-gray-100")
     post.classList.remove("dark:bg-gray-800")
@@ -52,6 +54,48 @@ const dropdownSvg = `
 </div>
 `
 
+const replyIconSvg = `
+<svg xmlns="http://www.w3.org/2000/svg" style="display: inline;" class="replyIcon h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+</svg>
+`;
+
+
+
+const full_reply_json = {}
+
+
+function addReplyCount(post, post_id) {
+    const commentFooter = post.querySelector("div > div.flex > span.relative");
+    if (commentFooter.querySelector("replyIcon")) {
+        return;
+    }
+    
+    if (commentFooter.querySelector("replyCount")) {
+        return;
+        // commentFooter.querySelector("replyCount").remove();
+    }
+
+    commentFooter.querySelector("svg").style.display = "inline"
+    commentFooter.insertAdjacentHTML("beforeend", replyIconSvg)
+    console.log("reply", post_id, "has number of replies")
+    console.log("adding reply count", post.querySelector("div > div.flex > span.relative"))
+
+    const replyCount = document.createElement("span")
+    replyCount.classList.add("replyCount")
+    if (full_reply_json[post_id]) {
+        if (full_reply_json[post_id].length > 0) {
+        replyCount.innerHTML = full_reply_json[post_id].length.toString();
+        } else {
+            replyCount.innerHTML = "0"
+        }
+    } else {
+        replyCount.innerHTML = "0"
+    }
+    commentFooter.appendChild(replyCount)
+    replyCounts[post_id] = replyCount;
+}
+
 function addDot(post, post_id) {
 
     // const post_id = window.location.href.split("/")[4];
@@ -69,36 +113,65 @@ function addDot(post, post_id) {
             if (data.error) {
                 console.log("error getting comments", data.error, post_id)
             } else {
-                function loop_comments(comments) {
+                if (data.comments.length != 0) {
+                    full_reply_json[post_id] = [
+                    ];
+                    function loop_comments(comments, reply_json, id, aboveIcon) {
+                        console.log("the above icon is", aboveIcon)
+                        if (replyCounts[id]) {
+                            replyCounts[id].innerHTML = comments.length.toString();
+                        }
+                        const unreadReplies = [];
+                        for (const comment of comments) {
+                            reply_json.push(comment._id)
+                            full_reply_json[comment._id] = []
 
-                    for (const comment of comments) {
-                        chrome.storage.local.get([comment._id]).then((result) => {
-                            console.log("got result for comment3", result, !result[comment._id])
-                            if ((!result[comment._id]) || (!result[comment._id].seen)) {
+                            chrome.storage.local.get([comment._id]).then((result) => {
+                                console.log("got result for comment3", result, !result[comment._id])
+                                if ((!result[comment._id]) || (!result[comment._id].seen)) {
+                                    console.log("comment found is unread", aboveIcon)
+                                    if (unreadReplies.length == 0) {
+                                        if (aboveIcon) {
+                                            aboveIcon.insertAdjacentHTML("beforeend", dotSvg)
+                                            }
+                                    }
+                                    if (unreadComments.length == 0) {
+                                        post.querySelectorAll("span > div.mt-3 > div.select-none > svg")[2].insertAdjacentHTML("beforeend", dotSvg)
+                                        console.log("should add red dot to parent comment", aboveIcon)
 
-                                if (unreadComments.length == 0) {
-                                    post.querySelectorAll("span > div.mt-3 > div.select-none > svg")[2].insertAdjacentHTML("beforeend", dotSvg)
 
-                                    console.log("add unread comment");
+                                        console.log("add unread comment");
+                                    }
+                                    unreadComments.push(comment._id)
+                                    unreadReplies.push(comment._id)
+
                                 }
-                                unreadComments.push(comment._id)
+                                if (comment.hasReplies) {
+                                    fetch('https://api.wasteof.money/comments/' + comment._id + '/replies')
+                                        .then(response => response.json()).then((data) => {
+                                            console.log("got replies for comment ", comment._id, data)
+                                            
+                                            let aboveIconSet = null;
+                                            if (replyCounts[comment._id]) {
+                                                console.log("setting above icon", replyCounts[comment._id].parentElement.querySelector(".replyIcon"))
 
-                            }
-                            if (comment.hasReplies) {
-                                fetch('https://api.wasteof.money/comments/' + comment._id + '/replies')
-                                    .then(response => response.json()).then((data) => {
-                                        console.log("got replies for comment ", comment._id, data)
-                                        loop_comments(data.comments)
+                                                aboveIconSet = replyCounts[comment._id].parentElement.querySelector(".replyIcon")
+                                            }
+                                            loop_comments(data.comments, full_reply_json[comment._id], comment._id, aboveIconSet)
 
-                                    });
+                                        });
 
-                            }
-                        });
+                                }
+                            });
+
+                        }
                     }
+                    loop_comments(data.comments, full_reply_json[post_id], post_id, null)
                 }
-                loop_comments(data.comments)
             }
         });
+
+        console.log("full reply json", full_reply_json)
 
     // const postHeader = post.querySelector("span > div.w-full")
     // postHeader.style.position = "relative";
@@ -143,16 +216,16 @@ function addDropdownIcon(postHeader, type, post_id) {
         console.log("dropdown clicked",)
         if (dropdownIcon.parentElement.querySelector(".commentActionDropdown").style.display == "none") {
             dropdownIcon.parentElement.querySelector(".commentActionDropdown").style.display = "block";
-            function handleWindowClick(e){   
-                if (dropdownIcon.parentElement.querySelector(".commentActionDropdown").contains(e.target)||dropdownIcon.contains(e.target)){
-                  // Clicked in box
-                } else{
+            function handleWindowClick(e) {
+                if (dropdownIcon.parentElement.querySelector(".commentActionDropdown").contains(e.target) || dropdownIcon.contains(e.target)) {
+                    // Clicked in box
+                } else {
                     dropdownIcon.parentElement.querySelector(".commentActionDropdown").style.display = "none";
                     window.removeEventListener('click', handleWindowClick);
 
-                  // Clicked outside the box
+                    // Clicked outside the box
                 }
-              }
+            }
             window.addEventListener('click', handleWindowClick)
         } else {
             dropdownIcon.parentElement.querySelector(".commentActionDropdown").style.display = "none";
@@ -205,6 +278,7 @@ function checkPostRead(post, type) {
                 } else {
                     readMessage.innerText = "Mark as Unread";
                     post.querySelector("span > div.w-full").appendChild(readMessage.cloneNode(true));
+                    post.querySelector("span > div.w-full").style.position = "relative";
                     addDropdownIcon(post.querySelector("span > div.w-full"), type, post_id)
 
                 }
@@ -276,6 +350,9 @@ function checkPostRead(post, type) {
                 }, config);
 
                 if (type == "post") {
+
+                    console.log("marking an actual post as read", post.querySelector("span > div.w-full"))
+                    post.querySelector("span > div.w-full").style.position = "relative";
                     readMessage.innerText = "Mark as Read";
 
                     post.querySelector("span > div.w-full").appendChild(readMessage.cloneNode(true));
@@ -312,6 +389,8 @@ async function checkOnePost(post, type) {
 
     postHeader.appendChild(readMessage.cloneNode(true));
     addDropdownIcon(postHeader, type, post_id)
+
+    addReplyCount(post, post_id)
 
 }
 
@@ -350,35 +429,6 @@ async function addon() {
     if (document.querySelectorAll('div.ml-6 > div.rounded-xl') != null) {
         checkPostReplies()
     }
-
-    // const observer = new IntersectionObserver((entries) => {
-    //     entries.forEach((entry) => {
-
-    //         if (entry.isIntersecting) {
-    //             timer = setTimeout(() => {
-    //                 console.log("user read post!", entry);
-    //                 entry.target.style.backgroundColor = "#80899c";
-
-    //                 //... push to data layer
-    //             }, 5000);
-    //         } else {
-    //             clearTimeout(timer);
-    //         }
-    //     });
-    // }, config);
-
-    // observer.observe(document.querySelector('main > div.max-w-2xl.mx-auto.my-4 > div:nth-child(1)'));
-
-    // const onIntersection = (entries) => {
-    //     for (const entry of entries) {
-    //         if (entry.isIntersecting) {
-    //             console.log("intersection", entry);
-    //         }
-    //     }
-    // };
-
-    // const observer = new IntersectionObserver(onIntersection);
-    // observer.observe(document.querySelector('main > div.max-w-2xl.mx-auto.my-4 > div:nth-child(1)'));
 
 }
 
