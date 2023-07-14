@@ -1,5 +1,5 @@
 async function doesContentScriptExist(tabId, contentScript) {
-    console.log("does content script exist")
+    console.log("does content script exist", tabId)
     return new Promise((resolve, reject) => {
         try {
             chrome.tabs.sendMessage(tabId, { greeting: contentScript }, function (response) {
@@ -30,7 +30,9 @@ function runAddon(tabId, contentScript) {
 }
 
 const enabledAddons = [
-    "addUserStatuses"
+    "addUserStatuses",
+    // "showSeenPosts"
+    "profileHoverCards"
 ];
 
 // Cooldown variables
@@ -68,7 +70,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
                     const scriptExists = await doesContentScriptExist(details.tabId, addon);
                     console.log(scriptExists)
                     if (!scriptExists) {
-                        console.log("adding addon")
+                        console.log("adding addon", addon)
                         runAddon(details.tabId, addon)
                     } else {
                         console.log("script already exists. reloading tab")
@@ -80,3 +82,18 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
 
     }
 });
+
+// function handleMessage(request, sender, sendResponse) {
+//     console.log(`A content script sent a message:`);
+//     console.log("background script received reload instruction!")
+
+//     chrome.tabs.sendMessage(request.tabId, {
+//         greeting: "reload",
+//         addon: request.addon
+//     }, function (response) {
+//         console.log("finished sending message")
+//     });
+//     sendResponse({ response: "Response from background script" });
+// }
+
+// chrome.runtime.onMessage.addListener(handleMessage);
