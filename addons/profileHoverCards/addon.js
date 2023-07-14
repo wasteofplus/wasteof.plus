@@ -137,7 +137,7 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
 
 async function addon() {
     console.log("executing addon , profileHoverCards");
-    const htmlFileContent = await fetch(chrome.runtime.getURL("./addons/profileHoverCards/hovercard4.html")).then(response => response.text());
+    const htmlFileContent = await fetch(chrome.runtime.getURL("./addons/profileHoverCards/templates/hovercard4.html")).then(response => response.text());
     // console.log("htmlFileContent", htmlFileContent)
     const utilsUrl = chrome.runtime.getURL("../utils.js");
     const utils = await import(utilsUrl);
@@ -205,7 +205,7 @@ async function addon() {
 
 const getTokenScript = document.createElement("script");
 getTokenScript.id = "getTokenScript";
-getTokenScript.src = chrome.runtime.getURL("./addons/profileHoverCards/getToken.js");
+getTokenScript.src = chrome.runtime.getURL("./addons/profileHoverCards/lib/getToken.js");
 
 document.body.appendChild(getTokenScript);
 
