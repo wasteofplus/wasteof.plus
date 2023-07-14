@@ -119,6 +119,12 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
     hovercard.style.borderColor = "var(--primary-500)";
     hovercard.querySelector("div.mt-3.mb-5").classList.add("theme-indigo")
     hovercard.querySelector(".userFollowingMe").classList.add("theme-indigo")
+    hovercard.querySelector(".followButton").classList.add("theme-indigo")
+    hovercard.querySelector(".followAction").addEventListener("click", function(e) {
+        e.preventDefault(); // this line prevents changing to the URL of the link href
+        e.stopPropagation(); // this line prevents the link click from bubbling
+        console.log('child clicked');
+      });
 
     followButton.addEventListener("click", async () => {
         fetch("https://api.wasteof.money/users/" + username.slice(1) + "/followers", {
@@ -162,7 +168,7 @@ async function addon() {
     const utilsUrl = chrome.runtime.getURL("../utils.js");
     const utils = await import(utilsUrl);
     if (!document.querySelector('div.border-2.rounded-xl')) {
-        utils.waitForElm('div.border-2.rounded-xl')
+        await utils.waitForElm('div.border-2.rounded-xl')
     }
 
     console.log("navigation bar is ")
