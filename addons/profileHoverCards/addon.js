@@ -16,9 +16,9 @@ function unGreyOutFollowButton(button) {
     // text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-gray-500
     button.classList.add("bg-primary-500")
     button.classList.remove("bg-gray-500")
-    followButton.querySelector("span.hidden").innerText = "Follow";
-    followButton.style.width = "105px"
-    followButton.style.left = "230px"
+    button.querySelector("span.hidden").innerText = "Follow";
+    button.style.width = "105px"
+    button.style.left = "230px"
 }
 
 async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
@@ -31,7 +31,7 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
     console.log("the currently logged in user is ", actualUserUsername)
     console.log("the url of me is ", "https://wasteof.money/users/" + actualUserUsername + "/followers/" + username.slice(1, username.length - 1))
     const followingMe = await fetch("https://api.wasteof.money/users/" + actualUserUsername + "/followers/" + username.slice(1, username.length - 1)).then(response => response.json());
-    const meFollowing = await fetch(apiUrl + "/followers/" + actualUserUsername).then(response => response.json());
+    let meFollowing = await fetch(apiUrl + "/followers/" + actualUserUsername).then(response => response.json());
 
     console.log("following me", followingMe)
 
@@ -46,7 +46,7 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
     hovercard.querySelector(".userBanner").src = banner;
 
     const bio = user.bio
-    const stats = user.stats;
+    let stats = user.stats;
     hovercard.querySelector(".userBio").innerText = bio;
     hovercard.querySelector(".userFollowers").innerText = stats.followers + " Followers";
     hovercard.querySelector(".userFollowing").innerText = stats.following + " Following";
@@ -114,9 +114,10 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
                 return;
             }
             if (data.ok == "followed") {
-                unGreyOutFollowButton(followButton);
-            } else if (data.ok == "unfollowed") {
                 greyOutFollowButton(followButton);
+            } else if (data.ok == "unfollowed") {
+                unGreyOutFollowButton(followButton);
+
             }
             stats.followers = data.new.followers;
             stats.following = data.new.following;
