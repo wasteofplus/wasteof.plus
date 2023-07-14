@@ -22,15 +22,22 @@ function unGreyOutFollowButton(button) {
 }
 
 async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
-    const username = postHeader.querySelector("span.ml-1.inline-block").innerText
-    const apiUrl = "https://api.wasteof.money/users/" + username.slice(1, username.length - 1);
-    const userUrl = "https://wasteof.money/users/" + username.slice(1, username.length - 1);
+    const theme = document.querySelector("html").classList.contains("dark") ? "dark" : "light";
+    console.log("the theme is", theme)
+    let username = postHeader.querySelector("span.ml-1.inline-block").innerText
+    username =  username.replace(/\s/g, '');
+    username = username.replace(
+        /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
+        ''
+      ).trim();
+    const apiUrl = "https://api.wasteof.money/users/" + username.slice(1);
+    const userUrl = "https://wasteof.money/users/" + username.slice(1);
     const user = await fetch(apiUrl).then(response => response.json());
     // https://api.wasteof.money/users/jeffalo/followers/radi8
     const actualUserUsername = document.querySelector("span.flex > li > a.inline-block.font-semibold > span").innerText;
     console.log("the currently logged in user is ", actualUserUsername)
-    console.log("the url of me is ", "https://wasteof.money/users/" + actualUserUsername + "/followers/" + username.slice(1, username.length - 1))
-    const followingMe = await fetch("https://api.wasteof.money/users/" + actualUserUsername + "/followers/" + username.slice(1, username.length - 1)).then(response => response.json());
+    console.log("the url of me is ", "https://wasteof.money/users/" + actualUserUsername + "/followers/" + username.slice(1))
+    const followingMe = await fetch("https://api.wasteof.money/users/" + actualUserUsername + "/followers/" + username.slice(1)).then(response => response.json());
     let meFollowing = await fetch(apiUrl + "/followers/" + actualUserUsername).then(response => response.json());
 
     console.log("following me", followingMe)
@@ -40,7 +47,7 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
 
     const profilePicture = postHeader.querySelector("img.border-2").src;
     hovercard.querySelector(".userPfp").src = profilePicture;
-    hovercard.querySelector(".userPfp").alt = username.slice(1, username.length - 1) + "'s Profile Picture";
+    hovercard.querySelector(".userPfp").alt = username.slice(1) + "'s Profile Picture";
 
     const banner = apiUrl + "/banner";
     hovercard.querySelector(".userBanner").src = banner;
@@ -83,6 +90,11 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
         hovercard.querySelector(".userBeta").style.display = "none";
     }
 
+    if (theme == "light") {
+        hovercard.querySelector(".userBeta").style.fill = "#6366f1";
+        hovercard.querySelector(".userFollowingMe").style.color = "var(--primary-500)";
+    }
+
     if (verified && !admin) {
         hovercard.querySelector(".userVerified").style.left = "0px";
     }
@@ -102,7 +114,7 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
     }
 
     followButton.addEventListener("click", async () => {
-        fetch("https://api.wasteof.money/users/" + username.slice(1, username.length - 1) + "/followers", {
+        fetch("https://api.wasteof.money/users/" + username.slice(1) + "/followers", {
             method: "POST",
             headers: {
                 "Authorization": document.querySelector("body").dataset.token
@@ -151,6 +163,8 @@ async function addon() {
 
     console.log("all posts list", document.querySelectorAll('main > div.max-w-2xl.mx-auto > div.border-2').length)
     for (const post of document.querySelectorAll('div.border-2.rounded-xl')) {
+        console.log("looping post")
+
         const postHeader = post.querySelector("a.w-full");
         if (!postHeader.parentElement.classList.contains("truncate")) {
             postHeader.parentElement.style.position = "relative";
