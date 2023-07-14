@@ -25,6 +25,8 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
     const theme = document.querySelector("html").classList.contains("dark") ? "dark" : "light";
     console.log("the theme is", theme)
     let username = postHeader.querySelector("span.ml-1.inline-block").innerText
+    const userTheme = postHeader.querySelector("span.ml-1.inline-block").classList[2];
+    console.log("user theme is ", userTheme)
     username =  username.replace(/\s/g, '');
     username = username.replace(
         /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
@@ -113,6 +115,11 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
         greyOutFollowButton(followButton);
     }
 
+    hovercard.classList.add(userTheme)
+    hovercard.style.borderColor = "var(--primary-500)";
+    hovercard.querySelector("div.mt-3.mb-5").classList.add("theme-indigo")
+    hovercard.querySelector(".userFollowingMe").classList.add("theme-indigo")
+
     followButton.addEventListener("click", async () => {
         fetch("https://api.wasteof.money/users/" + username.slice(1) + "/followers", {
             method: "POST",
@@ -154,14 +161,14 @@ async function addon() {
     // console.log("htmlFileContent", htmlFileContent)
     const utilsUrl = chrome.runtime.getURL("../utils.js");
     const utils = await import(utilsUrl);
-    if (document.querySelector('main > div.max-w-2xl.mx-auto > div.border-2') == null) {
-        utils.waitForElm('div.ml-6 > div.rounded-xl')
+    if (!document.querySelector('div.border-2.rounded-xl')) {
+        utils.waitForElm('div.border-2.rounded-xl')
     }
 
     console.log("navigation bar is ")
     document.querySelector("nav").style.zIndex = "10000";
 
-    console.log("all posts list", document.querySelectorAll('main > div.max-w-2xl.mx-auto > div.border-2').length)
+    console.log("all posts list", document.querySelectorAll('div.border-2.rounded-xl'))
     for (const post of document.querySelectorAll('div.border-2.rounded-xl')) {
         console.log("looping post")
 
