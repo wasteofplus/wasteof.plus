@@ -19,10 +19,11 @@ wasteof.plus is a browser extension that adds helpful features to the wasteof.mo
 - Improve loading of addons when user navigates around site (**help needed**). Right now, the page must reload to load addons onto a page.
 - Clean up code
 
-## Contributing
+## Contributing:
+Find information about contributing code/addons in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ## License:
 wasteof.plus is licensed under the BSD-3 license. read it [here](LICENSE). It is primarily maintained by @imadeanaccount1.
 
-## Motivation
-Make wasteof.money better by adding cool community-requested features that may or may not necessarily fit into the actual social media and may or may not be wanted by everybody (users will have the option to turn on/off addons.)
+## Motivation:
+Make wasteof.money better by adding cool community-requested features that may or may not necessarily fit into the base social media and may or may not be wanted by everybody (users  have the option to turn on/off addons.)
