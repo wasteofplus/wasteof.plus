@@ -1,0 +1,10 @@
+.hoverCard:hover {
+    display: block;
+}
+
+.hoverArea {
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    top: 0px;
+}
