@@ -1,21 +1,25 @@
 # wasteof.plus
-wasteof.plus is in early alpha stages. Feel free to test and give feedback though ☺
-
-i am publishing the source code so that community can submit contributions, bug reports, and feature requests.
+wasteof.plus is a browser extension that adds helpful features to the wasteof.money social media site. You can enable/disable addons and customize wasteof.money to your liking.
 
 ## Features:
 - Adds beta, banned, admin, and verified badges next to usernames across the site. (in messages, on your feed, on explore, and on profiles)
 - Shows online status dot indicator across the site. (same places as above)
+- Adds hover cards for user profiles on links
 
-## TODO (not in any particular order):
+<!--- ![followsyoubadge - Copy (3)](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/1c4c32bb-8951-4055-b820-9b9ebd545167)
+![Screenshot2023070714](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/73f53d4a-91e3-4cd7-996f-d49fb1ad1b47) -->
+
+
+|  Profile Hover Card  | Add User Status Badges |
+| ------------- | ------------- |
+| <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/afba9f8f-5706-4f15-b76d-da186eca57ec](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/1c4c32bb-8951-4055-b820-9b9ebd545167"></img> | <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/73f53d4a-91e3-4cd7-996f-d49fb1ad1b47"></img>  |
+
+## Roadmap (not in any particular order):
 - Typescript
 - Improve loading of addons when user navigates around site (**help needed**). Right now, the page must reload to load addons onto a page.
-- Make badges show on following/followers pages
-- Create popup that allows user to toggle on/off different addons
-- Make the extension work in firefox (right now it uses chrome.tabs/chrome.scripting, etc.)
-- Create emoji picker addon
 - Clean up code
-- Create a logo and extension icon
+
+## Contributing
 
 ## License:
 wasteof.plus is licensed under the BSD-3 license. read it [here](LICENSE). It is primarily maintained by @imadeanaccount1.
