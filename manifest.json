@@ -5,6 +5,9 @@
     "version": "0.1.0",
     "version_name": "0.1.0-alpha",
     "description": "adds helpful features to wasteof.money",
+    "externally_connectable": {
+      "matches": ["*://*.wasteof.money/*"]
+    },
     "permissions": ["activeTab", "scripting", "storage", "tabs", "webNavigation"],
     "background": {
       "service_worker": "background/background.js"
@@ -17,6 +20,7 @@
         "matches": ["*://*.wasteof.money/*"],
         "resources": [
             "addons/*/*.js",
+            "addons/*/templates/*.html",
             "addons/*/addon.json",
             "addons/*/lib/*.js",
             "utils.js"
