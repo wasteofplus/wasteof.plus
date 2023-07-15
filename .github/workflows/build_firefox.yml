@@ -1,4 +1,4 @@
-name: Build Firefox
+name: 🦊 Build Firefox
 
 on: 
     workflow_dispatch:
