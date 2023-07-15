@@ -14,7 +14,6 @@ jobs:
 #                 node-version: 18
 #                 cache: npm
             - name: Run Build
-              working-directory: ./docs
               run: npm run build:chrome
             - name: Zip Extension
               run: zip -r dist/wasteof-plus-chrome.zip . -x .git/ -x manifest_chromium.json -x manifest_firefox.json -x dist/
