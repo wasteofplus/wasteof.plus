@@ -3,9 +3,11 @@ wasteof.plus is a browser extension that adds helpful features to the wasteof.mo
 
 ## Installation:
 Currently, wasteof.plus is not available on the Chrome web store, Edge add-on store, or the Firefox add-on marketplace. You must install it manually using the following steps:
-- 💾 On the main repository page, click the green "<> Code" button and select "Download ZIP".
+
+### For Chrome, Edge, and Opera:
+- 💾 On the main GitHub repository, click the green "<> Code" button and select "Download ZIP".
 - 📁 Extract the Zip file on your device.
--  Go to chrome://extensions (or edge://extensions) in a new browser tab and enable developer mode
+-  Go to chrome://extensions (or opera://extensions or edge://extensions) in a new browser tab and enable developer mode
 - Click "Load Unpacked" and select the folder inside the extracted folder (the one containing the `addons/` directory)
 - There you go! You've successfully installed wasteof.plus. To test it out, try going to wasteof.money.
 
