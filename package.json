@@ -1,12 +1,19 @@
 {
   "name": "wasteof.plus",
   "version": "0.1.0",
-  "description": "browser extension for wasteof.money",
+  "description": "",
   "main": "background/background.js",
   "scripts": {
     "build:chrome": "cp manifest_chromium.json manifest.json",
     "build:firefox": "cp manifest_firefox.json manifest.json"
   },
   "author": "",
-  "license": "BSD"
+  "license": "BSD",
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.1",
+    "eslint-plugin-promise": "^6.1.1"
+  }
 }
