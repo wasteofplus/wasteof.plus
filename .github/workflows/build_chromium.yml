@@ -1,4 +1,4 @@
-name: Build Chromium
+name: 🔵 Build Chromium
 
 on: 
     workflow_dispatch:
