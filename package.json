@@ -1,0 +1,12 @@
+{
+  "name": "wasteof.plus",
+  "version": "0.1.0",
+  "description": "browser extension for wasteof.money",
+  "main": "background/background.js",
+  "scripts": {
+    "build:chrome": "cp manifest_chromium.json manifest.json",
+    "build:firefox": "cp manifest_firefox.json manifest.json"
+  },
+  "author": "",
+  "license": "BSD"
+}
