@@ -44,7 +44,7 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
         followButton.style.display = "none";
         console.log("USER IS NOT LOGGED IN!!!!");
     } else {
-        const actualUserUsername = loggedinUser.innerText;
+        const actualUserUsername = loggedInUser.innerText;
 
         console.log("the currently logged in user is ", actualUserUsername)
         console.log("the url of me is ", "https://wasteof.money/users/" + actualUserUsername + "/followers/" + username.slice(1))
