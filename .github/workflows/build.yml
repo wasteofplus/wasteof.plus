@@ -1,10 +1,24 @@
-name: 🛠 Build Website
+name: Build Chromium
 
 on: 
     push:
         branches:
-          - master
-       
+          - main
 jobs:
-     - name: Create annotation for build error
-          run: zip -r dist/wasteof-plus-firefox.zip . -x .git/ -x manifest_chromium.json -x manifest_firefox.json -x dist/
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 18
+                cache: npm
+            - name: Run Build
+              working-directory: ./docs
+              run: npm run build:chrome
+            - name: Zip Extension
+              run: zip -r dist/wasteof-plus-chrome.zip . -x .git/ -x manifest_chromium.json -x manifest_firefox.json -x dist/
+            - uses: actions/upload-artifact@v3
+              with:
+                name: my-artifact
+                path: dist/wasteof-plus-chrome.zip
