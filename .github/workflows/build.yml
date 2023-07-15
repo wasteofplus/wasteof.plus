@@ -1,0 +1,10 @@
+name: 🛠 Build Website
+
+on: 
+    push:
+        branches:
+          - master
+       
+jobs:
+     - name: Create annotation for build error
+          run: zip -r dist/wasteof-plus-firefox.zip . -x .git/ -x manifest_chromium.json -x manifest_firefox.json -x dist/
