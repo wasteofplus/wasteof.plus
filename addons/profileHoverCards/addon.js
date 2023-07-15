@@ -23,26 +23,73 @@ function unGreyOutFollowButton(button) {
 
 async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
     const theme = document.querySelector("html").classList.contains("dark") ? "dark" : "light";
-    console.log("the theme is", theme)
+    console.log("the theme is", theme, postHeader)
     let username = postHeader.querySelector("span.ml-1.inline-block").innerText
     const userTheme = postHeader.querySelector("span.ml-1.inline-block").classList[2];
     console.log("user theme is ", userTheme)
-    username =  username.replace(/\s/g, '');
+    username = username.replace(/\s/g, '');
     username = username.replace(
         /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
         ''
-      ).trim();
+    ).trim();
     const apiUrl = "https://api.wasteof.money/users/" + username.slice(1);
     const userUrl = "https://wasteof.money/users/" + username.slice(1);
     const user = await fetch(apiUrl).then(response => response.json());
     // https://api.wasteof.money/users/jeffalo/followers/radi8
-    const actualUserUsername = document.querySelector("span.flex > li > a.inline-block.font-semibold > span").innerText;
-    console.log("the currently logged in user is ", actualUserUsername)
-    console.log("the url of me is ", "https://wasteof.money/users/" + actualUserUsername + "/followers/" + username.slice(1))
-    const followingMe = await fetch("https://api.wasteof.money/users/" + actualUserUsername + "/followers/" + username.slice(1)).then(response => response.json());
-    let meFollowing = await fetch(apiUrl + "/followers/" + actualUserUsername).then(response => response.json());
+    const loggedInUser = document.querySelector("span.flex > li > a.inline-block.font-semibold > span");
+    const followButton = hovercard.querySelector(".followButton");
 
-    console.log("following me", followingMe)
+    let meFollowing = false;
+    if (!loggedInUser) {
+        followButton.style.display = "none";
+        console.log("USER IS NOT LOGGED IN!!!!");
+    } else {
+        const actualUserUsername = loggedinUser.innerText;
+
+        console.log("the currently logged in user is ", actualUserUsername)
+        console.log("the url of me is ", "https://wasteof.money/users/" + actualUserUsername + "/followers/" + username.slice(1))
+        const followingMe = await fetch("https://api.wasteof.money/users/" + actualUserUsername + "/followers/" + username.slice(1)).then(response => response.json());
+        meFollowing = await fetch(apiUrl + "/followers/" + actualUserUsername).then(response => response.json());
+
+        console.log("following me", followingMe)
+        if (followingMe) {
+            hovercard.querySelector(".userFollowingMe").style.display = "block";
+        } else {
+            hovercard.querySelector(".userFollowingMe").style.display = "none";
+
+        }
+        if (meFollowing) {
+
+            greyOutFollowButton(followButton);
+        }
+
+        followButton.addEventListener("click", async () => {
+            fetch("https://api.wasteof.money/users/" + username.slice(1) + "/followers", {
+                method: "POST",
+                headers: {
+                    "Authorization": document.querySelector("body").dataset.token
+                }
+            }).then(response => response.json()).then(data => {
+                console.log("finished following/unfollowing", data);
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+                if (data.ok == "followed") {
+                    greyOutFollowButton(followButton);
+                } else if (data.ok == "unfollowed") {
+                    unGreyOutFollowButton(followButton);
+    
+                }
+                stats.followers = data.new.followers;
+                stats.following = data.new.following;
+                meFollowing = data.new.isFollowing;
+            });
+        });
+
+
+
+    }
 
     hovercard.querySelector(".userUsername").innerText = username;
     console.log("username", username)
@@ -105,49 +152,17 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
     } else if (!admin && !verified) {
         hovercard.querySelector(".userBeta").style.left = "0px";
     }
-    const followButton = hovercard.querySelector(".followButton");
 
-    if (followingMe) {
-        hovercard.querySelector(".userFollowingMe").style.display = "block";
-    }
-    if (meFollowing) {
-
-        greyOutFollowButton(followButton);
-    }
 
     hovercard.classList.add(userTheme)
     hovercard.style.borderColor = "var(--primary-500)";
     hovercard.querySelector("div.mt-3.mb-5").classList.add("theme-indigo")
     hovercard.querySelector(".userFollowingMe").classList.add("theme-indigo")
     hovercard.querySelector(".followButton").classList.add("theme-indigo")
-    hovercard.querySelector(".followAction").addEventListener("click", function(e) {
+    hovercard.querySelector(".followAction").addEventListener("click", function (e) {
         e.preventDefault(); // this line prevents changing to the URL of the link href
         e.stopPropagation(); // this line prevents the link click from bubbling
         console.log('child clicked');
-      });
-
-    followButton.addEventListener("click", async () => {
-        fetch("https://api.wasteof.money/users/" + username.slice(1) + "/followers", {
-            method: "POST",
-            headers: {
-                "Authorization": document.querySelector("body").dataset.token
-            }
-        }).then(response => response.json()).then(data => {
-            console.log("finished following/unfollowing", data);
-            if (data.error) {
-                alert(data.error);
-                return;
-            }
-            if (data.ok == "followed") {
-                greyOutFollowButton(followButton);
-            } else if (data.ok == "unfollowed") {
-                unGreyOutFollowButton(followButton);
-
-            }
-            stats.followers = data.new.followers;
-            stats.following = data.new.following;
-            meFollowing = data.new.isFollowing;
-        });
     });
 
     const online = user.online;
