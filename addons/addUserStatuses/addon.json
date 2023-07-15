@@ -11,5 +11,7 @@
         "wasteof.money/explore",
         "wasteof.money/messages"
 
-    ]
+    ],
+    "name": "User Permission/Status Badges",
+    "description": "Adds admin, verified, beta, and banned badges as well as online indicators to user statuses"
 }
