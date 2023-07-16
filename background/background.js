@@ -1,3 +1,5 @@
+// import { io } from '../node_modules/socket.io-client/build/esm'
+
 async function doesContentScriptExist (tabId, contentScript) {
   console.log('does content script exist', tabId)
   return new Promise((resolve, reject) => {
@@ -38,6 +40,16 @@ const defaultEnabledAddons = [
 // Cooldown variables
 let lastTabId = 0
 let lastAddedAddons = null
+
+// chrome.storage.local.get(['login_token']).then((result) => {
+//   if (result.login_token !== undefined) {
+//     const socket = io('https://api.wasteof.money', { transports: ['websocket'], auth: { token: result.login_token } })
+
+//     socket.on('updateMessageCount', async (count) => {
+//       console.log('MEssage count updated')
+//     })
+//   }
+// })
 
 chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
   chrome.storage.local.get(['enabledAddons']).then((result) => {
@@ -92,3 +104,55 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
     }
   })
 })
+
+// function handleMessage(request, sender, sendResponse) {
+//     console.log(`A content script sent a message:`);
+//     console.log("background script received reload instruction!")
+
+//     chrome.tabs.sendMessage(request.tabId, {
+//         greeting: "reload",
+//         addon: request.addon
+//     }, function (response) {
+//         console.log("finished sending message")
+//     });
+//     sendResponse({ response: "Response from background script" });
+// }
+
+// chrome.runtime.onMessage.addListener(handleMessage);
+
+chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
+  if (request.type === 'login-token') {
+    console.log('received message from content script', request.token)
+    chrome.runtime.sendMessage({
+      type: 'token-send',
+      target: 'offscreen',
+      token: request.token
+    }, function (response) {
+      console.log('response from offscreen', response)
+    })
+    //     await chrome.offscreen.createDocument({
+    //       url: 'offscreen.html',
+    //       reasons: ['DOM_SCRAPING'],
+    //       justification: 'reason for needing the document'
+    //     })
+  } else if (request.type === 'new_messages') {
+    chrome.action.setBadgeText({ text: request.count.toString() })
+    chrome.action.setBadgeBackgroundColor({ color: '#ef4444' })
+    chrome.action.setBadgeTextColor({ color: '#ffffff' })
+
+    console.log('new messages found', request.count)
+  } else {
+    console.log('got message', request.type)
+  }
+})
+
+async function createOffscreen () {
+  await chrome.offscreen.createDocument({
+    url: 'addons/addMessageCountBadge/offscreen/offscreen.html',
+    reasons: ['BLOBS'],
+    justification: 'keep service worker running'
+  }).catch(() => {})
+}
+chrome.runtime.onStartup.addListener(createOffscreen)
+self.onmessage = e => {} // keepAlive
+createOffscreen()
