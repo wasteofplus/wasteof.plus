@@ -221,17 +221,9 @@ async function addon () {
     }
   }
 
-  // await utils.waitForElm("#comments > div.my-2 > div > div.border-2")
-  // console.log("comment posts finished loading", document.querySelectorAll('#comments > div.my-2 > div > div.border-2').length)
-
-  // for (const post of document.querySelectorAll('#comments > div.my-2 > div > div.border-2')) {
-  //     checkOnePost(post, "comment")
-  //     // const read = await checkPostRead(post, "comment");
-  // }
-
-  // if (document.querySelectorAll('div.ml-6 > div.rounded-xl') != null) {
-  //     checkPostReplies()
-  // }
+  chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
+    console.log('Response: ', response)
+  })
 }
 
 const getTokenScript = document.createElement('script')
