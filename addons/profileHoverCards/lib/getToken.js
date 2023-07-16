@@ -1,1 +1,1 @@
-document.querySelector("body").dataset.token = $nuxt.$auth.token
+document.querySelector('body').dataset.token = $nuxt.$auth.token
