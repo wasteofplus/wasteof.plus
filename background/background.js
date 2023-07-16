@@ -20,22 +20,59 @@ async function doesContentScriptExist (tabId, contentScript) {
   })
 }
 
-function runAddon (tabId, contentScript) {
-  chrome.scripting.executeScript({
-    target: { tabId },
-    files: ['addons/' + contentScript + '/addon.js']
-  })
-  chrome.scripting.insertCSS({
-    target: { tabId },
-    files: ['addons/' + contentScript + '/addon.css']
-  })
+function runAddon (tabId, contentScript, addonSettings) {
+  if (addonSettings.hasContentScript) {
+    chrome.scripting.executeScript({
+      target: { tabId },
+      files: ['addons/' + contentScript + '/addon.js']
+    })
+  }
+  if (addonSettings.hasContentStyle) {
+    chrome.scripting.insertCSS({
+      target: { tabId },
+      files: ['addons/' + contentScript + '/addon.css']
+    })
+  }
 }
 
-const defaultEnabledAddons = [
-  'addUserStatuses',
-  // "showSeenPosts"
-  'profileHoverCards'
-]
+chrome.runtime.onInstalled.addListener(function (details) {
+  if (details.reason === 'install') {
+    console.log('Extension has been updated!')
+    fetch('../addons/addons.json').then(response => response.json()).then(async (data) => {
+      const allAddons = data
+      const enabledAddons = []
+      for (const addon of allAddons) {
+        fetch('../addons/' + addon + '/addon.json').then(response => response.json()).then(async (addonData) => {
+          if (addonData.enabledByDefault) {
+            enabledAddons.push(addon)
+          }
+        })
+      }
+      chrome.storage.local.set({ enabledAddons })
+      chrome.storage.local.set({ allAddons })
+    })
+  } else if (details.reason === 'update') {
+    console.log('Extension has been updated!')
+    fetch('../addons/addons.json').then(response => response.json()).then(async (data) => {
+      chrome.storage.local.get(['allAddons']).then((result) => {
+        if (result.allAddons !== undefined) {
+          const allAddons = data
+          const newlyEnabledAddons = []
+          for (const addon of allAddons) {
+            fetch('../addons/' + addon + '/addon.json').then(response => response.json()).then(async (addonData) => {
+              if (addonData.enabledByDefault && !result.allAddons.includes(addon)) {
+                newlyEnabledAddons.push(addon)
+              }
+            })
+          }
+          chrome.storage.local.set({ newlyEnabledAddons })
+        }
+      })
+    })
+  }
+})
+
+const defaultEnabledAddons = []
 
 // Cooldown variables
 let lastTabId = 0
@@ -93,7 +130,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
             console.log(scriptExists)
             if (!scriptExists) {
               console.log('adding addon', addon)
-              runAddon(details.tabId, addon)
+              runAddon(details.tabId, addon, data)
             } else {
               console.log('script already exists. reloading tab')
               chrome.tabs.reload(details.tabId)
@@ -121,29 +158,36 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
 // chrome.runtime.onMessage.addListener(handleMessage);
 
 chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
-  if (request.type === 'login-token') {
-    console.log('received message from content script', request.token)
-    chrome.runtime.sendMessage({
-      type: 'token-send',
-      target: 'offscreen',
-      token: request.token
-    }, function (response) {
-      console.log('response from offscreen', response)
-    })
-    //     await chrome.offscreen.createDocument({
-    //       url: 'offscreen.html',
-    //       reasons: ['DOM_SCRAPING'],
-    //       justification: 'reason for needing the document'
-    //     })
-  } else if (request.type === 'new_messages') {
-    chrome.action.setBadgeText({ text: request.count.toString() })
-    chrome.action.setBadgeBackgroundColor({ color: '#ef4444' })
-    chrome.action.setBadgeTextColor({ color: '#ffffff' })
+  chrome.storage.local.get(['enabledAddons']).then((result) => {
+    if (request.type === 'login-token') {
+      console.log('received login token', request.token, result.enabledAddons.includes('addMessageCountBadge'))
+      if (result.enabledAddons !== undefined) {
+        if (result.enabledAddons.includes('addMessageCountBadge')) {
+          console.log('received message from content script', request.token)
+          chrome.runtime.sendMessage({
+            type: 'token-send',
+            target: 'offscreen',
+            token: request.token
+          }, function (response) {
+            console.log('response from offscreen', response)
+          })
+          //     await chrome.offscreen.createDocument({
+          //       url: 'offscreen.html',
+          //       reasons: ['DOM_SCRAPING'],
+          //       justification: 'reason for needing the document'
+          //     })
+        }
+      }
+    } else if (request.type === 'new_messages') {
+      chrome.action.setBadgeText({ text: request.count.toString() })
+      chrome.action.setBadgeBackgroundColor({ color: '#ef4444' })
+      chrome.action.setBadgeTextColor({ color: '#ffffff' })
 
-    console.log('new messages found', request.count)
-  } else {
-    console.log('got message', request.type)
-  }
+      console.log('new messages found', request.count)
+    } else {
+      console.log('got message', request.type)
+    }
+  })
 })
 
 async function createOffscreen () {
@@ -151,8 +195,8 @@ async function createOffscreen () {
     url: 'addons/addMessageCountBadge/offscreen/offscreen.html',
     reasons: ['BLOBS'],
     justification: 'keep service worker running'
-  }).catch(() => {})
+  }).catch(() => { })
 }
 chrome.runtime.onStartup.addListener(createOffscreen)
-self.onmessage = e => {} // keepAlive
+self.onmessage = e => { } // keepAlive
 createOffscreen()
