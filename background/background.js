@@ -67,7 +67,13 @@ chrome.runtime.onInstalled.addListener(function (details) {
               }
             })
           }
-          chrome.storage.local.set({ enabledAddons: newlyEnabledAddons })
+          chrome.storage.local.get(['enabledAddons']).then((result) => {
+            if (result.enabledAddons !== undefined) {
+              chrome.storage.local.set({ enabledAddons: newlyEnabledAddons.concat(result.enabledAddons) })
+            } else {
+              chrome.storage.local.set({ enabledAddons: newlyEnabledAddons })
+            }
+          })
         }
       })
     })
@@ -101,7 +107,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
       console.log('found enabled addons', result.enabledAddons)
       enabledAddons = result.enabledAddons
     }
-    // Implement cooldown 
+    // Implement cooldown
     if (lastTabId !== details.tabId || lastAddedAddons == null || Date.now() - lastAddedAddons > 2000) {
       lastAddedAddons = Date.now()
       lastTabId = details.tabId
@@ -180,14 +186,17 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
           //     })
         }
       }
+      sendResponse('received login token!')
     } else if (request.type === 'new_messages') {
       chrome.action.setBadgeText({ text: request.count.toString() })
       chrome.action.setBadgeBackgroundColor({ color: '#ef4444' })
       chrome.action.setBadgeTextColor({ color: '#ffffff' })
 
       console.log('new messages found', request.count)
+      sendResponse('new messages read!')
     } else {
       console.log('got message', request.type)
+      sendResponse('got other message!')
     }
   })
 })
