@@ -17,8 +17,8 @@
     "hasContentScript": true,
     "hasContentStyle": true,
     "enabledByDefault": true,
-    "developers": {
+    "developers": [{
         "name": "imadeanaccount",
         "link": "https://github.com/imadeanaccount"
-    }
+    }]
 }
