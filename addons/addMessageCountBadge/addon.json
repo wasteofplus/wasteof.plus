@@ -1,0 +1,13 @@
+{
+    "urls": [],
+    "urlcontains": [],
+    "name": "Unread Messages Badge and Sound",
+    "description": "Adds a badge to the extension icon and plays a sound when you have unread messages on wasteof.money",
+    "hasContentScript": false,
+    "hasContentStyle": false,
+    "enabledByDefault": true,
+    "developers": [{
+        "name": "imadeanaccount",
+        "link": "https://github.com/imadeanaccount1"
+    }]
+}
