@@ -101,7 +101,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
       console.log('found enabled addons', result.enabledAddons)
       enabledAddons = result.enabledAddons
     }
-    // Implement cooldown
+    // Implement cooldown 
     if (lastTabId !== details.tabId || lastAddedAddons == null || Date.now() - lastAddedAddons > 2000) {
       lastAddedAddons = Date.now()
       lastTabId = details.tabId
