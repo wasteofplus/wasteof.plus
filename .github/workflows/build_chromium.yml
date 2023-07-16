@@ -3,6 +3,8 @@ name: 🤖 Build Chromium
 on: 
     workflow_dispatch:
     pull_request:
+        types:
+            - assigned
 jobs:
     build:
         runs-on: ubuntu-latest
