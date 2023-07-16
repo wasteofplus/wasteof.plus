@@ -37,7 +37,7 @@ function runAddon (tabId, contentScript, addonSettings) {
 
 chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason === 'install') {
-    console.log('Extension has been updated!')
+    console.log('Extension has been installed!')
     fetch('../addons/addons.json').then(response => response.json()).then(async (data) => {
       const allAddons = data
       const enabledAddons = []
@@ -45,11 +45,13 @@ chrome.runtime.onInstalled.addListener(function (details) {
         fetch('../addons/' + addon + '/addon.json').then(response => response.json()).then(async (addonData) => {
           if (addonData.enabledByDefault) {
             enabledAddons.push(addon)
+            console.log('addon', addon, 'is enabled by default')
+            chrome.storage.local.set({ enabledAddons })
+            chrome.storage.local.set({ allAddons })
           }
         })
       }
-      chrome.storage.local.set({ enabledAddons })
-      chrome.storage.local.set({ allAddons })
+      console.log('enabled addons', enabledAddons)
     })
   } else if (details.reason === 'update') {
     console.log('Extension has been updated!')
@@ -65,7 +67,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
               }
             })
           }
-          chrome.storage.local.set({ newlyEnabledAddons })
+          chrome.storage.local.set({ enabledAddons: newlyEnabledAddons })
         }
       })
     })
