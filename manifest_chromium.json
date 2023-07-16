@@ -7,13 +7,11 @@
     "externally_connectable": {
       "matches": ["*://*.wasteof.money/*"]
     },
-    "permissions": ["activeTab", "scripting", "storage", "tabs", "webNavigation"],
+    "permissions": ["offscreen", "activeTab", "scripting", "storage", "tabs", "webNavigation"],
     "background": {
-      "service_worker": "background/background.js"
+      "service_worker": "background/background.js",
+      "type": "module"
     },
-    "content_scripts": [
-
-    ],
     "icons": {
       "16": "assets/icons/icon16.png",     
       "32": "assets/icons/icon32.png",   
