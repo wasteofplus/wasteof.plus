@@ -35,14 +35,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error))
-    sendResponse({ response: 'Response from offscreen script' })
+    sendResponse({ response: 'Response from offscreen script' + request.token })
     const socket = io('https://api.wasteof.money', { transports: ['websocket'], auth: { token: request.token } })
 
     socket.on('updateMessageCount', function (count) {
       myHeaders = new Headers()
       myHeaders.append('Content-Type', 'application/json')
       // Play sound with access to DOM APIs
-      playAudio({ source: chrome.runtime.getURL('assets/sounds/notify.mp3'), volume: 1 })
+      playAudio({ source: chrome.runtime.getURL('assets/sounds/notify.mp3'), volume: 0.3 })
       chrome.runtime.sendMessage({
         type: 'new_messages',
         count
