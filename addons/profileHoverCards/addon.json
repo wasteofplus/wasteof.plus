@@ -11,5 +11,12 @@
         "wasteof.money/explore"
     ],
     "name": "Profile Hover Cards",
-    "description": "Adds a hover cards with user profile information to posts, users, and explore pages."
+    "description": "Adds a hover cards with user profile information to posts, users, and explore pages.",
+    "hasContentScript": true,
+    "hasContentStyle": true,
+    "enabledByDefault": true,
+    "developers": {
+        "name": "imadeanaccount",
+        "link": "https://github.com/imadeanaccount"
+    }
 }
