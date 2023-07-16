@@ -22,7 +22,9 @@ jobs:
               run: mkdir dist
             - name: Zip Extension
               run: zip -r dist/wasteof-plus-chrome.zip . -x .git/\* -x  .github/\* -x ./.git/* -x ./.github/* -x ./.git/**\* -x ./.github/**\* -x .eslintrc.js -x manifest_chromium.json -x manifest_firefox.json -x .gitignore -x dist/
+            - name: Unzip Extension
+              run: unzip dist/wasteof-plus-chrome.zip -d artifact
             - uses: actions/upload-artifact@v3
               with:
-                name: my-artifact
-                path: dist/wasteof-plus-chrome.zip
+                name: wasteof-plus-chrome
+                path: artifact
