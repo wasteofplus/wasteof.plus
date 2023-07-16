@@ -21,7 +21,7 @@ jobs:
             - name: Create dist folder
               run: mkdir dist
             - name: Zip Extension
-              run: zip -r dist/wasteof-plus-chrome.zip . -x .git/ -x manifest_chromium.json -x manifest_firefox.json -x dist/
+              run: zip -r dist/wasteof-plus-chrome.zip . -x .git -x .github -x .eslintrc -x manifest_chromium.json -x manifest_firefox.json -x dist/
             - uses: actions/upload-artifact@v3
               with:
                 name: my-artifact
