@@ -14,7 +14,7 @@ Currently, wasteof.plus is not available on the Chrome web store, Edge add-on st
 ### Browser Support
 |  Chrome  |  Edge  |  Firefox  |  Opera  |
 | -------- | ------ | --------- | -------- |
-| ✅ Tested, Working  | ❌ Not Working | ❌ Not Tested | ✅ Tested, Working |
+| ✅ Tested, Working  | ✅ Tested, Working | ❌ Not Tested | ✅ Tested, Working |
 
 
 ## Features:
