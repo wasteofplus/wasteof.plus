@@ -7,7 +7,7 @@ Currently, wasteof.plus is not available on the Chrome web store, Edge add-on st
 ### For Chrome, Edge, and Opera:
 - Go to the [Releases tab](https://github.com/imadeanaccount1/wasteof.plus/releases) and download the latest release for your browser platform. Edge, Chrome, and Opera users should download releases marked as "chromium" while FireFox users should use "firefox" releases.
 - Extract the Zip file on your device.
-- Go to chrome://extensions (or opera://extensions or edge://extensions) in a new browser tab and enable developer mode.
+- Go to chrome://extensions (or opera://extensions, edge://extensions) in a new browser tab and toggle developer mode so that it's enabled.
 - Click "Load Unpacked" and select the the extracted folder.
 - There you go! You've successfully installed wasteof.plus. To test it out, try going to [wasteof.money](https://wasteof.money).
 
