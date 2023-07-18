@@ -135,6 +135,7 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
               console.log(option.type)
               if (option.type === 'boolean') {
                 card.querySelector('.addonOptions').insertAdjacentHTML('beforeend', booleanOptionText)
+                card.querySelector('.addonOptions').lastElementChild.querySelector('.optionName').innerText = option.name
               } else if (option.type === 'select') {
                 card.querySelector('.addonOptions').insertAdjacentHTML('beforeend', selectOptionText)
                 card.querySelector('.addonOptions').lastElementChild.querySelector('.optionName').innerText = option.name
@@ -187,14 +188,30 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
 const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon')
 const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon')
 
+function setIconTheme(theme) {
+  for (const icon of document.querySelectorAll('.icon')) {
+    if (theme === 'dark') {
+      // -webkit-filter: invert(100%); /* Safari/Chrome */
+      // filter: invert(100%);
+      icon.style.filter = 'invert(100%)'
+      icon.style.webkitFilter = 'invert(100%)'
+    } else {
+      icon.style.filter = 'invert(0%)'
+      icon.style.webkitFilter = 'invert(0%)'
+    }
+  }
+}
+
 // Change the icons inside the button based on previous settings
 chrome.storage.local.get(['popupTheme']).then((result) => {
   console.log('got popup theme on start', result)
   if (result.popupTheme === 'dark' || (result.popupTheme === undefined && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark')
+    setIconTheme('dark')
     themeToggleLightIcon.classList.remove('hidden')
   } else {
     themeToggleDarkIcon.classList.remove('hidden')
+    setIconTheme('light')
   }
 })
 
@@ -212,9 +229,11 @@ themeToggleBtn.addEventListener('click', function () {
       if (result.popupTheme === 'light') {
         document.documentElement.classList.add('dark')
         chrome.storage.local.set({ popupTheme: 'dark' })
+        setIconTheme('dark')
       } else {
         document.documentElement.classList.remove('dark')
         chrome.storage.local.set({ popupTheme: 'light' })
+        setIconTheme('light')
       }
 
     // if NOT set via local storage previously
@@ -222,9 +241,11 @@ themeToggleBtn.addEventListener('click', function () {
       if (document.documentElement.classList.contains('dark')) {
         document.documentElement.classList.remove('dark')
         chrome.storage.local.set({ popupTheme: 'light' })
+        setIconTheme('light')
       } else {
         document.documentElement.classList.add('dark')
         chrome.storage.local.set({ popupTheme: 'dark' })
+        setIconTheme('dark')
       }
     }
   })
