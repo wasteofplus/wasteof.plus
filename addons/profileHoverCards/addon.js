@@ -2,8 +2,6 @@ let hovering = false
 let hoveringArea = false
 
 function greyOutFollowButton (button) {
-  // remove classes: text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-primary-500
-  // text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-gray-500
   button.classList.remove('bg-primary-500')
   button.classList.add('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Unfollow'
@@ -12,8 +10,6 @@ function greyOutFollowButton (button) {
 }
 
 function unGreyOutFollowButton (button) {
-  // remove classes: text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-primary-500
-  // text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-gray-500
   button.classList.add('bg-primary-500')
   button.classList.remove('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Follow'
@@ -35,7 +31,6 @@ async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
   const apiUrl = 'https://api.wasteof.money/users/' + username.slice(1)
   const userUrl = 'https://wasteof.money/users/' + username.slice(1)
   const user = await fetch(apiUrl).then(response => response.json())
-  // https://api.wasteof.money/users/jeffalo/followers/radi8
   const loggedInUser = document.querySelector('span.flex > li > a.inline-block.font-semibold > span')
   const followButton = hovercard.querySelector('.followButton')
 
@@ -168,7 +163,7 @@ async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
 
 async function addon () {
   console.log('executing addon , profileHoverCards')
-  const htmlFileContent = await fetch(chrome.runtime.getURL('./addons/profileHoverCards/templates/hovercard4.html')).then(response => response.text())
+  const htmlFileContent = await fetch(chrome.runtime.getURL('./addons/profileHoverCards/templates/hovercard.html')).then(response => response.text())
   // console.log("htmlFileContent", htmlFileContent)
   const utilsUrl = chrome.runtime.getURL('../utils.js')
   const utils = await import(utilsUrl)
@@ -221,17 +216,9 @@ async function addon () {
     }
   }
 
-  // await utils.waitForElm("#comments > div.my-2 > div > div.border-2")
-  // console.log("comment posts finished loading", document.querySelectorAll('#comments > div.my-2 > div > div.border-2').length)
-
-  // for (const post of document.querySelectorAll('#comments > div.my-2 > div > div.border-2')) {
-  //     checkOnePost(post, "comment")
-  //     // const read = await checkPostRead(post, "comment");
-  // }
-
-  // if (document.querySelectorAll('div.ml-6 > div.rounded-xl') != null) {
-  //     checkPostReplies()
-  // }
+  chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
+    console.log('Response: ', response)
+  })
 }
 
 const getTokenScript = document.createElement('script')
