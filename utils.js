@@ -77,7 +77,6 @@ function generateSelector (elem) {
       return str
     }
 
-    // concat all classes in "queryselector" style
     if (element.getAttribute('class')) {
       let elemClasses = '.'
       elemClasses += element.getAttribute('class')
