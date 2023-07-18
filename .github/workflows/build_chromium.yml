@@ -3,7 +3,11 @@ name: 🤖 Build Chromium
 on: 
     workflow_dispatch:
     pull_request:
-        types: [synchronize]
+        branches:    
+            - '*'         # matches every branch that doesn't contain a '/'
+            - '*/*'       # matches every branch containing a single '/'
+            - '**'        # matches every branch
+            - '!main'   # excludes main
 
 jobs:
     build:
