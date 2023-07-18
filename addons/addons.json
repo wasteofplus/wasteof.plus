@@ -1,5 +1,6 @@
 [
     "addUserStatuses",
     "profileHoverCards",
-    "addMessageCountBadge"
+    "addMessageCountBadge",
+    "addMessageNotifications"
 ]
