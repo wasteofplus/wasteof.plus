@@ -1,5 +1,47 @@
 // import { io } from '../node_modules/socket.io-client/build/esm'
 
+function getMessageSummary (message) {
+  let summary = '@' + message.data.actor.name
+  if (message.type === 'wall_comment_mention') {
+    summary += ' mentioned you in their comment'
+  } else if (message.type === 'wall_comment') {
+    summary += ' commented on your wall'
+  } else if (message.type === 'repost') {
+    summary += ' reposted your post'
+  } else if (message.type === 'comment') {
+    summary += ' commented on your post'
+  } else if (message.type === 'comment_mention') {
+    summary += ' mentioned you in their comment'
+  } else if (message.type === 'comment_reply') {
+    summary += ' replied to your comment'
+  } else if (message.type === 'post_mention') {
+    summary += ' mentioned you in their post'
+  } else if (message.type === 'follow') {
+    summary += ' is now following you'
+  } else if (message.type === 'admin_notification') {
+    summary += ' sent you an admin notification'
+  } else {
+    summary += ' did something to send you a message'
+    console.log("didn't know what the summary should be")
+  }
+  return summary
+}
+
+function getMessageContent (message) {
+  let content = ''
+  if (message.type.includes('comment')) {
+    content = message.data.comment.content.replace(/<[^>]*>/g, '')
+  } else if (message.type.includes('post')) {
+    content = message.data.post.content.replace(/<[^>]*>/g, '')
+  } else if (message.type.includes('admin')) {
+    content = message.data.content.replace(/<[^>]*>/g, '')
+  } else {
+    content = 'couldn\'t get content'
+    console.log("didn't know what the content was")
+  }
+  return content
+}
+
 async function doesContentScriptExist (tabId, contentScript) {
   console.log('does content script exist', tabId)
   return new Promise((resolve, reject) => {
@@ -165,25 +207,35 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
 
 // chrome.runtime.onMessage.addListener(handleMessage);
 
-chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
-  chrome.storage.local.get(['enabledAddons']).then((result) => {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  chrome.storage.local.get(['enabledAddons']).then(async (result) => {
     if (request.type === 'login-token') {
-      console.log('received login token', request.token, result.enabledAddons.includes('addMessageCountBadge'))
+      console.log('received login token and sending it', request.token, result.enabledAddons.includes('addMessageCountBadge'))
       if (result.enabledAddons !== undefined) {
         if (result.enabledAddons.includes('addMessageCountBadge')) {
-          console.log('received message from content script', request.token)
           chrome.runtime.sendMessage({
-            type: 'token-send',
+            type: 'check-response',
             target: 'offscreen',
             token: request.token
           }, function (response) {
-            console.log('response from offscreen', response)
+            if (response === 'success') {
+              console.log('success')
+            } else {
+              console.log('received message from content script', request.token)
+              chrome.runtime.sendMessage({
+                type: 'token-send',
+                target: 'offscreen',
+                token: request.token
+              }, function (response) {
+                console.log('response from offscreen', response)
+              })
+              //     await chrome.offscreen.createDocument({
+              //       url: 'offscreen.html',
+              //       reasons: ['DOM_SCRAPING'],
+              //       justification: 'reason for needing the document'
+              //     })
+            }
           })
-          //     await chrome.offscreen.createDocument({
-          //       url: 'offscreen.html',
-          //       reasons: ['DOM_SCRAPING'],
-          //       justification: 'reason for needing the document'
-          //     })
         }
       }
       sendResponse('received login token!')
@@ -194,11 +246,55 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
 
       console.log('new messages found', request.count)
       sendResponse('new messages read!')
+      if (!request.dontNotify) {
+        if (result.enabledAddons.includes('addMessageNotifications')) {
+          fetch('https://api.wasteof.money/messages/unread', {
+            headers: {
+              Authorization: request.token
+            }
+          }).then(response => response.json()).then((data) => {
+            console.log(data)
+            chrome.storage.local.get(['numberOfMessages'], function (result) {
+              data.unread.forEach((message, index) => {
+                if (index < request.count - result.numberOfMessages) {
+                  console.log('new message,', message, 'at index ', index)
+                  chrome.notifications.create('', {
+                    title: getMessageSummary(message),
+                    message: getMessageContent(message),
+                    iconUrl: 'https://api.wasteof.money/users/imadeanaccount/picture',
+                    type: 'basic'
+                  })
+                }
+              })
+
+              chrome.storage.local.set({ numberOfMessages: request.count })
+            })
+          })
+        }
+      } else {
+        chrome.storage.local.set({ numberOfMessages: request.count })
+      }
+    } else if (request.type === 'get_message_count') {
+      (async function () {
+        const key = await chrome.storage.local.get(['numberOfMessages'])
+        console.log('sending result', key.numberOfMessages)
+        sendResponse(key.numberOfMessages)
+      })()
+
+      // return true to indicate you want to send a response asynchronously
+      // return true
+      // //   const getMessages =
+      // chrome.storage.local.get(['numberOfMessages']).then((result) => {
+      //   console.log('sending message count', result.numberOfMessages)
+      //   sendResponse(result.numberOfMessages)
+      // })
+      // return true
     } else {
       console.log('got message', request.type)
       sendResponse('got other message!')
     }
   })
+  return true
 })
 
 async function createOffscreen () {
