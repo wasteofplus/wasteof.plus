@@ -1,0 +1,21 @@
+{
+    "urls": [],
+    "urlcontains": [],
+    "name": "New Message Notifications",
+    "description": "Sends a notification when you get a new message.",
+    "hasContentScript": false,
+    "hasContentStyle": false,
+    "enabledByDefault": false,
+    "developers": [{
+        "name": "imadeanaccount",
+        "link": "https://github.com/imadeanaccount1"
+    }],
+    "options":[
+        {
+            "type": "boolean",
+            "name": "Show Profile Picture",
+            "id": "profilePicture"
+        }
+    ],
+    "permissions": ["notifications"]
+}
