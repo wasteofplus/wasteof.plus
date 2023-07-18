@@ -29,6 +29,7 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
         for (const addon of data.sort()) {
           fetch('../addons/' + addon + '/addon.json').then(response => response.json()).then(async (addonData) => {
             addonList.insertAdjacentHTML('beforeend', cardText)
+            setIconTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light')
             const card = addonList.lastElementChild
             card.querySelector('.addonName').innerText = addonData.name
             card.querySelector('.addonDescription').innerText = addonData.description
@@ -97,6 +98,7 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
               card.querySelector('.addonDevelopers').lastElementChild.addEventListener('click', (event) => {
                 chrome.tabs.create({ active: true, url: developer.link })
               })
+              setIconTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light')
             }
             console.log(addonData.options, addonData.options.length)
             if (!(addonData.options.length > 0)) {
@@ -177,6 +179,7 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
                   // console.log('url object ', urlObj)
                 })
               }
+              setIconTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light')
             }
           })
         }
@@ -188,8 +191,10 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
 const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon')
 const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon')
 
-function setIconTheme(theme) {
+function setIconTheme (theme) {
+  console.log('all icons on page', document.querySelectorAll('.icon'))
   for (const icon of document.querySelectorAll('.icon')) {
+    console.log('icon', icon)
     if (theme === 'dark') {
       // -webkit-filter: invert(100%); /* Safari/Chrome */
       // filter: invert(100%);
@@ -206,8 +211,8 @@ function setIconTheme(theme) {
 chrome.storage.local.get(['popupTheme']).then((result) => {
   console.log('got popup theme on start', result)
   if (result.popupTheme === 'dark' || (result.popupTheme === undefined && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    console.log('setting dark mode based on chrome local storage')
     document.documentElement.classList.add('dark')
-    setIconTheme('dark')
     themeToggleLightIcon.classList.remove('hidden')
   } else {
     themeToggleDarkIcon.classList.remove('hidden')
