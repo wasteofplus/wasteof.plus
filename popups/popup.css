@@ -57,6 +57,10 @@ body {
   width: 205px;
 }
 
+.optionSlider {
+  width: 220px;
+}
+
 .addonOption {
   margin: 8px 0px;
 }
@@ -101,9 +105,9 @@ label.switch {
   width: 45px;
 } */
 
-.addonName {
+/* .addonName {
   font-weight: 500;
-}
+} */
 
 .addons {
   overflow-y: auto;
