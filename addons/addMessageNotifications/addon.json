@@ -14,7 +14,9 @@
         {
             "type": "boolean",
             "name": "Show Profile Picture",
-            "id": "profilePicture"
+            "id": "profilePicture",
+            "default": true,
+            "order": 1
         }
     ],
     "permissions": ["notifications"]
