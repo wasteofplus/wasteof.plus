@@ -91,6 +91,14 @@ chrome.runtime.onInstalled.addListener(function (details) {
             chrome.storage.local.set({ enabledAddons })
             chrome.storage.local.set({ allAddons })
           }
+          if (addonData.options) {
+            const optionsData = {}
+            for (const option of addonData.options) {
+              optionsData[option.id] = option.default
+            }
+            console.log('default option data', optionsData)
+            chrome.storage.local.set({ [addon + 'Options']: optionsData })
+          }
         })
       }
       console.log('enabled addons', enabledAddons)
@@ -104,6 +112,22 @@ chrome.runtime.onInstalled.addListener(function (details) {
           const newlyEnabledAddons = []
           for (const addon of allAddons) {
             fetch('../addons/' + addon + '/addon.json').then(response => response.json()).then(async (addonData) => {
+              chrome.storage.local.get([addon + 'Options']).then((resultOptions) => {
+                if (resultOptions[addon + 'Options'] === undefined) {
+                  console.log('no previously-stored options for addon', addon)
+                } else {
+                  if (!addonData.options.every(elem => Object.keys(resultOptions[addon + 'Options']).includes(elem.id))) {
+                    const optionsData = resultOptions[addon + 'Options']
+                    for (const optionItem of addonData.options.filter(option => Object.keys(resultOptions[addon + 'Options']).includes(option.id))) {
+                      if (!Object.keys(resultOptions[addon + 'Options']).includes(optionItem.id)) {
+                        optionsData[optionItem.id] = optionItem.default
+                      }
+                    }
+                    console.log('new options for addon', addon, resultOptions[addon + 'Options'], optionsData)
+                    chrome.storage.local.set({ [addon + 'Options']: optionsData })
+                  }
+                }
+              })
               if (addonData.enabledByDefault && !result.allAddons.includes(addon)) {
                 newlyEnabledAddons.push(addon)
               }
@@ -222,12 +246,40 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
               console.log('success')
             } else {
               console.log('received message from content script', request.token)
-              chrome.runtime.sendMessage({
-                type: 'token-send',
-                target: 'offscreen',
-                token: request.token
-              }, function (response) {
-                console.log('response from offscreen', response)
+              chrome.storage.local.get(['addMessageCountBadgeOptions'], async (theResultOptions) => {
+                if (theResultOptions.addMessageCountBadgeOptions.preset === 'Cha-Ching') {
+                  chrome.runtime.sendMessage({
+                    type: 'token-send',
+                    target: 'offscreen',
+                    token: request.token,
+                    sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
+                    volume: theResultOptions.addMessageCountBadgeOptions.volume
+                  }, function (response) {
+                    console.log('response from offscreen', response)
+                  })
+                } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Discord') {
+                  chrome.runtime.sendMessage({
+                    type: 'token-send',
+                    target: 'offscreen',
+                    token: request.token,
+                    sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
+                    volume: theResultOptions.addMessageCountBadgeOptions.volume
+                  }, function (response) {
+                    console.log('response from offscreen', response)
+                  })
+                } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Custom') {
+                  chrome.storage.local.get(['notificationsSound'], async (theResultCustomSound) => {
+                    chrome.runtime.sendMessage({
+                      type: 'token-send',
+                      target: 'offscreen',
+                      token: request.token,
+                      sound: theResultCustomSound.notificationsSound.file,
+                      volume: theResultOptions.addMessageCountBadgeOptions.volume
+                    }, function (response) {
+                      console.log('response from offscreen', response)
+                    })
+                  })
+                }
               })
               //     await chrome.offscreen.createDocument({
               //       url: 'offscreen.html',
@@ -258,11 +310,31 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
               data.unread.forEach((message, index) => {
                 if (index < request.count - result.numberOfMessages) {
                   console.log('new message,', message, 'at index ', index)
-                  chrome.notifications.create('', {
-                    title: getMessageSummary(message),
-                    message: getMessageContent(message),
-                    iconUrl: 'https://api.wasteof.money/users/imadeanaccount/picture',
-                    type: 'basic'
+                  chrome.storage.local.get(['addMessageNotificationsOptions'], function (resultOptions) {
+                    if (resultOptions.addMessageNotificationsOptions !== undefined) {
+                      if (resultOptions.addMessageNotificationsOptions.profilePicture) {
+                        chrome.notifications.create('', {
+                          title: getMessageSummary(message),
+                          message: getMessageContent(message),
+                          iconUrl: 'https://api.wasteof.money/users/' + message.data.actor.name + '/picture',
+                          type: 'basic'
+                        })
+                      } else {
+                        chrome.notifications.create('', {
+                          title: getMessageSummary(message),
+                          message: getMessageContent(message),
+                          iconUrl: '../assets/icons/icon128.png',
+                          type: 'basic'
+                        })
+                      }
+                    } else {
+                      chrome.notifications.create('', {
+                        title: getMessageSummary(message),
+                        message: getMessageContent(message),
+                        iconUrl: 'https://api.wasteof.money/users/' + message.data.actor.name + '/picture',
+                        type: 'basic'
+                      })
+                    }
                   })
                 }
               })
@@ -278,7 +350,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       (async function () {
         const key = await chrome.storage.local.get(['numberOfMessages'])
         console.log('sending result', key.numberOfMessages)
-        sendResponse(key.numberOfMessages)
+        chrome.storage.local.get(['addMessageCountBadgeOptions'], function (theResultOptions) {
+          if (theResultOptions.addMessageCountBadgeOptions.preset === 'Cha-Ching') {
+            sendResponse({ numberOfMessages: key.numberOfMessages, sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'), volume: theResultOptions.addMessageCountBadgeOptions.volume })
+          } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Discord') {
+            sendResponse({ numberOfMessages: key.numberOfMessages, sound: chrome.runtime.getURL('assets/sounds/notify.mp3'), volume: theResultOptions.addMessageCountBadgeOptions.volume })
+          }
+        })
       })()
 
       // return true to indicate you want to send a response asynchronously
