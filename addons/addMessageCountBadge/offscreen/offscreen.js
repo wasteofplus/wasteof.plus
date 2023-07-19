@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       }
     }).then(response => response.json()).then(async (data) => {
       if (data.count > 0) {
-        playAudio({ source: chrome.runtime.getURL('assets/sounds/notify.mp3'), volume: 1 })
+        playAudio({ source: request.sound, volume: request.volume })
 
         chrome.runtime.sendMessage({
           type: 'new_messages',
@@ -97,12 +97,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         getStorageData()
           .then((storageData) => {
             // Handle the storage data
-            if (storageData !== undefined) {
-              if (count > storageData) {
+            if (storageData.numberOfMessages !== undefined) {
+              if (count > storageData.numberOfMessages) {
                 myHeaders = new Headers()
                 myHeaders.append('Content-Type', 'application/json')
                 // Play sound with access to DOM APIs
-                playAudio({ source: chrome.runtime.getURL('assets/sounds/notify.mp3'), volume: 1 })
+                playAudio({ source: chrome.runtime.getURL(storageData.sound), volume: storageData.volume })
 
                 chrome.runtime.sendMessage({
                   type: 'new_messages',
@@ -158,7 +158,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
               myHeaders.append('Content-Type', 'application/json')
 
               raw = JSON.stringify({
-                message: 'No new messages2' + JSON.stringify(storageData)
+                message: 'No new messages2' + JSON.stringify(storageData.numberOfMessages)
               })
 
               requestOptions = {
