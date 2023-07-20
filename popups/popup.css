@@ -77,15 +77,6 @@ body {
   font-weight: 700;
 }
 
-/* .card {
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    background-color: white;
-    padding:16px 16px;
-    margin: 8px 0px;
-    border-radius: 8px;
-
-} */
-
 .cardheader {
   justify-content: space-between;
   display: flex;
@@ -108,14 +99,6 @@ body {
   display: flex;
   justify-content: end;
 }
-/* 
-label.switch {
-  width: 45px;
-} */
-
-/* .addonName {
-  font-weight: 500;
-} */
 
 .addons {
   overflow-y: auto;
@@ -139,13 +122,6 @@ label.switch {
     height: 22px;
      */
 }
-
-/* Hide default HTML checkbox */
-/* .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  } */
 
 /* The slider */
 .slider {
@@ -181,24 +157,6 @@ label.switch {
   bottom: 3px !important;
   right: 0px !important;
 }
-
-/* .toggle::after {
-    top: 3px !important;
-  } */
-/*   
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(18px);
-    -ms-transform: translateX(18px);
-    transform: translateX(18px);
-  } */
 
 /* Rounded sliders */
 .slider.round {
