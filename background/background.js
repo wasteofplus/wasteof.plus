@@ -236,7 +236,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.type === 'login-token') {
       console.log('received login token and sending it', request.token, result.enabledAddons.includes('addMessageCountBadge'))
       if (result.enabledAddons !== undefined) {
-        if (result.enabledAddons.includes('addMessageCountBadge')) {
+        console.log('some addons are enabled', result.enabledAddons, result.enabledAddons.includes('addMessageCountBadge'), result.enabledAddons.includes('addMessageNotifications'))
+        if (result.enabledAddons.includes('addMessageCountBadge') || result.enabledAddons.includes('addMessageNotifications')) {
           chrome.runtime.sendMessage({
             type: 'check-response',
             target: 'offscreen',
@@ -247,6 +248,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             } else {
               console.log('received message from content script', request.token)
               chrome.storage.local.get(['addMessageCountBadgeOptions'], async (theResultOptions) => {
+                console.log('sending message to offscreen', theResultOptions.addMessageCountBadgeOptions.preset)
+
                 if (theResultOptions.addMessageCountBadgeOptions.preset === 'Cha-Ching') {
                   chrome.runtime.sendMessage({
                     type: 'token-send',
@@ -266,6 +269,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                     volume: theResultOptions.addMessageCountBadgeOptions.volume
                   }, function (response) {
                     console.log('response from offscreen', response)
+                    console.log(chrome.runtime.getURL('assets/sounds/notify.mp3'))
                   })
                 } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Custom') {
                   chrome.storage.local.get(['notificationsSound'], async (theResultCustomSound) => {
@@ -292,9 +296,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       }
       sendResponse('received login token!')
     } else if (request.type === 'new_messages') {
-      chrome.action.setBadgeText({ text: request.count.toString() })
-      chrome.action.setBadgeBackgroundColor({ color: '#ef4444' })
-      chrome.action.setBadgeTextColor({ color: '#ffffff' })
+      if (result.enabledAddons.includes('addMessageCountBadge')) {
+        chrome.action.setBadgeText({ text: request.count.toString() })
+        chrome.action.setBadgeBackgroundColor({ color: '#ef4444' })
+        chrome.action.setBadgeTextColor({ color: '#ffffff' })
+      }
 
       console.log('new messages found', request.count)
       sendResponse('new messages read!')
