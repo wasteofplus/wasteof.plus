@@ -1,18 +1,29 @@
-// const io = import('./socket/socket.io.js')
-// chrome.extension.getBackgroundPage().console.log('foo')
-
-// socket.on('time', function(data) {
-//     addMessage(data.time);
-// });
-// socket.on('error', console.error.bind(console));
-// socket.on('message', console.log.bind(console));
-
-// console.log('loaded offscreen script')
-
 function playAudio ({ source, volume }) {
   const audio = new Audio(source)
   audio.volume = volume
   audio.play()
+}
+
+function logMessage (message, url) {
+  if (url !== '' && url != null && url !== undefined) {
+    const myHeaders = new Headers()
+    myHeaders.append('Content-Type', 'application/json')
+    const raw = JSON.stringify({
+      message
+    })
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    }
+
+    fetch(url, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error))
+  }
 }
 
 let websocketListening = false
@@ -31,7 +42,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       }
     }).then(response => response.json()).then(async (data) => {
       if (data.count > 0) {
-        playAudio({ source: request.sound, volume: request.volume })
+        if (request.playSound) {
+          playAudio({ source: request.sound, volume: request.volume })
+        }
 
         chrome.runtime.sendMessage({
           type: 'new_messages',
@@ -46,46 +59,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       }
     })
     if (request.type === 'token-send') {
-      let myHeaders = new Headers()
-      myHeaders.append('Content-Type', 'application/json')
-
-      let raw = JSON.stringify({
-        message: 'Got message from Background!'
-      })
-
-      let requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-      }
-
-      fetch('https://mighty-push.vercel.app/api/log', requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error))
+      logMessage('Token received: ' + request.token)
+      const logUrl = request.logUrl
       sendResponse({ response: 'Response from offscreen script' + request.token })
       const socket = io('https://api.wasteof.money', { transports: ['websocket'], auth: { token: request.token } })
       websocketListening = true
 
       socket.on('updateMessageCount', function (count) {
-        myHeaders = new Headers()
-        myHeaders.append('Content-Type', 'application/json')
-
-        raw = JSON.stringify({
-          message: 'message count is ' + count.toString()
-        })
-
-        requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: raw,
-          redirect: 'follow'
-        }
-
-        fetch('https://mighty-push.vercel.app/api/log', requestOptions)
-          .then(response => response.text())
-          .then(result => console.log(result))
+        logMessage('The message count is ' + count.toString(), logUrl)
 
         function getStorageData () {
           return new Promise((resolve, reject) => {
@@ -99,11 +80,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             // Handle the storage data
             if (storageData.numberOfMessages !== undefined) {
               if (count > storageData.numberOfMessages) {
-                myHeaders = new Headers()
-                myHeaders.append('Content-Type', 'application/json')
                 // Play sound with access to DOM APIs
-                playAudio({ source: chrome.runtime.getURL(storageData.sound), volume: storageData.volume })
-
+                logMessage('The sound we will play is ' + storageData.sound + ' with volume ' + storageData.volume.toString(), logUrl)
+                if (storageData.playSound) {
+                  playAudio({ source: storageData.sound, volume: storageData.volume })
+                }
+                logMessage('New message received!' + count.toString(), logUrl)
                 chrome.runtime.sendMessage({
                   type: 'new_messages',
                   count,
@@ -111,21 +93,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                   dontNotify: false
                 })
 
-                raw = JSON.stringify({
-                  message: 'New Messages!!!' + count.toString()
-                })
-
-                requestOptions = {
-                  method: 'POST',
-                  headers: myHeaders,
-                  body: raw,
-                  redirect: 'follow'
-                }
-
-                fetch('https://mighty-push.vercel.app/api/log', requestOptions)
-                  .then(response => response.text())
-                  .then(result => console.log(result))
-                  .catch(error => console.log('error', error))
                 sendResponse({ response: 'Response from offscreen script' })
                 chrome.runtime.sendMessage({ count })
               } else {
@@ -135,92 +102,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                   token: request.token,
                   dontNotify: true
                 })
-                myHeaders = new Headers()
-                myHeaders.append('Content-Type', 'application/json')
-
-                raw = JSON.stringify({
-                  message: 'No new messages'
-                })
-
-                requestOptions = {
-                  method: 'POST',
-                  headers: myHeaders,
-                  body: raw,
-                  redirect: 'follow'
-                }
-                fetch('https://mighty-push.vercel.app/api/log', requestOptions)
-                  .then(response => response.text())
-                  .then(result => console.log(result))
-                  .catch(error => console.log('error', error))
+                logMessage('No new messages', logUrl)
               }
             } else {
-              myHeaders = new Headers()
-              myHeaders.append('Content-Type', 'application/json')
-
-              raw = JSON.stringify({
-                message: 'No new messages2' + JSON.stringify(storageData.numberOfMessages)
-              })
-
-              requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-              }
-              fetch('https://mighty-push.vercel.app/api/log', requestOptions)
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error))
+              logMessage('No new messages' + JSON.stringify(storageData.numberOfMessages), logUrl)
             }
           })
           .catch((error) => {
-            myHeaders = new Headers()
-            myHeaders.append('Content-Type', 'application/json')
-
-            raw = JSON.stringify({
-              message: 'No new messages3' + JSON.stringify(error)
-            })
-
-            requestOptions = {
-              method: 'POST',
-              headers: myHeaders,
-              body: raw,
-              redirect: 'follow'
-            }
-            fetch('https://mighty-push.vercel.app/api/log', requestOptions)
-              .then(response => response.text())
-              .then(result => console.log(result))
-              .catch(error => console.log('error', error))
+            logMessage('No new messages' + JSON.stringify(error), logUrl)
           })
       })
-      // chrome.runtime.sendMessage({ type: 'get_message_count' }, async function (response) {
-
-      // })
-      //     const opts = { transports: ['websocket'], auth: { token: request.login_token } }
-      //     const socket = new WebSocket('https://api.wasteof.money', opts)
-
-      //     socket.addEventListener('open', () => {
-      //       // WebSocket connection established
-      //     })
-
-      //     socket.addEventListener('message', (event) => {
-      //       // Handle incoming messages from the WebSocket server
-      //     })
-
-      //     socket.addEventListener('close', () => {
-      //       // Handle WebSocket connection closed
-      //     })
-      //     // console.log('got login token', request.login_token)
-      //     // console.log('login token')
-      //     // const socket = io('https://api.wasteof.money', { transports: ['websocket'], auth: { token: request.login_token } })
-
-      //     // socket.on('updateMessageCount', async (count) => {
-      //     //   chrome.runtime.sendMessage({
-      //     //     type: 'new_messages' + count.toString()
-      //     //   })
-      //     //   console.log('MEssage count updated')
-      //     // })
-      // })
     }
   }
 })
