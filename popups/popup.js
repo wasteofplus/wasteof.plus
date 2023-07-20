@@ -238,7 +238,7 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
               <div class="addonOption">
               <label class="optionName block mb-2 text-xs font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
               <div class="optionFile">
-              <input accept=".ogg,.wav,.mp3" class="block w-full mb-2 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="small_size" type="file">
+              <input accept=".ogg,.wav,.mp3" class="block w-full mb-2 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file">
               <p class="mt-1 text-xs text-gray-500 dark:text-gray-300" id="file_input_help">MP3, WAV, or OGG (max. 30 secs).</p>
               </div>
               </div>`
@@ -247,6 +247,13 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
               <label class="optionName block mb-2 text-xs font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
               <div class="optionSlider">
               <input id="minmax-range" type="range" min="0" max="10" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+              </div>
+              </div>`
+              const textOptionText = `
+              <div class="addonOption">
+              <label class="optionName block mb-2 text-xs font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
+              <div class="optionText">
+              <input type="text" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               </div>
               </div>`
               console.log(option.type)
@@ -362,6 +369,17 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
                 addedElement.querySelector('input').addEventListener('change', async function (event) {
                   setOptionValue(option.id, event.target.value, addon, addonData.options, card.querySelector('.addonOptions'))
                   console.log('slider changed!!!')
+                })
+              } else if (option.type === 'text') {
+                card.querySelector('.addonOptions').insertAdjacentHTML('beforeend', textOptionText)
+                const addedElement = card.querySelector('.addonOptions').lastElementChild
+                addedElement.querySelector('.optionName').innerText = option.name
+                addedElement.querySelector('input').value = await getOptionValue(option.id, addon)
+                addedElement.querySelector('input').placeholder = option.placeholder
+
+                addedElement.querySelector('input').addEventListener('change', async function (event) {
+                  setOptionValue(option.id, event.target.value, addon, addonData.options, card.querySelector('.addonOptions'))
+                  console.log('text changed!!!')
                 })
               }
               setIconTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light')
