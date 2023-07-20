@@ -1,6 +1,6 @@
 {
   "name": "wasteof.plus",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "",
   "main": "background/background.js",
   "scripts": {
