@@ -61,6 +61,14 @@ body {
   width: 220px;
 }
 
+.optionText > input {
+  padding: 8px 6px;
+}
+
+.optionText {
+  width: 220px;
+}
+
 .addonOption {
   margin: 8px 0px;
 }
