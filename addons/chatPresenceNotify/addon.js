@@ -1,25 +1,23 @@
-console.log("made it here :)");
-const isWasteof3 = /beta/.test(new URL(document.URL).host);
-let userName = document.querySelector(isWasteof3 ? "a.mx-2 > span:nth-child(2)" : "span.hidden:nth-child(2)").innerText;
-let unloaded = true;
-let _unloaded = unloaded;
-let socket;
+var isWasteof3 = /beta/.test(new URL(document.URL).host);
+var userName = document.querySelector(isWasteof3 ? "a.mx-2 > span:nth-child(2)" : "span.hidden:nth-child(2)").innerText;
+var unloaded = true;
+var _unloaded = unloaded;
+var socket;
 
 function sendMessage(message) {
     // ok I found it
+    console.log(socket);
     socket.emit("message", message);
 }
 
 function onUnload() {
     console.log("unloaded!");
-    if (unloaded) return; // already outside /chat
     unloaded = true;
     sendMessage(`<i>${userName} leaves the chat.</i>`);
 }
 
 function onLoad() {
     console.log("loaded!");
-    if (!unloaded) return; // already inside /chat
     unloaded = false;
     sendMessage(`<i>${userName} enters the chat.</i>`);
 }
@@ -27,16 +25,21 @@ function onLoad() {
 function checkLocation() {
     unloaded = !(window.location.pathname == "/chat");
     if (_unloaded != unloaded) {
-        _unloaded = unloaded;
         [onLoad, onUnload][+unloaded](); // a cursed if block
+        _unloaded = unloaded;
     }
 }
 
 function addon() {
+    window.onbeforeunload = onUnload;
+    console.log("made it here :)");
     // set socket
+    console.log(window);
+    // FIXME: Seems like the `window` here doesn't have either `socket` or `$nuxt`...
     socket = isWasteof3 ? window.socket : window.$nuxt.$socket;
+    if (socket === undefined) throw Error("socket is undefined");
     setInterval(checkLocation, 1000)
 }
 
-document.addEventListener("beforeunload", onUnload);
-document.addEventListener("load", addon); // imagine addon() is here
+addon();
+
