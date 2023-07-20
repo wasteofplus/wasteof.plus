@@ -1,5 +1,3 @@
-// import { io } from '../node_modules/socket.io-client/build/esm'
-
 function getMessageSummary (message) {
   let summary = '@' + message.data.actor.name
   if (message.type === 'wall_comment_mention') {
@@ -152,16 +150,6 @@ const defaultEnabledAddons = []
 let lastTabId = 0
 let lastAddedAddons = null
 
-// chrome.storage.local.get(['login_token']).then((result) => {
-//   if (result.login_token !== undefined) {
-//     const socket = io('https://api.wasteof.money', { transports: ['websocket'], auth: { token: result.login_token } })
-
-//     socket.on('updateMessageCount', async (count) => {
-//       console.log('MEssage count updated')
-//     })
-//   }
-// })
-
 chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
   chrome.storage.local.get(['enabledAddons']).then((result) => {
     let enabledAddons = []
@@ -216,21 +204,6 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
   })
 })
 
-// function handleMessage(request, sender, sendResponse) {
-//     console.log(`A content script sent a message:`);
-//     console.log("background script received reload instruction!")
-
-//     chrome.tabs.sendMessage(request.tabId, {
-//         greeting: "reload",
-//         addon: request.addon
-//     }, function (response) {
-//         console.log("finished sending message")
-//     });
-//     sendResponse({ response: "Response from background script" });
-// }
-
-// chrome.runtime.onMessage.addListener(handleMessage);
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   chrome.storage.local.get(['enabledAddons']).then(async (result) => {
     if (request.type === 'login-token') {
@@ -249,14 +222,17 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
               console.log('received message from content script', request.token)
               chrome.storage.local.get(['addMessageCountBadgeOptions'], async (theResultOptions) => {
                 console.log('sending message to offscreen', theResultOptions.addMessageCountBadgeOptions.preset)
+                const logUrl = theResultOptions.addMessageCountBadgeOptions.logUrl
 
                 if (theResultOptions.addMessageCountBadgeOptions.preset === 'Cha-Ching') {
                   chrome.runtime.sendMessage({
                     type: 'token-send',
+                    logUrl,
                     target: 'offscreen',
                     token: request.token,
                     sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
-                    volume: theResultOptions.addMessageCountBadgeOptions.volume
+                    volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                    playSound: theResultOptions.addMessageCountBadgeOptions.playSound
                   }, function (response) {
                     console.log('response from offscreen', response)
                   })
@@ -264,9 +240,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                   chrome.runtime.sendMessage({
                     type: 'token-send',
                     target: 'offscreen',
+                    logUrl,
                     token: request.token,
                     sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
-                    volume: theResultOptions.addMessageCountBadgeOptions.volume
+                    volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                    playSound: theResultOptions.addMessageCountBadgeOptions.playSound
                   }, function (response) {
                     console.log('response from offscreen', response)
                     console.log(chrome.runtime.getURL('assets/sounds/notify.mp3'))
@@ -277,19 +255,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                       type: 'token-send',
                       target: 'offscreen',
                       token: request.token,
+                      logUrl,
                       sound: theResultCustomSound.notificationsSound.file,
-                      volume: theResultOptions.addMessageCountBadgeOptions.volume
+                      volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                      playSound: theResultOptions.addMessageCountBadgeOptions.playSound
                     }, function (response) {
                       console.log('response from offscreen', response)
                     })
                   })
                 }
               })
-              //     await chrome.offscreen.createDocument({
-              //       url: 'offscreen.html',
-              //       reasons: ['DOM_SCRAPING'],
-              //       justification: 'reason for needing the document'
-              //     })
             }
           })
         }
@@ -349,8 +324,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             })
           })
         }
+        console.log('badgeEnabled', result.enabledAddons.includes('addMessageCountBadge'))
       } else {
         chrome.storage.local.set({ numberOfMessages: request.count })
+      }
+      if (!(result.enabledAddons.includes('addMessageCountBadge'))) {
+        console.log('badge not enbaled')
+        chrome.action.setBadgeText({ text: '' })
       }
     } else if (request.type === 'get_message_count') {
       (async function () {
@@ -358,21 +338,31 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         console.log('sending result', key.numberOfMessages)
         chrome.storage.local.get(['addMessageCountBadgeOptions'], function (theResultOptions) {
           if (theResultOptions.addMessageCountBadgeOptions.preset === 'Cha-Ching') {
-            sendResponse({ numberOfMessages: key.numberOfMessages, sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'), volume: theResultOptions.addMessageCountBadgeOptions.volume })
+            sendResponse({
+              numberOfMessages: key.numberOfMessages,
+              sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
+              volume: theResultOptions.addMessageCountBadgeOptions.volume,
+              playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+            })
           } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Discord') {
-            sendResponse({ numberOfMessages: key.numberOfMessages, sound: chrome.runtime.getURL('assets/sounds/notify.mp3'), volume: theResultOptions.addMessageCountBadgeOptions.volume })
+            sendResponse({
+              numberOfMessages: key.numberOfMessages,
+              sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
+              volume: theResultOptions.addMessageCountBadgeOptions.volume,
+              playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+            })
+          } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Custom') {
+            chrome.storage.local.get(['notificationsSound'], async (theResultCustomSound) => {
+              sendResponse({
+                numberOfMessages: key.numberOfMessages,
+                sound: theResultCustomSound.notificationsSound.file,
+                volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+              })
+            })
           }
         })
       })()
-
-      // return true to indicate you want to send a response asynchronously
-      // return true
-      // //   const getMessages =
-      // chrome.storage.local.get(['numberOfMessages']).then((result) => {
-      //   console.log('sending message count', result.numberOfMessages)
-      //   sendResponse(result.numberOfMessages)
-      // })
-      // return true
     } else {
       console.log('got message', request.type)
       sendResponse('got other message!')
