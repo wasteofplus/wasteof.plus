@@ -119,7 +119,17 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
         console.log('addons.json', data)
         const addonList = document.querySelector('.addons')
 
-        for (const addon of data.sort()) {
+        function addonSorter (a, b) {
+          if (a.name < b.name) {
+            return -1
+          }
+          if (a.name > b.name) {
+            return 1
+          }
+          return 0
+        }
+
+        for (const addon of data.sort(addonSorter)) {
           fetch('../addons/' + addon + '/addon.json').then(response => response.json()).then(async (addonData) => {
             addonList.insertAdjacentHTML('beforeend', cardText)
             setIconTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light')
@@ -138,15 +148,16 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
               card.querySelector('input').checked = false
             }
             card.querySelector('input').addEventListener('change', (event) => {
-              console.log('toggled!!!')
+              console.log('toggled!!!', enabledAddonsList, enabledAddonsList.length)
               if (enabledAddonsList.includes(addon)) {
                 if (enabledAddonsList.length < 2) {
                   enabledAddonsList = []
                   chrome.storage.local.set({ enabledAddons: [] })
+                  console.log('removed all addons!!!', enabledAddonsList.length)
                 } else {
                   const index = enabledAddonsList.indexOf(addon)
 
-                  enabledAddonsList = enabledAddonsList.splice(index, 1)
+                  enabledAddonsList.splice(index, 1)
                   console.log('removed addon', addon, enabledAddonsList)
 
                   chrome.storage.local.set({ enabledAddons: enabledAddonsList })
@@ -165,6 +176,7 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
                         if (granted) {
                           console.log('granted')
                           enabledAddonsList.push(addon)
+                          console.log('add item to enabled addons list', enabledAddonsList)
                           chrome.storage.local.set({ enabledAddons: enabledAddonsList })
                           expandReversed = updateOptions(card, enabledAddonsList.includes(addon))
                         } else {
@@ -181,6 +193,7 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
                   })
                 } else {
                   enabledAddonsList.push(addon)
+                  console.log('add item to enabled addons list', enabledAddonsList)
                   chrome.storage.local.set({ enabledAddons: enabledAddonsList })
                   expandReversed = updateOptions(card, enabledAddonsList.includes(addon))
                 }
