@@ -65,6 +65,14 @@
             }],
             "id": "volume",
             "order": 4
+        },
+        {
+            "type": "text",
+            "name": "Log URL",
+            "default": "",
+            "placeholder": "https://example.com/api/log",
+            "id": "logUrl",
+            "order": 5
         }
     ]
 }
