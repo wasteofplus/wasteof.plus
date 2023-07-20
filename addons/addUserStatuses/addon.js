@@ -59,11 +59,11 @@ window.addEventListener('message', function (event) {
   }
 })
 
-const routeChangeScript = document.createElement('script')
-routeChangeScript.id = 'routeChangeScript'
-routeChangeScript.dataset.extensionId = chrome.runtime.id
-routeChangeScript.src = chrome.runtime.getURL('./addons/addUserStatuses/lib/routeChange.js')
+// const routeChangeScript = document.createElement('script')
+// routeChangeScript.id = 'routeChangeScript'
+// routeChangeScript.dataset.extensionId = chrome.runtime.id
+// routeChangeScript.src = chrome.runtime.getURL('./addons/addUserStatuses/lib/routeChange.js')
 
-document.body.appendChild(routeChangeScript)
+// document.body.appendChild(routeChangeScript)
 
 addon(false)
