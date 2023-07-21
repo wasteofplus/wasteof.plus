@@ -5,7 +5,8 @@
     "host_permissions": [
       "https://wasteof.money/*",
       "https://wasteof.money/*/*",
-      "https://wasteof.money/"
+      "https://wasteof.money/",
+      "*://*.wasteof.money/*"
     ],
     "description": "adds helpful features to wasteof.money",
     "permissions": ["activeTab", "scripting", "storage", "tabs", "webNavigation"],
