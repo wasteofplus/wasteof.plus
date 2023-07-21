@@ -1,4 +1,7 @@
 # wasteof.plus
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 wasteof.plus is a browser extension that adds helpful features to the wasteof.money social media site. You can enable/disable addons and customize wasteof.money to your liking.
 
 ## Installation:
@@ -48,6 +51,20 @@ Make wasteof.money better by adding cool community-requested features that may o
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/imadeanaccount1"><img src="https://avatars.githubusercontent.com/u/138229538?v=4?s=100" width="100px;" alt="imadeanaccount"/><br /><sub><b>imadeanaccount</b></sub></a><br /><a href="https://github.com/imadeanaccount1/wasteof.plus/commits?author=imadeanaccount1" title="Code">💻</a> <a href="#design-imadeanaccount1" title="Design">🎨</a> <a href="#ideas-imadeanaccount1" title="Ideas, Planning, & Feedback">🤔</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
