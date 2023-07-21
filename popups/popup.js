@@ -259,12 +259,6 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
                 } else {
                   enabledAddonsList.push(addon)
                   // sned message to background script to enable addon
-                  chrome.runtime.sendMessage({
-                    type: 'add_script',
-                    addon
-                  }, function (response) {
-                    console.log('response from bg', response)
-                  })
                   console.log('add item to enabled addons list', enabledAddonsList)
                   chrome.storage.local.set({ enabledAddons: enabledAddonsList })
                   expandReversed = updateOptions(card, enabledAddonsList.includes(addon))
