@@ -8,6 +8,18 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "imadeanaccount1",
+      "name": "imadeanaccount",
+      "avatar_url": "https://avatars.githubusercontent.com/u/138229538?v=4",
+      "profile": "https://github.com/imadeanaccount1",
+      "contributions": [
+        "code",
+        "design",
+        "ideas",
+        "maintenance",
+        "infra"
+    }, 
+    {
       "login": "mybearworld",
       "name": "mybearworld",
       "avatar_url": "https://avatars.githubusercontent.com/u/130385691?v=4",
