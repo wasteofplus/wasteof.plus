@@ -18,6 +18,15 @@
         "ideas",
         "maintenance",
         "infra"
+    }, 
+    {
+      "login": "mybearworld",
+      "name": "mybearworld",
+      "avatar_url": "https://avatars.githubusercontent.com/u/130385691?v=4",
+      "profile": "https://github.com/mybearworld",
+      "contributions": [
+        "bug",
+        "ideas"
       ]
     }
   ],
