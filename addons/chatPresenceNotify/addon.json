@@ -1,0 +1,16 @@
+{
+    "urls": [
+        "https://wasteof.money/",
+        "https://wasteof.money",
+        "https://beta.wasteof.money/",
+        "https://beta.wasteof.money"
+    ],
+    "urlcontains": [
+        "wasteof.money/chat"
+    ],
+    "name": "Chat Presence Notifier",
+    "description": "Notifies users that they are entering/leaving chat",
+    "developers": [
+        {"name": "Gilbert189", "link": "https://beta.wasteof.money/users/gilbert189"}
+    ]
+}
