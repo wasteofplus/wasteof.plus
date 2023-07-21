@@ -19,6 +19,7 @@ async function doesContentScriptExist (tabId, contentScript) {
 }
 
 function runAddon (tabId, contentScript) {
+  console.log(`running ${contentScript} on tab ID ${tabId}`)
   chrome.scripting.executeScript({
     target: { tabId },
     files: ['addons/' + contentScript + '/addon.js']
