@@ -56,6 +56,7 @@ Make wasteof.money better by adding cool community-requested features that may o
 <table>
   <tbody>
     <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/imadeanaccount1"><img src="https://avatars.githubusercontent.com/u/138229538?v=4?s=100" width="100px;" alt="imadeanaccount"/><br /><sub><b>imadeanaccount</b></sub></a><br /><a href="https://github.com/imadeanaccount1/wasteof.plus/commits?author=imadeanaccount1" title="Code">💻</a> <a href="#design-imadeanaccount1" title="Design">🎨</a> <a href="#ideas-imadeanaccount1" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-imadeanaccount1" title="Maintenance">🚧</a> <a href="#infra-imadeanaccount1" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/mybearworld"><img src="https://avatars.githubusercontent.com/u/130385691?v=4?s=100" width="100px;" alt="mybearworld"/><br /><sub><b>mybearworld</b></sub></a><br /><a href="https://github.com/imadeanaccount1/wasteof.plus/issues?q=author%3Amybearworld" title="Bug reports">🐛</a> <a href="#ideas-mybearworld" title="Ideas, Planning, & Feedback">🤔</a></td>
     </tr>
   </tbody>
