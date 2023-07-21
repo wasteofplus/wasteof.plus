@@ -27,21 +27,6 @@
       "default_popup": "popups/popup.html"
     },
     "host_permissions": ["<all_urls>"],
-    "permission": [
-        "notifications",
-        "tabs",
-        "idle",
-        "webNavigation",
-        "webRequest",
-        "webRequestBlocking",
-        "unlimitedStorage",
-        "storage",
-        "contextMenus",
-        "clipboardWrite",
-        "cookies",
-        "downloads",
-        "<all_urls>"
-    ],
     "web_accessible_resources": [{
         "matches": ["*://*.wasteof.money/*"],
         "resources": [
