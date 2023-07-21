@@ -43,3 +43,15 @@ wasteof.plus is licensed under the BSD-3 license. read it [here](LICENSE). It is
 
 ## Motivation:
 Make wasteof.money better by adding cool community-requested features that may or may not necessarily fit into the base social media and may or may not be wanted by everybody (users  have the option to turn on/off addons.)
+
+## Credits
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
