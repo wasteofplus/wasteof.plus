@@ -491,21 +491,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         }
       }
       sendResponse('received login token!')
-    } else if (request.type === 'add_script') {
-      console.log('registering content script!')
-      const aScript = {
-        id: request.addon,
-        js: ['../content-scripts/content_script.js'],
-        matches: ['https://wasteof.money/']
-      }
-      registeredContentScript = await browser.scripting.registerContentScripts([aScript])
-      sendResponse('registered content script!')
-    } else if (request.type === 'remove_script') {
-      console.log('removing content script!')
-      if (registeredContentScript !== null) {
-        registeredContentScript.unregister()
-      }
-      sendResponse('removed content script!')
     } else {
       console.log('got message', request.type)
       sendResponse('got other message!')
