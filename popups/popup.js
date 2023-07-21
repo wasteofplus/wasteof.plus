@@ -102,6 +102,66 @@ function getOptionValue (option, addon) {
   })
 }
 
+document.getElementsByClassName('openInNew')[0].addEventListener('click', () => {
+  window.close()
+
+  chrome.tabs.create({ url: 'popups/popup.html' })
+})
+
+const views = chrome.extension.getViews({ type: 'popup' })
+console.log('the views are', views)
+if (views === []) {
+  document.body.style.removeProperty('max-width')
+  document.getElementsByClassName('blankSpaceDiv')[0].style.display = 'none'
+  document.getElementsByClassName('header')[0].style.justifyContent = 'center'
+  document.getElementsByClassName('openInNew')[0].style.display = 'none'
+} else {
+  // wait 2 seconds
+  setTimeout(() => {
+    const views = chrome.extension.getViews({ type: 'popup' })
+    if (views.length === 0) {
+      document.getElementsByClassName('openInNew')[0].style.display = 'none'
+      document.getElementsByClassName('blankSpaceDiv')[0].style.display = 'none'
+      document.getElementsByClassName('header')[0].style.justifyContent = 'center'
+
+      document.body.style.removeProperty('max-width')
+    }
+  }, 200)
+}
+if (navigator.userAgent.includes('Mozilla')) {
+  if (views.length > 0) {
+    document.body.style.maxWidth = '365px'
+  }
+  chrome.permissions.contains({ origins: ['*://*.wasteof.money/*'] },
+    function (result) {
+      if (result) {
+        console.log('The extension has the permissions')
+        document.getElementsByClassName('permissionCard')[0].style.display = 'none'
+      } else {
+        console.log('The extension does not have the permissions')
+        document.getElementById('start').addEventListener('click', () => {
+          browser.permissions.request({ origins: ['*://*.wasteof.money/*'] })
+            .then((result) => {
+              if (result) {
+                console.log('Permission granted')
+                window.location.reload()
+              } else {
+                console.log('Permission denied')
+              }
+            })
+          console.log('browser is', navigator.userAgent)
+          console.log('the views are', views)
+          if (views.length > 0) {
+            window.close()
+          }
+        })
+      }
+    })
+} else {
+  document.getElementsByClassName('permissionCard')[0].style.display = 'none'
+  console.log('browser is', navigator.userAgent)
+}
+
 fetch('templates/extensionCard.html').then(response => response.text()).then(async (cardText) => {
   console.log('cardhtml', cardText)
 
@@ -162,6 +222,11 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
 
                   chrome.storage.local.set({ enabledAddons: enabledAddonsList })
                 }
+                chrome.runtime.sendMessage({
+                  type: 'remove_script'
+                }, function (response) {
+                  console.log('response from bg', response)
+                })
                 expandReversed = updateOptions(card, enabledAddonsList.includes(addon))
               } else {
                 if (addonData.permissions) {
@@ -193,6 +258,13 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
                   })
                 } else {
                   enabledAddonsList.push(addon)
+                  // sned message to background script to enable addon
+                  chrome.runtime.sendMessage({
+                    type: 'add_script',
+                    addon
+                  }, function (response) {
+                    console.log('response from bg', response)
+                  })
                   console.log('add item to enabled addons list', enabledAddonsList)
                   chrome.storage.local.set({ enabledAddons: enabledAddonsList })
                   expandReversed = updateOptions(card, enabledAddonsList.includes(addon))
