@@ -19,7 +19,7 @@
         "maintenance",
         "infra"
       ]
-    }, 
+    },
     {
       "login": "mybearworld",
       "name": "mybearworld",
@@ -27,6 +27,16 @@
       "profile": "https://github.com/mybearworld",
       "contributions": [
         "bug",
+        "ideas"
+      ]
+    },
+    {
+      "login": "Gilbert189",
+      "name": "Gilbert189",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57717273?v=4",
+      "profile": "https://github.com/Gilbert189",
+      "contributions": [
+        "code",
         "ideas"
       ]
     }
