@@ -83,9 +83,10 @@ function addon () {
 
   document.querySelectorAll('.prose > pre').forEach(async (element) => {
     const rawContent = element.textContent
-    const postId = element.parentElement.parentElement
-      .getAttribute('to')
-      .replace(/^\/posts\//, '')
+    const postId = (
+      element.parentElement.parentElement.getAttribute('to') ||
+      element.parentElement.parentElement.getAttribute('href')
+    ).replace(/^\/posts\//, '')
     if (!rawContent.startsWith('poll: ')) {
       return
     }
