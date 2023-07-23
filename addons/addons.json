@@ -1,5 +1,6 @@
 [
     "addUserStatuses",
     "profileHoverCards",
-    "chatPresenceNotify"
+    "chatPresenceNotify",
+    "polls"
 ]
