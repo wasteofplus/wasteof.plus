@@ -1,0 +1,9 @@
+{
+  "urls": ["https://wasteof.money/", "https://wasteof.money"],
+  "urlcontains": ["wasteof.money"],
+  "name": "Polls",
+  "description": "Add, view, and vote on polls in wasteof.money.",
+  "developers": [
+    { "name": "mybearworld", "link": "https://wasteof.money/users/mybearworld" }
+  ]
+}
