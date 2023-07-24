@@ -47,7 +47,10 @@ wasteof.plus is licensed under the BSD-3 license. read it [here](LICENSE). It is
 ## Motivation:
 Make wasteof.money better by adding cool community-requested features that may or may not necessarily fit into the base social media and may or may not be wanted by everybody (users  have the option to turn on/off addons.)
 
-## Credits
+## Other Projects
+Wasteof.plus is inspired by [ScratchAddons](https://github.com/ScratchAddons/ScratchAddons), which is developed by the [ScratchAddons](https://github.com/ScratchAddons) team, and wasteof.mobile by [Micah Lindley](https://github.com/micahlt). Wasteof.money is developed by [jeffalo.](https://github.com/jeffalo)
+
+
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
