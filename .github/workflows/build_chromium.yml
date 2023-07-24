@@ -2,8 +2,6 @@ name: 🤖 Build Chromium
 
 on: 
     workflow_dispatch:
-    push:
-        branches: []
 
 jobs:
     build:
