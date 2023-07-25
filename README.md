@@ -32,6 +32,8 @@ Currently, wasteof.plus is not available on the Chrome web store, Edge add-on st
 |  Profile Hover Card  | Add User Status Badges |
 | ------------- | ------------- |
 | <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/afba9f8f-5706-4f15-b76d-da186eca57ec](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/1c4c32bb-8951-4055-b820-9b9ebd545167"></img> | <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/73f53d4a-91e3-4cd7-996f-d49fb1ad1b47"></img>  |
+|  Add Message Count Badge  | Add Message Notifications and Sound |
+| <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/6e80bb6c-b3f2-456d-abe4-c027c076ffce"></img> | <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/fe114624-4bac-469a-a4d8-a9dc0c290673"></img> |
 
 ## Roadmap (not in any particular order):
 - Typescript

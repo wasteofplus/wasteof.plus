@@ -216,15 +216,35 @@ async function addon () {
     }
   }
 
-  chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
-    console.log('Response: ', response)
-  })
+  // chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
+  //   console.log('Response: ', response)
+  // })
 }
 
-const getTokenScript = document.createElement('script')
-getTokenScript.id = 'getTokenScript'
-getTokenScript.src = chrome.runtime.getURL('./addons/profileHoverCards/lib/getToken.js')
+// const getTokenScript = document.createElement('script')
+// getTokenScript.id = 'getTokenScript'
+// getTokenScript.src = chrome.runtime.getURL('./addons/profileHoverCards/lib/getToken.js')
 
-document.body.appendChild(getTokenScript)
+// document.body.appendChild(getTokenScript)
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log('message', message)
+  sendResponse({ message: 'hello' })
+
+  if (message.action === 'reload') {
+    console.log('RELOADING!!! profile hover cards')
+    hovering = false
+    hoveringArea = false
+    addon()
+  }
+})
+// window.addEventListener(
+//   'PassToBackgroundRoute',
+//   function (evt) {
+//     //   chrome.runtime.sendMessage(evt.detail)
+//     addon()
+//   },
+//   false
+// )
 
 addon()
