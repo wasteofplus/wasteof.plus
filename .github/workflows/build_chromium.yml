@@ -1,4 +1,5 @@
 name: 🤖 Build Chromium
+run-name: Build branch ${{ inputs.branch }} for Chromium by @${{ github.actor }}
 
 on: 
     workflow_dispatch:
