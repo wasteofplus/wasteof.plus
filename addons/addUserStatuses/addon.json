@@ -13,5 +13,13 @@
 
     ],
     "name": "User Permission/Status Badges",
-    "description": "Adds admin, verified, beta, and banned badges as well as online indicators to user statuses"
+    "description": "Adds admin, verified, beta, and banned badges as well as online indicators to user statuses",
+    "hasContentScript": true,
+    "hasContentStyle": true,
+    "enabledByDefault": true,
+    "developers": [{
+        "name": "imadeanaccount",
+        "link": "https://github.com/imadeanaccount1"
+    }],
+    "options": []
 }
