@@ -221,65 +221,65 @@ async function addon () {
   // })
 }
 
-async function addonTwo () {
-  console.log('executing addon , profileHoverCards')
-  const htmlFileContent = await fetch(chrome.runtime.getURL('./addons/profileHoverCards/templates/hovercard.html')).then(response => response.text())
-  // console.log("htmlFileContent", htmlFileContent)
-  const utilsUrl = chrome.runtime.getURL('../utils.js')
-  const utils = await import(utilsUrl)
-  if (!document.querySelector('div.border-2.rounded-xl')) {
-    await utils.waitForElm('div.border-2.rounded-xl')
-  }
+// async function addonTwo () {
+//   console.log('executing addon , profileHoverCards')
+//   const htmlFileContent = await fetch(chrome.runtime.getURL('./addons/profileHoverCards/templates/hovercard.html')).then(response => response.text())
+//   // console.log("htmlFileContent", htmlFileContent)
+//   const utilsUrl = chrome.runtime.getURL('../utils.js')
+//   const utils = await import(utilsUrl)
+//   if (!document.querySelector('div.border-2.rounded-xl')) {
+//     await utils.waitForElm('div.border-2.rounded-xl')
+//   }
 
-  console.log('navigation bar is ')
-  document.querySelector('nav').style.zIndex = '10000'
+//   console.log('navigation bar is ')
+//   document.querySelector('nav').style.zIndex = '10000'
 
-  console.log('all posts list', document.querySelectorAll('div.border-2.rounded-xl'))
-  for (const post of document.querySelectorAll('div.border-2.rounded-xl')) {
-    console.log('looping post')
+//   console.log('all posts list', document.querySelectorAll('div.border-2.rounded-xl'))
+//   for (const post of document.querySelectorAll('div.border-2.rounded-xl')) {
+//     console.log('looping post')
 
-    const postHeader = post.querySelector('a.w-full')
-    if (!postHeader.parentElement.classList.contains('truncate')) {
-      postHeader.parentElement.style.position = 'relative'
-      console.log('post1', postHeader)
-      if (!postHeader.querySelector('div.hoverCard')) {
-        postHeader.parentElement.insertAdjacentHTML('beforeend', await htmlFileContent)
-        const hovercard = postHeader.parentElement.querySelector('div.hoverCard')
-        hovercard.style.display = 'none'
-        const hoverArea = document.createElement('div')
-        hoverArea.classList.add('hoverArea')
-        postHeader.appendChild(hoverArea)
+//     const postHeader = post.querySelector('a.w-full')
+//     if (!postHeader.parentElement.classList.contains('truncate')) {
+//       postHeader.parentElement.style.position = 'relative'
+//       console.log('post1', postHeader)
+//       if (!postHeader.querySelector('div.hoverCard')) {
+//         postHeader.parentElement.insertAdjacentHTML('beforeend', await htmlFileContent)
+//         const hovercard = postHeader.parentElement.querySelector('div.hoverCard')
+//         hovercard.style.display = 'none'
+//         const hoverArea = document.createElement('div')
+//         hoverArea.classList.add('hoverArea')
+//         postHeader.appendChild(hoverArea)
 
-        fillInHoverCardTemplate(hovercard, postHeader.parentElement, utils)
-        hovercard.onmouseover = function () {
-          hovering = true
-          hovercard.style.display = 'block'
-        }
-        hovercard.onmouseout = function () {
-          hovering = false
-          if (!hoveringArea) {
-            hovercard.style.display = 'none'
-          }
-        }
-        hoverArea.onmouseover = function () {
-          hoveringArea = true
-          hovercard.style.display = 'block'
-        }
-        hoverArea.onmouseout = function () {
-          hoveringArea = false
-          console.log('hoverArea.onmouseout', hovering)
-          if (!hovering) {
-            hovercard.style.display = 'none'
-          }
-        }
-      }
-    }
-  }
+//         fillInHoverCardTemplate(hovercard, postHeader.parentElement, utils)
+//         hovercard.onmouseover = function () {
+//           hovering = true
+//           hovercard.style.display = 'block'
+//         }
+//         hovercard.onmouseout = function () {
+//           hovering = false
+//           if (!hoveringArea) {
+//             hovercard.style.display = 'none'
+//           }
+//         }
+//         hoverArea.onmouseover = function () {
+//           hoveringArea = true
+//           hovercard.style.display = 'block'
+//         }
+//         hoverArea.onmouseout = function () {
+//           hoveringArea = false
+//           console.log('hoverArea.onmouseout', hovering)
+//           if (!hovering) {
+//             hovercard.style.display = 'none'
+//           }
+//         }
+//       }
+//     }
+//   }
 
-  // chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
-  //   console.log('Response: ', response)
-  // })
-}
+//   // chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
+//   //   console.log('Response: ', response)
+//   // })
+// }
 
 // const getTokenScript = document.createElement('script')
 // getTokenScript.id = 'getTokenScript'
