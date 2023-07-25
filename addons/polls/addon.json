@@ -4,6 +4,10 @@
   "name": "Polls",
   "description": "Add, view, and vote on polls embedded in posts.",
   "developers": [
-    { "name": "mybearworld", "link": "https://wasteof.money/users/mybearworld" }
-  ]
+    { "name": "mybearworld", "link": "https://github.com/mybearworld" }
+  ],
+  "hasContentScript": true,
+  "hasContentStyle": true,
+  "enabledByDefault": true,
+  "options":[]
 }

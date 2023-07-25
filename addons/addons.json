@@ -2,7 +2,7 @@
     "addUserStatuses",
     "profileHoverCards",
     "chatPresenceNotify",
-    "polls"
+    "polls",
     "addMessageCountBadge",
     "addMessageNotifications"
 ]
