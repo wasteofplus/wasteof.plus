@@ -2,7 +2,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-wasteof.plus is a browser extension that adds helpful features to the wasteof.money social media site. You can enable/disable addons and customize wasteof.money to your liking.
+wasteof.plus is a browser extension that adds customizable addons to the wasteof.money social media. 🌠
 
 ## Installation:
 Currently, wasteof.plus is not available on the Chrome web store, Edge add-on store, or the Firefox add-on marketplace. You must install it manually using the following steps:
