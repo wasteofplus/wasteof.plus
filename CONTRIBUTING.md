@@ -7,7 +7,7 @@
    
    b. [Background Scripts/Service Workers](#background-scriptsservice-workers)
 4. [Contributing an Addon](#contributing-an-addon)
-5. Package.JSON Scripts
+5. [Package.json Scripts](#packagejson-scripts)
 
 ## Developing an Addon
 To contribute an addon to wasteof.plus, you must create a folder for the addon under the `addons/` directory. This subfolder must be named using a descriptive addon id that describes the addon's "main purpose" well. 
