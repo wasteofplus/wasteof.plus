@@ -2,12 +2,18 @@ name: 🤖 Build Chromium
 
 on: 
     workflow_dispatch:
+        inputs:
+            branch:
+                description: 'Branch to checkout'
 
 jobs:
     build:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+              with:
+                    ref: ${{ inputs.branch }}
+            
 #             - uses: actions/setup-node@v3
 #               with:
 #                 node-version: 18
