@@ -2,6 +2,8 @@ let hovering = false
 let hoveringArea = false
 
 function greyOutFollowButton (button) {
+  // remove classes: text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-primary-500
+  // text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-gray-500
   button.classList.remove('bg-primary-500')
   button.classList.add('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Unfollow'
@@ -10,6 +12,8 @@ function greyOutFollowButton (button) {
 }
 
 function unGreyOutFollowButton (button) {
+  // remove classes: text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-primary-500
+  // text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-gray-500
   button.classList.add('bg-primary-500')
   button.classList.remove('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Follow'
@@ -31,6 +35,7 @@ async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
   const apiUrl = 'https://api.wasteof.money/users/' + username.slice(1)
   const userUrl = 'https://wasteof.money/users/' + username.slice(1)
   const user = await fetch(apiUrl).then(response => response.json())
+  // https://api.wasteof.money/users/jeffalo/followers/radi8
   const loggedInUser = document.querySelector('span.flex > li > a.inline-block.font-semibold > span')
   const followButton = hovercard.querySelector('.followButton')
 
@@ -216,15 +221,35 @@ async function addon () {
     }
   }
 
-  chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
-    console.log('Response: ', response)
-  })
+  // chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
+  //   console.log('Response: ', response)
+  // })
 }
 
-const getTokenScript = document.createElement('script')
-getTokenScript.id = 'getTokenScript'
-getTokenScript.src = chrome.runtime.getURL('./addons/profileHoverCards/lib/getToken.js')
+// const getTokenScript = document.createElement('script')
+// getTokenScript.id = 'getTokenScript'
+// getTokenScript.src = chrome.runtime.getURL('./addons/profileHoverCards/lib/getToken.js')
 
-document.body.appendChild(getTokenScript)
+// document.body.appendChild(getTokenScript)
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log('message', message)
+  sendResponse({ message: 'hello' })
+
+  if (message.action === 'reload') {
+    console.log('RELOADING!!! profile hover cards')
+    hovering = false
+    hoveringArea = false
+    addon()
+  }
+})
+// window.addEventListener(
+//   'PassToBackgroundRoute',
+//   function (evt) {
+//     //   chrome.runtime.sendMessage(evt.detail)
+//     addon()
+//   },
+//   false
+// )
 
 addon()
