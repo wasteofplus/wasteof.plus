@@ -240,7 +240,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log('RELOADING!!! profile hover cards')
     hovering = false
     hoveringArea = false
-    // addon()
+    addon()
   }
 })
 // window.addEventListener(
