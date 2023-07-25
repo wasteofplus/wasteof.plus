@@ -115,12 +115,15 @@ async function addon (reload) {
 
 // document.body.appendChild(routeChangeScript)
 
-async function addonRun () {
+function addonRun () {
   console.log('addon run user statuses - after reload')
   // wait 3 seconds
-  await new Promise(resolve => setTimeout(resolve, 600)) // 3 sec
-  console.log('it\'s been 3 seconds since reload')
-  addonTwo(false)
+  new Promise(resolve => setTimeout(resolve, 3000)).then(() => {
+    console.log('it\'s been 3 seconds since reload1')
+    addonTwo(false)
+  }) // 3 sec
+  // console.log('it\'s been 3 seconds since reload')
+  // addonTwo(false)
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
