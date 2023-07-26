@@ -409,8 +409,6 @@ browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   }
 })
 
-let registeredContentScript = null
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   chrome.storage.local.get(['enabledAddons']).then(async (result) => {
     if (request.type === 'login-token') {
