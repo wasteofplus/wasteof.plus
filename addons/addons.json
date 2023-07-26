@@ -2,5 +2,6 @@
     "addUserStatuses",
     "profileHoverCards",
     "addMessageCountBadge",
-    "addMessageNotifications"
+    "addMessageNotifications",
+    "hashtags"
 ]
