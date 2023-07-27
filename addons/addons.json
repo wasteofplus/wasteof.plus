@@ -1,4 +1,5 @@
 [
+    "viewReposts",
     "addUserStatuses",
     "profileHoverCards",
     "chatPresenceNotify",

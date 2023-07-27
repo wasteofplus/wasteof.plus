@@ -1,0 +1,9 @@
+{
+  "urls": ["https://wasteof.money"],
+  "urlcontains": ["wasteof.money"],
+  "name": "View reposts button",
+  "description": "Add a \"View Reposts\" button to posts in wasteof.money, similar to the button in the Beta.",
+  "developers": [
+    { "name": "mybearworld", "link": "https://wasteof.money/users/mybearworld" }
+  ]
+}
