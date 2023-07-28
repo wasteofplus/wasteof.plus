@@ -2,8 +2,6 @@ let hovering = false
 let hoveringArea = false
 
 function greyOutFollowButton (button) {
-  // remove classes: text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-primary-500
-  // text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-gray-500
   button.classList.remove('bg-primary-500')
   button.classList.add('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Unfollow'
@@ -12,8 +10,6 @@ function greyOutFollowButton (button) {
 }
 
 function unGreyOutFollowButton (button) {
-  // remove classes: text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-primary-500
-  // text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-gray-500
   button.classList.add('bg-primary-500')
   button.classList.remove('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Follow'
@@ -35,7 +31,6 @@ async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
   const apiUrl = 'https://api.wasteof.money/users/' + username.slice(1)
   const userUrl = 'https://wasteof.money/users/' + username.slice(1)
   const user = await fetch(apiUrl).then(response => response.json())
-  // https://api.wasteof.money/users/jeffalo/followers/radi8
   const loggedInUser = document.querySelector('span.flex > li > a.inline-block.font-semibold > span')
   const followButton = hovercard.querySelector('.followButton')
 
@@ -221,15 +216,95 @@ async function addon () {
     }
   }
 
-  chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
-    console.log('Response: ', response)
-  })
+  // chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
+  //   console.log('Response: ', response)
+  // })
 }
 
-const getTokenScript = document.createElement('script')
-getTokenScript.id = 'getTokenScript'
-getTokenScript.src = chrome.runtime.getURL('./addons/profileHoverCards/lib/getToken.js')
+async function addonTwo () {
+  console.log('executing addon , profileHoverCards')
+  const htmlFileContent = await fetch(chrome.runtime.getURL('./addons/profileHoverCards/templates/hovercard.html')).then(response => response.text())
+  // console.log("htmlFileContent", htmlFileContent)
+  const utilsUrl = chrome.runtime.getURL('../utils.js')
+  const utils = await import(utilsUrl)
+  if (!document.querySelector('div.border-2.rounded-xl')) {
+    await utils.waitForElm('div.border-2.rounded-xl')
+  }
 
-document.body.appendChild(getTokenScript)
+  console.log('navigation bar is ')
+  document.querySelector('nav').style.zIndex = '10000'
+
+  console.log('all posts list', document.querySelectorAll('div.border-2.rounded-xl'))
+  for (const post of document.querySelectorAll('div.border-2.rounded-xl')) {
+    console.log('looping post')
+
+    const postHeader = post.querySelector('a.w-full')
+    if (!postHeader.parentElement.classList.contains('truncate')) {
+      postHeader.parentElement.style.position = 'relative'
+      console.log('post1', postHeader)
+      if (!postHeader.querySelector('div.hoverCard')) {
+        postHeader.parentElement.insertAdjacentHTML('beforeend', await htmlFileContent)
+        const hovercard = postHeader.parentElement.querySelector('div.hoverCard')
+        hovercard.style.display = 'none'
+        const hoverArea = document.createElement('div')
+        hoverArea.classList.add('hoverArea')
+        postHeader.appendChild(hoverArea)
+
+        fillInHoverCardTemplate(hovercard, postHeader.parentElement, utils)
+        hovercard.onmouseover = function () {
+          hovering = true
+          hovercard.style.display = 'block'
+        }
+        hovercard.onmouseout = function () {
+          hovering = false
+          if (!hoveringArea) {
+            hovercard.style.display = 'none'
+          }
+        }
+        hoverArea.onmouseover = function () {
+          hoveringArea = true
+          hovercard.style.display = 'block'
+        }
+        hoverArea.onmouseout = function () {
+          hoveringArea = false
+          console.log('hoverArea.onmouseout', hovering)
+          if (!hovering) {
+            hovercard.style.display = 'none'
+          }
+        }
+      }
+    }
+  }
+
+  // chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
+  //   console.log('Response: ', response)
+  // })
+}
+
+// const getTokenScript = document.createElement('script')
+// getTokenScript.id = 'getTokenScript'
+// getTokenScript.src = chrome.runtime.getURL('./addons/profileHoverCards/lib/getToken.js')
+
+// document.body.appendChild(getTokenScript)
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log('message', message)
+  sendResponse({ message: 'hello' })
+
+  if (message.action === 'reload') {
+    console.log('RELOADING!!! profile hover cards')
+    hovering = false
+    hoveringArea = false
+    addonTwo()
+  }
+})
+// window.addEventListener(
+//   'PassToBackgroundRoute',
+//   function (evt) {
+//     //   chrome.runtime.sendMessage(evt.detail)
+//     addon()
+//   },
+//   false
+// )
 
 addon()

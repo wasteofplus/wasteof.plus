@@ -1,0 +1,51 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "imadeanaccount1",
+      "name": "imadeanaccount",
+      "avatar_url": "https://avatars.githubusercontent.com/u/138229538?v=4",
+      "profile": "https://github.com/imadeanaccount1",
+      "contributions": [
+        "code",
+        "design",
+        "ideas",
+        "maintenance",
+        "infra"
+      ]
+    },
+    {
+      "login": "mybearworld",
+      "name": "mybearworld",
+      "avatar_url": "https://avatars.githubusercontent.com/u/130385691?v=4",
+      "profile": "https://github.com/mybearworld",
+      "contributions": [
+        "bug",
+        "ideas",
+        "code"
+      ]
+    },
+    {
+      "login": "Gilbert189",
+      "name": "Gilbert189",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57717273?v=4",
+      "profile": "https://github.com/Gilbert189",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "wasteof.plus",
+  "projectOwner": "imadeanaccount1"
+}
