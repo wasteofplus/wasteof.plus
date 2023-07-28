@@ -182,7 +182,7 @@ async function addon () {
     if (!postHeader.parentElement.classList.contains('truncate')) {
       postHeader.parentElement.style.position = 'relative'
       console.log('post1', postHeader)
-      if (!postHeader.querySelector('div.hoverCard')) {
+      if (!postHeader.parentElement.querySelector('div.hoverCard')) {
         postHeader.parentElement.insertAdjacentHTML('beforeend', await htmlFileContent)
         const hovercard = postHeader.parentElement.querySelector('div.hoverCard')
         hovercard.style.display = 'none'
