@@ -181,7 +181,7 @@ async function addon () {
     const postHeader = post.querySelector('a.w-full')
     if (!postHeader.parentElement.classList.contains('truncate')) {
       postHeader.parentElement.style.position = 'relative'
-      console.log('post1', postHeader)
+      console.log('post1', postHeader.parentElement.querySelectorAll('div.hoverCard'))
       if (!postHeader.parentElement.querySelector('div.hoverCard')) {
         postHeader.parentElement.insertAdjacentHTML('beforeend', await htmlFileContent)
         const hovercard = postHeader.parentElement.querySelector('div.hoverCard')
@@ -220,7 +220,6 @@ async function addon () {
   //   console.log('Response: ', response)
   // })
 }
-
 async function addonTwo () {
   console.log('executing addon , profileHoverCards')
   const htmlFileContent = await fetch(chrome.runtime.getURL('./addons/profileHoverCards/templates/hovercard.html')).then(response => response.text())
@@ -241,8 +240,8 @@ async function addonTwo () {
     const postHeader = post.querySelector('a.w-full')
     if (!postHeader.parentElement.classList.contains('truncate')) {
       postHeader.parentElement.style.position = 'relative'
-      console.log('post1', postHeader)
-      if (!postHeader.querySelector('div.hoverCard')) {
+      console.log('post1', postHeader.parentElement.querySelectorAll('div.hoverCard'))
+      if (!postHeader.parentElement.querySelector('div.hoverCard')) {
         postHeader.parentElement.insertAdjacentHTML('beforeend', await htmlFileContent)
         const hovercard = postHeader.parentElement.querySelector('div.hoverCard')
         hovercard.style.display = 'none'
@@ -275,10 +274,6 @@ async function addonTwo () {
       }
     }
   }
-
-  // chrome.runtime.sendMessage({ type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {
-  //   console.log('Response: ', response)
-  // })
 }
 
 // const getTokenScript = document.createElement('script')
