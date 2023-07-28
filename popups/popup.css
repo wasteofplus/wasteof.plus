@@ -1,124 +1,181 @@
 .header {
-    height: 60px;
-    width: 100%;
-    background-color: #6366f1;
-    color: white;
-    text-align: center;
-
-    font-size: 16px;
-
-    display: flex;
+  height: 60px;
+  width: 100%;
+  /* background-color: #6366f1; */
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  display: flex;
   justify-content: center;
   align-items: center;
+}
 
+.addonOption {
+  width: 100%;
 }
 
 .content {
-    padding: 0px 8px;
+  max-height: 480px;
+  overflow-y: scroll;
+  padding: 0px 8px;
+}
+
+.inline {
+  display: inline;
+  vertical-align: middle;
+}
+
+.developer-link {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.developer-logo {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
 }
 
 body {
-    min-height: 400px;
-    min-width: 350px;
-    background-color:#f4f4f4;
-    padding: 0px;
-    margin:0px;
+  max-height: 540px;
+  height: 540px;
+  min-width: 355px;
+  background-color: #f4f4f4;
+  padding: 0px;
+  margin: 0px;
+  font-family: Space Grotesk, ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, Liberation Mono, Courier New, monospace, sans-serif;
+}
+
+.optionFile {
+  width: 205px;
+}
+
+.optionSlider {
+  width: 220px;
+}
+
+.optionText > input {
+  padding: 8px 6px;
+}
+
+.optionText {
+  width: 220px;
+}
+
+.addonOption {
+  margin: 8px 0px;
 }
 
 .title {
-    font-weight: 700;
-}
-
-.card {
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    background-color: white;
-    padding:16px 16px;
-    margin: 8px 0px;
-    border-radius: 8px;
-
+  font-weight: 700;
 }
 
 .cardheader {
-    justify-content: space-between;
-    display: flex;
+  justify-content: space-between;
+  display: flex;
 }
 
-.addonName {
-    font-weight: 500;
+.optionBoolean {
+  margin-right: 5px !important;
+}
+
+.optionName {
+  margin: auto 0px;
+}
+
+.addonOption {
+  justify-content: space-between;
+  display: flex;
+}
+
+.optionSelect {
+  display: flex;
+  justify-content: end;
+}
+
+.addons {
+  overflow-y: auto;
+}
+
+.optionsHeader {
+  justify-content: space-between;
+  display: flex;
 }
 
 .addonDescription {
-    margin-top: 8px;
-    margin-bottom: 0px;
+  margin-top: 8px;
+  margin-bottom: 0px;
 }
 
 /* The switch - the box around the slider */
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
+  position: relative;
+  display: inline-block;
+  /* width: 40px;
     height: 22px;
-    
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 14px;
-    width: 14px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(18px);
-    -ms-transform: translateX(18px);
-    transform: translateX(18px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
+     */
+}
 
-  .addonName {
-    margin: 4px 0px;
-    display: inline;
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
 
-  }
-  
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.switch {
+  position: relative;
+}
+
+.toggle {
+  position: absolute !important;
+  bottom: 3px !important;
+  right: 0px !important;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.addonName {
+  margin: 4px 0px;
+  display: inline;
+}
+
+.optionsLabel  {
+  margin: auto 0px;
+}
+
+.optionsExpand {
+  margin: auto 0px;
+}
