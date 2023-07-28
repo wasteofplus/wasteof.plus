@@ -7,9 +7,11 @@
     "build:chrome": "run-script-os",
     "build:chrome:windows": "copy manifest_chromium.json manifest.json",
     "build:chrome:linux": "cp manifest_chromium.json manifest.json",
+    "build:chrome:default": "run-script-os",
     "build:firefox": "run-script-os",
     "build:firefox:linux": "cp manifest_firefox.json manifest.json",
-    "build:firefox:windows": "copy manifest_firefox.json manifest.json"
+    "build:firefox:windows": "copy manifest_firefox.json manifest.json",
+    "build:firefox:default": "cp manifest_firefox.json manifest.json",
   },
   "author": "",
   "license": "BSD",
