@@ -41,7 +41,7 @@ function getMessageContent (message) {
 }
 
 async function doesContentScriptExist (tabId, contentScript) {
-  console.log('does content script exist', tabId)
+  console.log('does content script exist', tabId, contentScript)
   return new Promise((resolve, reject) => {
     try {
       chrome.tabs.sendMessage(tabId, { greeting: contentScript }, function (response) {
@@ -150,7 +150,7 @@ const defaultEnabledAddons = []
 let lastTabId = 0
 let lastAddedAddons = null
 
-chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
+function injectAddons (details, force) {
   chrome.storage.local.get(['enabledAddons']).then((result) => {
     let enabledAddons = []
     if (result.enabledAddons === undefined) {
@@ -190,18 +190,25 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
             // console.log("exists?", doesContentScriptExist(details.tabId, "feed"))
             const scriptExists = await doesContentScriptExist(details.tabId, addon)
             console.log(scriptExists)
-            if (!scriptExists) {
+            if ((!scriptExists)) {
               console.log('adding addon', addon)
               runAddon(details.tabId, addon, data)
             } else {
+              // if (force) {
+              //   chrome.tabs.sendMessage(details.tabId, { type: 'reload' }, function (response) {})
+              // }
               console.log('script already exists. reloading tab')
-              chrome.tabs.reload(details.tabId)
+              // chrome.tabs.reload(details.tabId)
             }
           }
         })
       }
     }
   })
+}
+
+chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
+  injectAddons(details, false)
 })
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -363,6 +370,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           }
         })
       })()
+    } else if (request.type === 'route-changed') {
+      console.log('route change message received!')
+      console.log('tab id is', sender.tab.id, 'url is', sender.tab.url)
+      chrome.tabs.sendMessage(sender.tab.id, { action: 'reload' }, function (response) {
+        console.log('response', response)
+      })
+      // injectAddons({ tabId: sender.tab.id, url: sender.tab.url }, true)
     } else {
       console.log('got message', request.type)
       sendResponse('got other message!')
