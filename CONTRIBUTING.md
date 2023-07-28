@@ -7,6 +7,7 @@
    
    b. [Background Scripts/Service Workers](#background-scriptsservice-workers)
 4. [Contributing an Addon](#contributing-an-addon)
+5. [Package.json Scripts](#packagejson-scripts)
 
 ## Developing an Addon
 To contribute an addon to wasteof.plus, you must create a folder for the addon under the `addons/` directory. This subfolder must be named using a descriptive addon id that describes the addon's "main purpose" well. 
@@ -39,3 +40,12 @@ Addons should primarily avoid requiring service worker activity/interaction, but
 
 ## Contributing an Addon
 Create a Pull Request with information about your addon, why it's helpful, how it works, etc. I will review the PR and give feedback. If it is accepted (which it will be in the vast majority of circumstances), the PR will be merged into the main branch.
+
+
+## Package.JSON Scripts
+- `build:chrome`
+  - This is used to copy the contents of the `manifest_chromium.json` file to `manifest.json` for testing in Chrome. Without running this, wasteof.plus will not work in Chromium based browsers (Opera, Edge, Chrome, etc.)
+- `build:firefox`
+  - This is used to copy the contents of the `manifest_firefox.json` file to `manifest.json` for testing in Firefox. Without running this, wasteof.plus will not work in Firefox.
+- `cleanup`
+  - DO NOT RUN THIS IN YOUR LOCAL ENVIRONMENT. This script is only used to remove all console logs during builds.
