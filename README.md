@@ -1,6 +1,6 @@
 # wasteof.plus
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![](https://img.shields.io/github/stars/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/stargazers) 
 [![](https://img.shields.io/github/forks/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/network/members)
@@ -70,6 +70,7 @@ Wasteof.plus is inspired by [ScratchAddons](https://github.com/ScratchAddons/Scr
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/imadeanaccount1"><img src="https://avatars.githubusercontent.com/u/138229538?v=4?s=100" width="100px;" alt="imadeanaccount"/><br /><sub><b>imadeanaccount</b></sub></a><br /><a href="https://github.com/imadeanaccount1/wasteof.plus/commits?author=imadeanaccount1" title="Code">💻</a> <a href="#design-imadeanaccount1" title="Design">🎨</a> <a href="#ideas-imadeanaccount1" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-imadeanaccount1" title="Maintenance">🚧</a> <a href="#infra-imadeanaccount1" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/mybearworld"><img src="https://avatars.githubusercontent.com/u/130385691?v=4?s=100" width="100px;" alt="mybearworld"/><br /><sub><b>mybearworld</b></sub></a><br /><a href="https://github.com/imadeanaccount1/wasteof.plus/issues?q=author%3Amybearworld" title="Bug reports">🐛</a> <a href="#ideas-mybearworld" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/imadeanaccount1/wasteof.plus/commits?author=mybearworld" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Gilbert189"><img src="https://avatars.githubusercontent.com/u/57717273?v=4?s=100" width="100px;" alt="Gilbert189"/><br /><sub><b>Gilbert189</b></sub></a><br /><a href="https://github.com/imadeanaccount1/wasteof.plus/commits?author=Gilbert189" title="Code">💻</a> <a href="#ideas-Gilbert189" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://jaked.org/"><img src="https://avatars.githubusercontent.com/u/56439?v=4?s=100" width="100px;" alt="Jake Donham"/><br /><sub><b>Jake Donham</b></sub></a><br /><a href="https://github.com/imadeanaccount1/wasteof.plus/commits?author=jaked" title="Code">💻</a> <a href="#ideas-jaked" title="Ideas, Planning, & Feedback">🤔</a></td>
     </tr>
   </tbody>
 </table>
