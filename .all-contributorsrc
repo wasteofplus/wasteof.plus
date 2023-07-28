@@ -40,6 +40,16 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "jaked",
+      "name": "Jake Donham",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56439?v=4",
+      "profile": "https://jaked.org/",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
