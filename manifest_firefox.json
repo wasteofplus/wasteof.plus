@@ -10,13 +10,19 @@
     ],
     "description": "adds helpful features to wasteof.money",
     "permissions": ["activeTab", "scripting", "storage", "tabs", "webNavigation"],
+    "optional_permissions": ["notifications"],
+
     "background": {
       "scripts": [
         "background/firefox_background.js"
       ]
     },
     "content_scripts": [
-
+      {
+        "matches": ["*://*.wasteof.money/*"],
+        "js": ["content-scripts/content_script.js"],
+        "run_at": "document_end"
+      }
     ],
     "icons": {
       "16": "assets/icons/icon16.png",     

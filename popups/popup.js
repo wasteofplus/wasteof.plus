@@ -103,9 +103,8 @@ function getOptionValue (option, addon) {
 }
 
 document.getElementsByClassName('openInNew')[0].addEventListener('click', () => {
+  chrome.tabs.create({ url: 'popup.html' })
   window.close()
-
-  chrome.tabs.create({ url: 'popups/popup.html' })
 })
 
 const views = chrome.extension.getViews({ type: 'popup' })
@@ -207,7 +206,13 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
             } else {
               card.querySelector('input').checked = false
             }
-            card.querySelector('input').addEventListener('change', (event) => {
+
+            // card.querySelector('#requestpermission').addEventListener('click', () => {
+            //   chrome.permissions.request({
+            //     permissions: ['notifications']
+            //   })
+            // })
+            card.querySelector('input').addEventListener('click', (event) => {
               console.log('toggled!!!', enabledAddonsList, enabledAddonsList.length)
               if (enabledAddonsList.includes(addon)) {
                 if (enabledAddonsList.length < 2) {
@@ -230,32 +235,57 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
                 expandReversed = updateOptions(card, enabledAddonsList.includes(addon))
               } else {
                 if (addonData.permissions) {
-                  console.log('addon has permissions')
-                  chrome.permissions.contains({
-                    permissions: addonData.permissions
-                  }, (resultPerm) => {
-                    if (!resultPerm) {
-                      chrome.permissions.request({
-                        permissions: addonData.permissions
-                      }, (granted) => {
-                        if (granted) {
-                          console.log('granted')
-                          enabledAddonsList.push(addon)
-                          console.log('add item to enabled addons list', enabledAddonsList)
-                          chrome.storage.local.set({ enabledAddons: enabledAddonsList })
-                          expandReversed = updateOptions(card, enabledAddonsList.includes(addon))
-                        } else {
-                          console.log('not granted')
-                        }
-                      })
+                  console.log('addon has permissions', addonData.permissions)
+                  chrome.permissions.request({
+                    permissions: ['notifications']
+                  }, (granted) => {
+                    if (granted) {
+                      console.log('granted')
+                      if (granted) {
+                        console.log('granted')
+                        enabledAddonsList.push(addon)
+                        console.log('add item to enabled addons list', enabledAddonsList)
+                        chrome.storage.local.set({ enabledAddons: enabledAddonsList })
+                        expandReversed = updateOptions(card, enabledAddonsList.includes(addon))
+                      } else {
+                        console.log('not granted')
+                      }
                     } else {
-                      console.log('permission already granted')
-                      enabledAddonsList.push(addon)
-                      chrome.storage.local.set({ enabledAddons: enabledAddonsList })
-                      console.log('should options show', enabledAddonsList.includes(addon))
-                      expandReversed = updateOptions(card, enabledAddonsList.includes(addon))
+                      console.log('not granted')
                     }
                   })
+                  if (views.length > 0) {
+                    window.close()
+                  }
+
+                  // browser.permissions.contains({
+                  //   permissions: addonData.permissions
+                  // }, (resultPerm) => {
+                  //   if (!resultPerm) {
+                  //     chrome.permissions.request({
+                  //       permissions: ['notifications']
+                  //     })
+                  //     chrome.permissions.request({
+                  //       permissions: addonData.permissions
+                  //     }, (granted) => {
+                  //       if (granted) {
+                  //         console.log('granted')
+                  //         enabledAddonsList.push(addon)
+                  //         console.log('add item to enabled addons list', enabledAddonsList)
+                  //         chrome.storage.local.set({ enabledAddons: enabledAddonsList })
+                  //         expandReversed = updateOptions(card, enabledAddonsList.includes(addon))
+                  //       } else {
+                  //         console.log('not granted')
+                  //       }
+                  //     })
+                  //   } else {
+                  //     console.log('permission already granted')
+                  //     enabledAddonsList.push(addon)
+                  //     chrome.storage.local.set({ enabledAddons: enabledAddonsList })
+                  //     console.log('should options show', enabledAddonsList.includes(addon))
+                  //     expandReversed = updateOptions(card, enabledAddonsList.includes(addon))
+                  //   }
+                  // })
                 } else {
                   enabledAddonsList.push(addon)
                   // sned message to background script to enable addon
@@ -297,7 +327,7 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
                 </div>
               </div>`
               const selectMiddleOptionText = `
-              <button type="button" class="px-3 py-2 text-xxs font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+              <button type="button" class="px-3 py-2 text-xs font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                   Cha-Ching
                 </button>`
               const fileOptionText = `
