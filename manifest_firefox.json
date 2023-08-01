@@ -2,19 +2,27 @@
     "name": "wasteof.plus",
     "manifest_version": 3,
     "version": "0.1.0",
-    "version_name": "0.1.0-alpha",
+    "host_permissions": [
+      "https://wasteof.money/*",
+      "https://wasteof.money/*/*",
+      "https://wasteof.money/",
+      "*://*.wasteof.money/*"
+    ],
     "description": "adds helpful features to wasteof.money",
-    "externally_connectable": {
-      "matches": ["*://*.wasteof.money/*"]
-    },
     "permissions": ["activeTab", "scripting", "storage", "tabs", "webNavigation"],
+    "optional_permissions": ["notifications"],
+
     "background": {
       "scripts": [
-        "background/background.js"
+        "background/firefox_background.js"
       ]
     },
     "content_scripts": [
-
+      {
+        "matches": ["*://*.wasteof.money/*"],
+        "js": ["content-scripts/content_script.js"],
+        "run_at": "document_end"
+      }
     ],
     "icons": {
       "16": "assets/icons/icon16.png",     
@@ -26,7 +34,6 @@
     "action": {
       "default_popup": "popups/popup.html"
     },
-    "host_permissions": ["<all_urls>"],
     "web_accessible_resources": [{
         "matches": ["*://*.wasteof.money/*"],
         "resources": [

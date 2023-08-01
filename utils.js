@@ -1,7 +1,7 @@
 function waitForElm (selector, callback, ignoreClasses) {
   return new Promise(resolve => {
     if (document.querySelector(selector)) {
-      return resolve(document.querySelector(selector))
+      resolve(document.querySelector(selector))
     }
 
     const observer = new MutationObserver(mutations => {
@@ -27,6 +27,7 @@ function waitForElm (selector, callback, ignoreClasses) {
           console.log('observer ended up!')
           resolve(document.querySelector(selector))
           if (callback) {
+            console.log('calling back')
             callback()
           } else {
             observer.disconnect()
