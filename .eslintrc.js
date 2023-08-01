@@ -23,5 +23,12 @@ module.exports = {
     ecmaVersion: 'latest'
   },
   rules: {
+    // 'no-console': ['error', {
+    //   allow: ['warn', 'error']
+    // }]
+  },
+  globals: {
+    $nuxt: true,
+    io: true
   }
 }

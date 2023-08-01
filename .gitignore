@@ -1,4 +1,7 @@
 manifest.json
 node_modules/
 dist/
+<<<<<<< HEAD
 .eslintcache
+=======
+>>>>>>> port-for-firefox
