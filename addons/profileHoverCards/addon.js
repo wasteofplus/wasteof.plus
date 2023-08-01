@@ -162,7 +162,7 @@ async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
 }
 
 async function addon () {
-  console.log('executing addon , profileHoverCards')
+  console.log('executing addon , profileHoverCards1')
   const htmlFileContent = await fetch(chrome.runtime.getURL('./addons/profileHoverCards/templates/hovercard.html')).then(response => response.text())
   // console.log("htmlFileContent", htmlFileContent)
   const utilsUrl = chrome.runtime.getURL('../utils.js')
@@ -221,7 +221,7 @@ async function addon () {
   // })
 }
 async function addonTwo () {
-  console.log('executing addon , profileHoverCards')
+  console.log('executing addon , profileHoverCards2')
   const htmlFileContent = await fetch(chrome.runtime.getURL('./addons/profileHoverCards/templates/hovercard.html')).then(response => response.text())
   // console.log("htmlFileContent", htmlFileContent)
   const utilsUrl = chrome.runtime.getURL('../utils.js')
@@ -240,8 +240,8 @@ async function addonTwo () {
     const postHeader = post.querySelector('a.w-full')
     if (!postHeader.parentElement.classList.contains('truncate')) {
       postHeader.parentElement.style.position = 'relative'
-      console.log('post1', postHeader.parentElement.querySelectorAll('div.hoverCard'))
-      if (!postHeader.parentElement.querySelector('div.hoverCard')) {
+      console.log('post1', postHeader.parentElement, postHeader.parentElement.querySelectorAll('div.hoverCard'))
+      if (postHeader.parentElement.querySelectorAll('.hoverCard').length === 0) {
         postHeader.parentElement.insertAdjacentHTML('beforeend', await htmlFileContent)
         const hovercard = postHeader.parentElement.querySelector('div.hoverCard')
         hovercard.style.display = 'none'
@@ -290,7 +290,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log('RELOADING!!! profile hover cards')
     hovering = false
     hoveringArea = false
-    addonTwo()
+    if (document.querySelectorAll('div.hoverCard').length === 0) {
+      addonTwo()
+    }
   }
 })
 // window.addEventListener(
