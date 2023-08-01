@@ -16,8 +16,6 @@ $nuxt.$router.afterEach((to, from) => {
   //     text: 'reload'
   //   }, '*')
 
-  const event = new CustomEvent('PassToBackgroundRoute', {
-    detail: 'HELLO!!!',
-  })
+  const event = new CustomEvent('PassToBackgroundRoute', { detail: 'HELLO!!!' })
   window.dispatchEvent(event)
 })

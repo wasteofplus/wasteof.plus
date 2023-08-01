@@ -1,7 +1,7 @@
 let hovering = false
 let hoveringArea = false
 
-function greyOutFollowButton(button) {
+function greyOutFollowButton (button) {
   button.classList.remove('bg-primary-500')
   button.classList.add('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Unfollow'
@@ -9,7 +9,7 @@ function greyOutFollowButton(button) {
   button.style.left = '225px'
 }
 
-function unGreyOutFollowButton(button) {
+function unGreyOutFollowButton (button) {
   button.classList.add('bg-primary-500')
   button.classList.remove('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Follow'
@@ -17,28 +17,21 @@ function unGreyOutFollowButton(button) {
   button.style.left = '230px'
 }
 
-async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
-  const theme = document.querySelector('html').classList.contains('dark')
-    ? 'dark'
-    : 'light'
+async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
+  const theme = document.querySelector('html').classList.contains('dark') ? 'dark' : 'light'
   console.log('the theme is', theme, postHeader)
   let username = postHeader.querySelector('span.ml-1.inline-block').innerText
-  const userTheme = postHeader.querySelector('span.ml-1.inline-block')
-    .classList[2]
+  const userTheme = postHeader.querySelector('span.ml-1.inline-block').classList[2]
   console.log('user theme is ', userTheme)
   username = username.replace(/\s/g, '')
-  username = username
-    .replace(
-      /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
-      '',
-    )
-    .trim()
+  username = username.replace(
+    /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
+    ''
+  ).trim()
   const apiUrl = 'https://api.wasteof.money/users/' + username.slice(1)
   const userUrl = 'https://wasteof.money/users/' + username.slice(1)
-  const user = await fetch(apiUrl).then((response) => response.json())
-  const loggedInUser = document.querySelector(
-    'span.flex > li > a.inline-block.font-semibold > span',
-  )
+  const user = await fetch(apiUrl).then(response => response.json())
+  const loggedInUser = document.querySelector('span.flex > li > a.inline-block.font-semibold > span')
   const followButton = hovercard.querySelector('.followButton')
 
   let meFollowing = false
@@ -49,22 +42,9 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
     const actualUserUsername = loggedInUser.innerText
 
     console.log('the currently logged in user is ', actualUserUsername)
-    console.log(
-      'the url of me is ',
-      'https://wasteof.money/users/' +
-        actualUserUsername +
-        '/followers/' +
-        username.slice(1),
-    )
-    const followingMe = await fetch(
-      'https://api.wasteof.money/users/' +
-        actualUserUsername +
-        '/followers/' +
-        username.slice(1),
-    ).then((response) => response.json())
-    meFollowing = await fetch(apiUrl + '/followers/' + actualUserUsername).then(
-      (response) => response.json(),
-    )
+    console.log('the url of me is ', 'https://wasteof.money/users/' + actualUserUsername + '/followers/' + username.slice(1))
+    const followingMe = await fetch('https://api.wasteof.money/users/' + actualUserUsername + '/followers/' + username.slice(1)).then(response => response.json())
+    meFollowing = await fetch(apiUrl + '/followers/' + actualUserUsername).then(response => response.json())
 
     console.log('following me', followingMe)
     if (followingMe) {
@@ -77,31 +57,26 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
     }
 
     followButton.addEventListener('click', async () => {
-      fetch(
-        'https://api.wasteof.money/users/' + username.slice(1) + '/followers',
-        {
-          method: 'POST',
-          headers: {
-            Authorization: document.querySelector('body').dataset.token,
-          },
-        },
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('finished following/unfollowing', data)
-          if (data.error) {
-            alert(data.error)
-            return
-          }
-          if (data.ok === 'followed') {
-            greyOutFollowButton(followButton)
-          } else if (data.ok === 'unfollowed') {
-            unGreyOutFollowButton(followButton)
-          }
-          stats.followers = data.new.followers
-          stats.following = data.new.following
-          meFollowing = data.new.isFollowing
-        })
+      fetch('https://api.wasteof.money/users/' + username.slice(1) + '/followers', {
+        method: 'POST',
+        headers: {
+          Authorization: document.querySelector('body').dataset.token
+        }
+      }).then(response => response.json()).then(data => {
+        console.log('finished following/unfollowing', data)
+        if (data.error) {
+          alert(data.error)
+          return
+        }
+        if (data.ok === 'followed') {
+          greyOutFollowButton(followButton)
+        } else if (data.ok === 'unfollowed') {
+          unGreyOutFollowButton(followButton)
+        }
+        stats.followers = data.new.followers
+        stats.following = data.new.following
+        meFollowing = data.new.isFollowing
+      })
     })
   }
 
@@ -110,8 +85,7 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
 
   const profilePicture = postHeader.querySelector('img.border-2').src
   hovercard.querySelector('.userPfp').src = profilePicture
-  hovercard.querySelector('.userPfp').alt =
-    username.slice(1) + "'s Profile Picture"
+  hovercard.querySelector('.userPfp').alt = username.slice(1) + "'s Profile Picture"
 
   const banner = apiUrl + '/banner'
   hovercard.querySelector('.userBanner').src = banner
@@ -119,10 +93,8 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
   const bio = user.bio
   const stats = user.stats
   hovercard.querySelector('.userBio').innerText = bio
-  hovercard.querySelector('.userFollowers').innerText =
-    stats.followers + ' Followers'
-  hovercard.querySelector('.userFollowing').innerText =
-    stats.following + ' Following'
+  hovercard.querySelector('.userFollowers').innerText = stats.followers + ' Followers'
+  hovercard.querySelector('.userFollowing').innerText = stats.following + ' Following'
   console.log('user joined', user)
   if (user.history != null) {
     const joined = utils.timeDifference(new Date(), user.history.joined)
@@ -158,14 +130,13 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
 
   if (theme === 'light') {
     hovercard.querySelector('.userBeta').style.fill = '#6366f1'
-    hovercard.querySelector('.userFollowingMe').style.color =
-      'var(--primary-500)'
+    hovercard.querySelector('.userFollowingMe').style.color = 'var(--primary-500)'
   }
 
   if (verified && !admin) {
     hovercard.querySelector('.userVerified').style.left = '0px'
   }
-  if (beta && (!admin || !verified) && !(!admin && !verified)) {
+  if (beta && ((!admin || !verified) && !(!admin && !verified))) {
     hovercard.querySelector('.userBeta').style.left = '25px'
   } else if (!admin && !verified) {
     hovercard.querySelector('.userBeta').style.left = '0px'
@@ -176,13 +147,11 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
   hovercard.querySelector('div.mt-3.mb-5').classList.add('theme-indigo')
   hovercard.querySelector('.userFollowingMe').classList.add('theme-indigo')
   hovercard.querySelector('.followButton').classList.add('theme-indigo')
-  hovercard
-    .querySelector('.followAction')
-    .addEventListener('click', function (e) {
-      e.preventDefault() // this line prevents changing to the URL of the link href
-      e.stopPropagation() // this line prevents the link click from bubbling
-      console.log('child clicked')
-    })
+  hovercard.querySelector('.followAction').addEventListener('click', function (e) {
+    e.preventDefault() // this line prevents changing to the URL of the link href
+    e.stopPropagation() // this line prevents the link click from bubbling
+    console.log('child clicked')
+  })
 
   const online = user.online
   if (online) {
@@ -192,13 +161,9 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
   }
 }
 
-async function addon() {
+async function addon () {
   console.log('executing addon , profileHoverCards')
-  const htmlFileContent = await fetch(
-    chrome.runtime.getURL(
-      './addons/profileHoverCards/templates/hovercard.html',
-    ),
-  ).then((response) => response.text())
+  const htmlFileContent = await fetch(chrome.runtime.getURL('./addons/profileHoverCards/templates/hovercard.html')).then(response => response.text())
   // console.log("htmlFileContent", htmlFileContent)
   const utilsUrl = chrome.runtime.getURL('../utils.js')
   const utils = await import(utilsUrl)
@@ -209,27 +174,17 @@ async function addon() {
   console.log('navigation bar is ')
   document.querySelector('nav').style.zIndex = '10000'
 
-  console.log(
-    'all posts list',
-    document.querySelectorAll('div.border-2.rounded-xl'),
-  )
+  console.log('all posts list', document.querySelectorAll('div.border-2.rounded-xl'))
   for (const post of document.querySelectorAll('div.border-2.rounded-xl')) {
     console.log('looping post')
 
     const postHeader = post.querySelector('a.w-full')
     if (!postHeader.parentElement.classList.contains('truncate')) {
       postHeader.parentElement.style.position = 'relative'
-      console.log(
-        'post1',
-        postHeader.parentElement.querySelectorAll('div.hoverCard'),
-      )
+      console.log('post1', postHeader.parentElement.querySelectorAll('div.hoverCard'))
       if (!postHeader.parentElement.querySelector('div.hoverCard')) {
-        postHeader.parentElement.insertAdjacentHTML(
-          'beforeend',
-          await htmlFileContent,
-        )
-        const hovercard =
-          postHeader.parentElement.querySelector('div.hoverCard')
+        postHeader.parentElement.insertAdjacentHTML('beforeend', await htmlFileContent)
+        const hovercard = postHeader.parentElement.querySelector('div.hoverCard')
         hovercard.style.display = 'none'
         const hoverArea = document.createElement('div')
         hoverArea.classList.add('hoverArea')
@@ -265,13 +220,9 @@ async function addon() {
   //   console.log('Response: ', response)
   // })
 }
-async function addonTwo() {
+async function addonTwo () {
   console.log('executing addon , profileHoverCards')
-  const htmlFileContent = await fetch(
-    chrome.runtime.getURL(
-      './addons/profileHoverCards/templates/hovercard.html',
-    ),
-  ).then((response) => response.text())
+  const htmlFileContent = await fetch(chrome.runtime.getURL('./addons/profileHoverCards/templates/hovercard.html')).then(response => response.text())
   // console.log("htmlFileContent", htmlFileContent)
   const utilsUrl = chrome.runtime.getURL('../utils.js')
   const utils = await import(utilsUrl)
@@ -282,27 +233,17 @@ async function addonTwo() {
   console.log('navigation bar is ')
   document.querySelector('nav').style.zIndex = '10000'
 
-  console.log(
-    'all posts list',
-    document.querySelectorAll('div.border-2.rounded-xl'),
-  )
+  console.log('all posts list', document.querySelectorAll('div.border-2.rounded-xl'))
   for (const post of document.querySelectorAll('div.border-2.rounded-xl')) {
     console.log('looping post')
 
     const postHeader = post.querySelector('a.w-full')
     if (!postHeader.parentElement.classList.contains('truncate')) {
       postHeader.parentElement.style.position = 'relative'
-      console.log(
-        'post1',
-        postHeader.parentElement.querySelectorAll('div.hoverCard'),
-      )
+      console.log('post1', postHeader.parentElement.querySelectorAll('div.hoverCard'))
       if (!postHeader.parentElement.querySelector('div.hoverCard')) {
-        postHeader.parentElement.insertAdjacentHTML(
-          'beforeend',
-          await htmlFileContent,
-        )
-        const hovercard =
-          postHeader.parentElement.querySelector('div.hoverCard')
+        postHeader.parentElement.insertAdjacentHTML('beforeend', await htmlFileContent)
+        const hovercard = postHeader.parentElement.querySelector('div.hoverCard')
         hovercard.style.display = 'none'
         const hoverArea = document.createElement('div')
         hoverArea.classList.add('hoverArea')
