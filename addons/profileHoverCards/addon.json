@@ -1,23 +1,25 @@
 {
-    "urls": [
-        "https://wasteof.money/",
-        "https://wasteof.money",
-        "https://beta.wasteof.money/",
-        "https://beta.wasteof.money"
-    ],
-    "urlcontains": [
-        "wasteof.money/posts",
-        "wasteof.money/users",
-        "wasteof.money/explore"
-    ],
-    "name": "Profile Hover Cards",
-    "description": "Adds a hover cards with user profile information to posts, users, and explore pages.",
-    "hasContentScript": true,
-    "hasContentStyle": true,
-    "enabledByDefault": true,
-    "developers": [{
-        "name": "imadeanaccount",
-        "link": "https://github.com/imadeanaccount1"
-    }],
-    "options": []
+  "urls": [
+    "https://wasteof.money/",
+    "https://wasteof.money",
+    "https://beta.wasteof.money/",
+    "https://beta.wasteof.money"
+  ],
+  "urlcontains": [
+    "wasteof.money/posts",
+    "wasteof.money/users",
+    "wasteof.money/explore"
+  ],
+  "name": "Profile Hover Cards",
+  "description": "Adds a hover cards with user profile information to posts, users, and explore pages.",
+  "hasContentScript": true,
+  "hasContentStyle": true,
+  "enabledByDefault": true,
+  "developers": [
+    {
+      "name": "imadeanaccount",
+      "link": "https://github.com/imadeanaccount1"
+    }
+  ],
+  "options": []
 }
