@@ -11,8 +11,11 @@ jobs:
 #               with:
 #                 node-version: 18
 #                 cache: npm
+<<<<<<< HEAD
             - name: Install dependencies
               run: npm ci --production
+=======
+>>>>>>> add-hashtags-addon
             - name: Run Build
               run: npm run build:firefox
             - name: Create dist folder

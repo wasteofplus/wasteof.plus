@@ -1,4 +1,5 @@
 name: 🤖 Build Chromium
+<<<<<<< HEAD
 run-name: Build branch ${{ inputs.branch }} for Chromium by @${{ github.actor }}
 
 on: 
@@ -6,15 +7,25 @@ on:
         inputs:
             branch:
                 description: 'Branch to checkout'
+=======
+
+on: 
+    workflow_dispatch:
+    push:
+        branches: []
+>>>>>>> add-hashtags-addon
 
 jobs:
     build:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+<<<<<<< HEAD
               with:
                     ref: ${{ inputs.branch }}
             
+=======
+>>>>>>> add-hashtags-addon
 #             - uses: actions/setup-node@v3
 #               with:
 #                 node-version: 18

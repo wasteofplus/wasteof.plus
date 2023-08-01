@@ -41,7 +41,11 @@ function getMessageContent (message) {
 }
 
 async function doesContentScriptExist (tabId, contentScript) {
+<<<<<<< HEAD
   console.log('does content script exist', tabId, contentScript)
+=======
+  console.log('does content script exist', tabId)
+>>>>>>> add-hashtags-addon
   return new Promise((resolve, reject) => {
     try {
       chrome.tabs.sendMessage(tabId, { greeting: contentScript }, function (response) {
@@ -150,7 +154,11 @@ const defaultEnabledAddons = []
 let lastTabId = 0
 let lastAddedAddons = null
 
+<<<<<<< HEAD
 function injectAddons (details, force) {
+=======
+chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
+>>>>>>> add-hashtags-addon
   chrome.storage.local.get(['enabledAddons']).then((result) => {
     let enabledAddons = []
     if (result.enabledAddons === undefined) {
@@ -190,6 +198,7 @@ function injectAddons (details, force) {
             // console.log("exists?", doesContentScriptExist(details.tabId, "feed"))
             const scriptExists = await doesContentScriptExist(details.tabId, addon)
             console.log(scriptExists)
+<<<<<<< HEAD
             if ((!scriptExists)) {
               console.log('adding addon', addon)
               runAddon(details.tabId, addon, data)
@@ -199,16 +208,27 @@ function injectAddons (details, force) {
               // }
               console.log('script already exists. reloading tab')
               // chrome.tabs.reload(details.tabId)
+=======
+            if (!scriptExists) {
+              console.log('adding addon', addon)
+              runAddon(details.tabId, addon, data)
+            } else {
+              console.log('script already exists. reloading tab')
+              chrome.tabs.reload(details.tabId)
+>>>>>>> add-hashtags-addon
             }
           }
         })
       }
     }
   })
+<<<<<<< HEAD
 }
 
 chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
   injectAddons(details, false)
+=======
+>>>>>>> add-hashtags-addon
 })
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -370,6 +390,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           }
         })
       })()
+<<<<<<< HEAD
     } else if (request.type === 'route-changed') {
       console.log('route change message received!')
       console.log('tab id is', sender.tab.id, 'url is', sender.tab.url)
@@ -377,6 +398,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         console.log('response', response)
       })
       // injectAddons({ tabId: sender.tab.id, url: sender.tab.url }, true)
+=======
+>>>>>>> add-hashtags-addon
     } else {
       console.log('got message', request.type)
       sendResponse('got other message!')
