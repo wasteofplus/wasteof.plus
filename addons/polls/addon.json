@@ -9,5 +9,5 @@
   "hasContentScript": true,
   "hasContentStyle": true,
   "enabledByDefault": true,
-  "options": []
+  "options":[]
 }

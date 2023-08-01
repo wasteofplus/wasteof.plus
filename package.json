@@ -11,19 +11,16 @@
     "build:firefox": "run-script-os",
     "build:firefox:linux": "cp manifest_firefox.json manifest.json",
     "build:firefox:windows": "copy manifest_firefox.json manifest.json",
-    "build:firefox:default": "cp manifest_firefox.json manifest.json",
-    "lint": "npx eslint \"./**/*.js\" --cache --cache-strategy content --fix"
+    "build:firefox:default": "cp manifest_firefox.json manifest.json"
   },
   "author": "",
   "license": "BSD",
   "devDependencies": {
     "eslint": "^8.45.0",
-    "eslint-config-prettier": "^8.9.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^16.0.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "prettier": "3.0.0"
+    "eslint-plugin-promise": "^6.1.1"
   },
   "dependencies": {
     "flowbite": "^1.7.0",

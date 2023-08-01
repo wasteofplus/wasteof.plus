@@ -1,26 +1,25 @@
 {
-  "urls": [
-    "https://wasteof.money/",
-    "https://wasteof.money",
-    "https://beta.wasteof.money/",
-    "https://beta.wasteof.money"
-  ],
-  "urlcontains": [
-    "wasteof.money/posts",
-    "wasteof.money/users",
-    "wasteof.money/explore",
-    "wasteof.money/messages"
-  ],
-  "name": "User Permission/Status Badges",
-  "description": "Adds admin, verified, beta, and banned badges as well as online indicators to user statuses",
-  "hasContentScript": true,
-  "hasContentStyle": true,
-  "enabledByDefault": true,
-  "developers": [
-    {
-      "name": "imadeanaccount",
-      "link": "https://github.com/imadeanaccount1"
-    }
-  ],
-  "options": []
+    "urls": [
+        "https://wasteof.money/",
+        "https://wasteof.money",
+        "https://beta.wasteof.money/",
+        "https://beta.wasteof.money"
+    ],
+    "urlcontains": [
+        "wasteof.money/posts",
+        "wasteof.money/users",
+        "wasteof.money/explore",
+        "wasteof.money/messages"
+
+    ],
+    "name": "User Permission/Status Badges",
+    "description": "Adds admin, verified, beta, and banned badges as well as online indicators to user statuses",
+    "hasContentScript": true,
+    "hasContentStyle": true,
+    "enabledByDefault": true,
+    "developers": [{
+        "name": "imadeanaccount",
+        "link": "https://github.com/imadeanaccount1"
+    }],
+    "options": []
 }

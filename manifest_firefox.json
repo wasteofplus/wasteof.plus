@@ -1,37 +1,40 @@
 {
-  "name": "wasteof.plus",
-  "manifest_version": 3,
-  "version": "0.1.0",
-  "version_name": "0.1.0-alpha",
-  "description": "adds helpful features to wasteof.money",
-  "externally_connectable": {
-    "matches": ["*://*.wasteof.money/*"]
-  },
-  "permissions": ["activeTab", "scripting", "storage", "tabs", "webNavigation"],
-  "background": {
-    "scripts": ["background/background.js"]
-  },
-  "content_scripts": [],
-  "icons": {
-    "16": "assets/icons/icon16.png",
-    "32": "assets/icons/icon32.png",
-    "48": "assets/icons/icon48.png",
-    "128": "assets/icons/icon128.png"
-  },
-  "action": {
-    "default_popup": "popups/popup.html"
-  },
-  "host_permissions": ["<all_urls>"],
-  "web_accessible_resources": [
-    {
-      "matches": ["*://*.wasteof.money/*"],
-      "resources": [
-        "addons/*/*.js",
-        "addons/*/templates/*.html",
-        "addons/*/addon.json",
-        "addons/*/lib/*.js",
-        "utils.js"
+    "name": "wasteof.plus",
+    "manifest_version": 3,
+    "version": "0.1.0",
+    "version_name": "0.1.0-alpha",
+    "description": "adds helpful features to wasteof.money",
+    "externally_connectable": {
+      "matches": ["*://*.wasteof.money/*"]
+    },
+    "permissions": ["activeTab", "scripting", "storage", "tabs", "webNavigation"],
+    "background": {
+      "scripts": [
+        "background/background.js"
       ]
-    }
-  ]
-}
+    },
+    "content_scripts": [
+
+    ],
+    "icons": {
+      "16": "assets/icons/icon16.png",     
+      "32": "assets/icons/icon32.png",   
+      "48": "assets/icons/icon48.png", 
+      "128": "assets/icons/icon128.png"      
+
+    },
+    "action": {
+      "default_popup": "popups/popup.html"
+    },
+    "host_permissions": ["<all_urls>"],
+    "web_accessible_resources": [{
+        "matches": ["*://*.wasteof.money/*"],
+        "resources": [
+            "addons/*/*.js",
+            "addons/*/templates/*.html",
+            "addons/*/addon.json",
+            "addons/*/lib/*.js",
+            "utils.js"
+        ]
+      }]
+  }

@@ -1,5 +1,4 @@
 # Security Policy
-
 wasteof.plus takes security seriously and respects that any browser extension of its nature should be expected to maintain open and adequate standards for addressing vulnerabilities and taking steps to ensure they do not occur.
 
 ## Supported Versions
@@ -7,6 +6,7 @@ wasteof.plus takes security seriously and respects that any browser extension of
 | Version | Supported          |
 | ------- | ------------------ |
 | 0.1.0   | :white_check_mark: |
+
 
 ## Reporting a Vulnerability
 

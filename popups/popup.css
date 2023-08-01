@@ -49,17 +49,8 @@ body {
   background-color: #f4f4f4;
   padding: 0px;
   margin: 0px;
-  font-family:
-    Space Grotesk,
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Monaco,
-    Consolas,
-    Liberation Mono,
-    Courier New,
-    monospace,
-    sans-serif;
+  font-family: Space Grotesk, ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, Liberation Mono, Courier New, monospace, sans-serif;
 }
 
 .optionFile {
@@ -147,7 +138,7 @@ body {
 
 .slider:before {
   position: absolute;
-  content: '';
+  content: "";
   height: 14px;
   width: 14px;
   left: 4px;
@@ -181,7 +172,7 @@ body {
   display: inline;
 }
 
-.optionsLabel {
+.optionsLabel  {
   margin: auto 0px;
 }
 
