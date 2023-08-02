@@ -1,6 +1,5 @@
 # Contributing
 
-<<<<<<< HEAD
 ### Contents:
 1. [Developing an Addon](#developing-an-addon)
 
@@ -10,8 +9,6 @@
 4. [Contributing an Addon](#contributing-an-addon)
 5. [Package.json Scripts](#packagejson-scripts)
 
-=======
->>>>>>> add-hashtags-addon
 ## Developing an Addon
 To contribute an addon to wasteof.plus, you must create a folder for the addon under the `addons/` directory. This subfolder must be named using a descriptive addon id that describes the addon's "main purpose" well. 
 
