@@ -4,5 +4,6 @@
     "chatPresenceNotify",
     "polls",
     "addMessageCountBadge",
-    "addMessageNotifications"
+    "addMessageNotifications",
+    "viewReposts"
 ]
