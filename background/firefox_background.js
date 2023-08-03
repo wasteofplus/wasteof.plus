@@ -1,3 +1,6 @@
+// import('../node_modules/socket.io-client/dist/socket.io.js').then((io) => {
+import * as io from '../node_modules/socket.io-client/dist/socket.io.min.js'
+console.log('io', io)
 function getMessageSummary (message) {
   let summary = '@' + message.data.actor.name
   if (message.type === 'wall_comment_mention') {
@@ -124,7 +127,7 @@ function simulateMessage (request, enabledAddons) {
             }
             if (responseFromBackground.numberOfMessages !== undefined) {
               if (count > responseFromBackground.numberOfMessages) {
-              // Play sound with access to DOM APIs
+                // Play sound with access to DOM APIs
                 console.log('should play a sound')
                 if (responseFromBackground.playSound) {
                   playAudio({ source: responseFromBackground.sound, volume: responseFromBackground.volume })
@@ -142,15 +145,15 @@ function simulateMessage (request, enabledAddons) {
                   token: request.token,
                   dontNotify: false
                 })
-              // sendResponse({ response: 'Response from offscreen script' })
-              // chrome.runtime.sendMessage({ count })
+                // sendResponse({ response: 'Response from offscreen script' })
+                // chrome.runtime.sendMessage({ count })
               } else {
-              // chrome.runtime.sendMessage({
-              //   type: 'new_messages',
-              //   count,
-              //   token: request.token,
-              //   dontNotify: true
-              // })
+                // chrome.runtime.sendMessage({
+                //   type: 'new_messages',
+                //   count,
+                //   token: request.token,
+                //   dontNotify: true
+                // })
                 simulateMessage({
                   type: 'new_messages',
                   count,
@@ -162,7 +165,7 @@ function simulateMessage (request, enabledAddons) {
               }
             } else {
               console.log('no new messages')
-            // logMessage('No new messages' + JSON.stringify(storageData.numberOfMessages), logUrl)
+              // logMessage('No new messages' + JSON.stringify(storageData.numberOfMessages), logUrl)
             }
           })
         })
@@ -389,7 +392,7 @@ browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             console.log('does current url', tab.url, ' match addon url?', dynamicEnableStatus)
             console.log('tab', tab)
             if (dynamicEnableStatus) {
-            // wait 1 second
+              // wait 1 second
               await new Promise(resolve => setTimeout(resolve, 1000)) // 3 sec
               // console.log("exists?", doesContentScriptExist(details.tabId, "feed"))
               const scriptExists = await doesContentScriptExist(tabId, addon)
@@ -409,67 +412,37 @@ browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   }
 })
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  chrome.storage.local.get(['enabledAddons']).then(async (result) => {
-    if (request.type === 'login-token') {
-      console.log('received login token and sending it', request.token, result.enabledAddons.includes('addMessageCountBadge'))
-      if (result.enabledAddons !== undefined) {
-        console.log('some addons are enabled', result.enabledAddons, result.enabledAddons.includes('addMessageCountBadge'), result.enabledAddons.includes('addMessageNotifications'))
-        if (result.enabledAddons.includes('addMessageCountBadge') || result.enabledAddons.includes('addMessageNotifications')) {
-          if (websocketListening) {
-            console.log('websocket is already listening')
-          } else {
-            console.log('received message from content script', request.token)
-            chrome.storage.local.get(['addMessageCountBadgeOptions'], async (theResultOptions) => {
-              console.log('sending message to offscreen', theResultOptions.addMessageCountBadgeOptions.preset)
+chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
+  if (request.text === 'what is my tab_id?') {
+    // wait 2 seconds
+    await new Promise(resolve => setTimeout(resolve, 2000)) // 3 sec
+    console.log('received message from content script', sender.tab.id)
+    chrome.scripting.executeScript({
+      target: { tabId: sender.tab.id },
+      files: ['content-scripts/lib/getToken.js', 'content-scripts/lib/routeChange.js']
+    })
+    sendResponse({ tab: sender.tab.id })
+  } else {
+    chrome.storage.local.get(['enabledAddons']).then(async (result) => {
+      if (request.type === 'login-token') {
+        console.log('received login token and sending it', request.token, result.enabledAddons.includes('addMessageCountBadge'))
+        if (result.enabledAddons !== undefined) {
+          console.log('some addons are enabled', result.enabledAddons, result.enabledAddons.includes('addMessageCountBadge'), result.enabledAddons.includes('addMessageNotifications'))
+          if (result.enabledAddons.includes('addMessageCountBadge') || result.enabledAddons.includes('addMessageNotifications')) {
+            if (websocketListening) {
+              console.log('websocket is already listening')
+            } else {
+              console.log('received message from content script', request.token)
+              chrome.storage.local.get(['addMessageCountBadgeOptions'], async (theResultOptions) => {
+                console.log('sending message to offscreen', theResultOptions.addMessageCountBadgeOptions.preset)
 
-              if (theResultOptions.addMessageCountBadgeOptions.preset === 'Cha-Ching') {
-                // chrome.runtime.sendMessage({
-                //   type: 'token-send',
-                //   logUrl,
-                //   target: 'offscreen',
-                //   token: request.token,
-                //   sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
-                //   volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                //   playSound: theResultOptions.addMessageCountBadgeOptions.playSound
-                // }, function (response) {
-                //   console.log('response from offscreen', response)
-                // })
-                simulateMessage({
-                  type: 'token-send',
-                  token: request.token,
-                  sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
-                  volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                  playSound: theResultOptions.addMessageCountBadgeOptions.playSound
-                }, result.enabledAddons)
-              } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Discord') {
-                // chrome.runtime.sendMessage({
-                //   type: 'token-send',
-                //   target: 'offscreen',
-                //   logUrl,
-                //   token: request.token,
-                //   sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
-                //   volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                //   playSound: theResultOptions.addMessageCountBadgeOptions.playSound
-                // }, function (response) {
-                //   console.log('response from offscreen', response)
-                //   console.log(chrome.runtime.getURL('assets/sounds/notify.mp3'))
-                // })
-                simulateMessage({
-                  type: 'token-send',
-                  token: request.token,
-                  sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
-                  volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                  playSound: theResultOptions.addMessageCountBadgeOptions.playSound
-                }, result.enabledAddons)
-              } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Custom') {
-                chrome.storage.local.get(['notificationsSound'], async (theResultCustomSound) => {
+                if (theResultOptions.addMessageCountBadgeOptions.preset === 'Cha-Ching') {
                   // chrome.runtime.sendMessage({
                   //   type: 'token-send',
+                  //   logUrl,
                   //   target: 'offscreen',
                   //   token: request.token,
-                  //   logUrl,
-                  //   sound: theResultCustomSound.notificationsSound.file,
+                  //   sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
                   //   volume: theResultOptions.addMessageCountBadgeOptions.volume,
                   //   playSound: theResultOptions.addMessageCountBadgeOptions.playSound
                   // }, function (response) {
@@ -478,27 +451,67 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                   simulateMessage({
                     type: 'token-send',
                     token: request.token,
-                    sound: theResultCustomSound.notificationsSound.file,
+                    sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
                     volume: theResultOptions.addMessageCountBadgeOptions.volume,
                     playSound: theResultOptions.addMessageCountBadgeOptions.playSound
                   }, result.enabledAddons)
-                })
-              }
-            })
+                } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Discord') {
+                  // chrome.runtime.sendMessage({
+                  //   type: 'token-send',
+                  //   target: 'offscreen',
+                  //   logUrl,
+                  //   token: request.token,
+                  //   sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
+                  //   volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                  //   playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+                  // }, function (response) {
+                  //   console.log('response from offscreen', response)
+                  //   console.log(chrome.runtime.getURL('assets/sounds/notify.mp3'))
+                  // })
+                  simulateMessage({
+                    type: 'token-send',
+                    token: request.token,
+                    sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
+                    volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                    playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+                  }, result.enabledAddons)
+                } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Custom') {
+                  chrome.storage.local.get(['notificationsSound'], async (theResultCustomSound) => {
+                    // chrome.runtime.sendMessage({
+                    //   type: 'token-send',
+                    //   target: 'offscreen',
+                    //   token: request.token,
+                    //   logUrl,
+                    //   sound: theResultCustomSound.notificationsSound.file,
+                    //   volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                    //   playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+                    // }, function (response) {
+                    //   console.log('response from offscreen', response)
+                    // })
+                    simulateMessage({
+                      type: 'token-send',
+                      token: request.token,
+                      sound: theResultCustomSound.notificationsSound.file,
+                      volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                      playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+                    }, result.enabledAddons)
+                  })
+                }
+              })
+            }
           }
         }
+        sendResponse('received login token!')
+      } else {
+        console.log('got message', request.type)
+        sendResponse('got other message!')
       }
-      sendResponse('received login token!')
-    } else {
-      console.log('got message', request.type)
-      sendResponse('got other message!')
-    }
-  })
-  return true
-})
-
-chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-  if (msg.text === 'what is my tab_id?') {
-    sendResponse({ tab: sender.tab.id })
+    })
+    return true
   }
 })
+
+// chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+//   console.log('received message', msg)
+
+// })

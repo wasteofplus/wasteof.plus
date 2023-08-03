@@ -15,12 +15,13 @@
     "background": {
       "scripts": [
         "background/firefox_background.js"
-      ]
+      ],
+      "type": "module"
     },
     "content_scripts": [
       {
         "matches": ["*://*.wasteof.money/*"],
-        "js": ["content-scripts/content_script.js"],
+        "js": ["content-scripts/content_script_firefox.js"],
         "run_at": "document_end"
       }
     ],

@@ -36,29 +36,26 @@ window.addEventListener(
   false
 )
 
+console.log('send message for tabid')
 chrome.runtime.sendMessage({ text: 'what is my tab_id?' }, tabId => {
   console.log('My tabId is', tabId)
 })
 // document.body.style.backgroundColor = 'red'
-const getTokenScript = document.createElement('script')
-getTokenScript.id = 'getTokenScript1'
-getTokenScript.src = chrome.runtime.getURL('content-scripts/lib/getToken.js')
-// getTokenScript.dataset.extensionId = chrome.runtime.id
+// const getTokenScript = document.createElement('script')
+// getTokenScript.id = 'getTokenScript1'
+// getTokenScript.src = chrome.runtime.getURL('content-scripts/lib/getToken.js')
+// // getTokenScript.dataset.extensionId = chrome.runtime.id
 
-document.body.appendChild(getTokenScript)
+// document.body.appendChild(getTokenScript)
 
-const routeChangeScript = document.createElement('script')
-routeChangeScript.id = 'routeChangeScript1'
-routeChangeScript.src = chrome.runtime.getURL('content-scripts/lib/routeChange.js')
-// getTokenScript.dataset.extensionId = chrome.runtime.id
+// const routeChangeScript = document.createElement('script')
+// routeChangeScript.id = 'routeChangeScript1'
+// routeChangeScript.src = chrome.runtime.getURL('content-scripts/lib/routeChange.js')
+// // getTokenScript.dataset.extensionId = chrome.runtime.id
 
-document.body.appendChild(routeChangeScript)
+// document.body.appendChild(routeChangeScript)
 
-const win = window.top.getBrowser().selectedBrowser.contentWindow
 // By the way, this could just be
 //   var win = content;
 // or
-//   var win = gBrowser.contentWindow;
-alert(win.variableForExtension) // undefined
-console.log('nuxtvar', win.wrappedJSObject.$nuxt)
-// voila!
+//   var win = gBrowser.contentWindow;// voila!
