@@ -1,5 +1,5 @@
 // import('../node_modules/socket.io-client/dist/socket.io.js').then((io) => {
-import * as io from '../node_modules/socket.io-client/dist/socket.io.min.js'
+const io = import('../node_modules/socket.io-client/dist/socket.io.js')
 console.log('io', io)
 function getMessageSummary (message) {
   let summary = '@' + message.data.actor.name
@@ -178,7 +178,7 @@ function simulateMessage (request, enabledAddons) {
       chrome.action.setBadgeTextColor({ color: '#ffffff' })
     }
 
-    console.log('new messages found', request.count)
+    console.log('new messages found', request.count, request.token)
     if (!request.dontNotify) {
       if (enabledAddons.includes('addMessageNotifications')) {
         fetch('https://api.wasteof.money/messages/unread', {

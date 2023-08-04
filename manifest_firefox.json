@@ -38,6 +38,7 @@
     "web_accessible_resources": [{
         "matches": ["*://*.wasteof.money/*"],
         "resources": [
+            "node_modules/socket.io-client/dist/socket.io.js",
             "addons/*/*.js",
             "addons/*/templates/*.html",
             "addons/*/addon.json",
