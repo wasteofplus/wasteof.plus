@@ -37,8 +37,8 @@ function waitForElm (selector, callback, ignoreClasses) {
     })
 
     observer.observe(document.body, {
-      childList: true,
-      subtree: true
+      childList: false,
+      subtree: false
     })
   })
 }
