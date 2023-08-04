@@ -50,11 +50,8 @@ routeChangeScript.src = chrome.runtime.getURL('content-scripts/lib/routeChange.j
 
 document.body.appendChild(routeChangeScript)
 
-const win = window.top.getBrowser().selectedBrowser.contentWindow
 // By the way, this could just be
 //   var win = content;
 // or
 //   var win = gBrowser.contentWindow;
-alert(win.variableForExtension) // undefined
-console.log('nuxtvar', win.wrappedJSObject.$nuxt)
 // voila!

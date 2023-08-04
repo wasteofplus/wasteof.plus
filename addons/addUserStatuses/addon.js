@@ -109,25 +109,23 @@ addon(false).then(async () => {
 
   const utils = await import(utilsUrl)
 
-  await utils.waitForElm('img.border-2', async () => {
+  await utils.waitForElm('img.border-2', async (addedNodesFromWait) => {
     newNodes1 += 1
-    console.log('newNodes1', newNodes1, 'element has been updated')
-    if (newNodes1 > 24) {
-      newNodes1 = 0
-      console.log('element has been updated, rerunning addon')
+    console.log('newNodes1', newNodes1, 'element has been updated1', addedNodesFromWait)
+    newNodes1 = 0
+    console.log('element has been updated, rerunning addon')
 
-      const profilePictures = document.querySelectorAll('img.border-2')
-      console.log('pictures', profilePictures)
+    // const profilePictures = document.querySelectorAll('img.border-2')
+    console.log('picturesfromcallback', addedNodesFromWait)
 
-      const onlineIndicator = document.createElement('div')
-      onlineIndicator.classList.add('onlineindicator1')
-      console.log('pictures')
+    const onlineIndicator = document.createElement('div')
+    onlineIndicator.classList.add('onlineindicator1')
+    console.log('pictures')
 
-      const setUserStatusesUrl = chrome.runtime.getURL('./addons/addUserStatuses/lib/setUserStatuses.js')
-      const contentMain = await import(setUserStatusesUrl)
-      contentMain.setUserStatuses(profilePictures, onlineIndicator)
-      // addon(false)
-    }
+    const setUserStatusesUrl = chrome.runtime.getURL('./addons/addUserStatuses/lib/setUserStatuses.js')
+    const contentMain = await import(setUserStatusesUrl)
+    contentMain.setUserStatuses(addedNodesFromWait, onlineIndicator)
+    // addon(false)
   })
 }
 )

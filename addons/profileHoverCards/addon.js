@@ -238,6 +238,7 @@ async function addonTwo () {
     console.log('looping post')
 
     const postHeader = post.querySelector('a.w-full')
+    console.log('post header is ', postHeader)
     if (!postHeader.parentElement.classList.contains('truncate')) {
       postHeader.parentElement.style.position = 'relative'
       console.log('post1', postHeader.parentElement, postHeader.parentElement.querySelectorAll('div.hoverCard'))
@@ -304,4 +305,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 //   false
 // )
 
-addon()
+addon().then(async () => {
+  const utilsUrl = chrome.runtime.getURL('../utils.js')
+
+  const utils = await import(utilsUrl)
+
+  await utils.waitForElm('img.border-2', async (addedNodesFromWait) => {
+    addonTwo()
+
+    // addon(false)
+  })
+})
