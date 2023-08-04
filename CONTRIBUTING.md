@@ -1,6 +1,5 @@
 # Contributing
 
-<<<<<<< HEAD
 ### Contents:
 1. [Developing an Addon](#developing-an-addon)
 
@@ -10,14 +9,10 @@
 4. [Contributing an Addon](#contributing-an-addon)
 5. [Package.json Scripts](#packagejson-scripts)
 
-=======
->>>>>>> add-hashtags-addon
 ## Developing an Addon
 To contribute an addon to wasteof.plus, you must create a folder for the addon under the `addons/` directory. This subfolder must be named using a descriptive addon id that describes the addon's "main purpose" well. 
 
 > Addons should not be too broad, it is better to create several addons than one big addon (users will have the option to turn on/off the different smaller addons, creating more customizability)
-
-<<<<<<< HEAD
 
 The addon folder should have the following files:
 - `addon.js` - This contains your main addon code, typically with a main `addon()` function.
@@ -30,19 +25,10 @@ The addon folder should have the following files:
   - enabledByDefault - Boolean: whether the addon should be enabled by default. If set to false, the addon will have to be enabled by the user. Addons that provide basic or core functionalities should have this property set to true.
   - hasContentScript - Boolean: whether a content script `addon.js` file is present in the addon
   - hasContentStyle - Boolean: whether an `addon.css` file is present/should be used on the pages defined in `url` and `urlcontains`
-=======
-The addon folder should have the following files:
-- `addon.js` - This contains your main addon code, typically with a main `addon()` function.
-- `addon.json` - The addon.json object requires the following properties:
-  - urls - An array of the exact URLs on which your addon scripts/styles should be applied to
-  - urlcontains - An array of URL snippets. Pages with URLs containing any of these snippets will have your addon applied to them.
-  - name - A general name (3-4 words) for your addon. Ex: Profile Hover Cards (is not the same as your addon id)
->>>>>>> add-hashtags-addon
 - `addon.css`- - This is required. If your addon doesn't contain any CSS, it can be blank.
 
 If you have utility files or other code files, create a `lib/` folder under your addon's folder. If you have 
 
-<<<<<<< HEAD
 ## Permissions:
 
 ### Chrome.Storage API
