@@ -6,12 +6,6 @@
   text-align: center;
   font-size: 16px;
   display: flex;
-<<<<<<< HEAD
-  justify-content: center;
-  align-items: center;
-}
-
-=======
   justify-content: space-between;
   align-items: center;
 }
@@ -66,10 +60,6 @@ body {
   max-height: 540px;
   height: 540px;
   min-width: 355px;
-<<<<<<< HEAD
-=======
-
->>>>>>> fix-addon-reloading
   background-color: #f4f4f4;
   padding: 0px;
   margin: 0px;
