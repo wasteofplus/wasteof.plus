@@ -7,15 +7,15 @@ window.addEventListener(
     //   chrome.runtime.sendMessage(evt.detail)
     chrome.runtime.sendMessage(
       {
-        type: 'route-changed'
+        type: 'route-changed',
       },
       function (response) {
         console.log('Response: ', response)
-      }
+      },
     )
     console.log('got window event')
   },
-  false
+  false,
 )
 
 window.addEventListener(
@@ -25,15 +25,15 @@ window.addEventListener(
     chrome.runtime.sendMessage(
       {
         type: 'login-token',
-        token: document.querySelector('body').dataset.token
+        token: document.querySelector('body').dataset.token,
       },
       function (response) {
         console.log('Response: ', response)
-      }
+      },
     )
     console.log('got window event')
   },
-  false
+  false,
 )
 // document.body.style.backgroundColor = 'red'
 const getTokenScript = document.createElement('script')
@@ -45,7 +45,9 @@ document.body.appendChild(getTokenScript)
 
 const routeChangeScript = document.createElement('script')
 routeChangeScript.id = 'routeChangeScript1'
-routeChangeScript.src = chrome.runtime.getURL('content-scripts/lib/routeChange.js')
+routeChangeScript.src = chrome.runtime.getURL(
+  'content-scripts/lib/routeChange.js',
+)
 // getTokenScript.dataset.extensionId = chrome.runtime.id
 
 document.body.appendChild(routeChangeScript)

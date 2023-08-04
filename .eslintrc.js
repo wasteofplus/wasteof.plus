@@ -3,25 +3,22 @@ module.exports = {
     browser: true,
     commonjs: true,
     es2021: true,
-    webextensions: true
+    webextensions: true,
   },
-  extends: 'standard',
+  extends: ['standard', 'prettier'],
   overrides: [
     {
       env: {
-        node: true
+        node: true,
       },
-      files: [
-        '.eslintrc.{js,cjs}'
-      ],
+      files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
-        sourceType: 'script'
-      }
-    }
+        sourceType: 'script',
+      },
+    },
   ],
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 'latest',
   },
-  rules: {
-  }
+  rules: {},
 }

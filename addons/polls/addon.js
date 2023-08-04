@@ -1,4 +1,4 @@
-function addon () {
+function addon() {
   const cookieMatch = document.cookie.match(/token=([^;]+)/)
   const token = cookieMatch ? cookieMatch[1] : null
 
@@ -9,7 +9,7 @@ function addon () {
     const votedAuthors = []
     while (true) {
       const response = await fetch(
-        `https://api.wasteof.money/posts/${post}/comments?page=${page}`
+        `https://api.wasteof.money/posts/${post}/comments?page=${page}`,
       ).then((response) => response.json())
       response.comments.forEach((comment) => {
         if (!paragraphs.includes(comment.content)) {
@@ -19,10 +19,7 @@ function addon () {
           return
         }
         const values = mappedComments.get(comment.content)
-        mappedComments.set(comment.content, [
-          ...(values ?? []),
-          comment.poster
-        ])
+        mappedComments.set(comment.content, [...(values ?? []), comment.poster])
         votedAuthors.push(comment.poster.id)
       })
       if (response.last) {
@@ -40,19 +37,14 @@ function addon () {
     .find((el) => el.textContent === 'Create post')
     .parentElement.querySelector('#modal-header ~ div > div > div > div')
   const insertPollsButton = document.createElement('button')
-  insertPollsButton.classList.add(
-    'text-white',
-    'p-1',
-    'rounded',
-    'bg-gray-500'
-  )
+  insertPollsButton.classList.add('text-white', 'p-1', 'rounded', 'bg-gray-500')
   const insertPollsButtonSpan = document.createElement('span')
   insertPollsButtonSpan.innerHTML = pollSvg
   insertPollsButton.appendChild(insertPollsButtonSpan)
   insertPollsButton.addEventListener('click', () => {
     if (
       [...document.querySelectorAll('nav + div .ProseMirror pre code')].some(
-        (el) => el.textContent.startsWith('poll: ')
+        (el) => el.textContent.startsWith('poll: '),
       )
     ) {
       alert('Only one poll per post is supported.')
@@ -62,8 +54,8 @@ function addon () {
     while (true) {
       const option = prompt(
         `Current options: ${options.join(
-          ', '
-        )}\nPut in another option, or press Cancel to stop.`
+          ', ',
+        )}\nPut in another option, or press Cancel to stop.`,
       )
       if (option === null) {
         break
@@ -111,7 +103,7 @@ function addon () {
       'border-2',
       'dark:border-gray-700',
       'rounded-xl',
-      'poll'
+      'poll',
     )
     poll.addEventListener('submit', async (e) => {
       const checked = poll.querySelector(`[name='poll-${postId}']:checked`)
@@ -125,13 +117,13 @@ function addon () {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: token
+            Authorization: token,
           },
           body: JSON.stringify({
             content: `<p>${checked.value}</p>`,
-            parent: null
-          })
-        }
+            parent: null,
+          }),
+        },
       )
       if (response.status === 200) {
         alert('Successfully voted.')
