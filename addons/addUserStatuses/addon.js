@@ -102,11 +102,32 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 })
 
+let newNodes1 = 0
+
 addon(false).then(async () => {
   const utilsUrl = chrome.runtime.getURL('../utils.js')
 
   const utils = await import(utilsUrl)
 
-  await utils.waitForElm('img.border-2', () => { addon(false) })
+  await utils.waitForElm('img.border-2', async () => {
+    newNodes1 += 1
+    console.log('newNodes1', newNodes1, 'element has been updated')
+    if (newNodes1 > 24) {
+      newNodes1 = 0
+      console.log('element has been updated, rerunning addon')
+
+      const profilePictures = document.querySelectorAll('img.border-2')
+      console.log('pictures', profilePictures)
+
+      const onlineIndicator = document.createElement('div')
+      onlineIndicator.classList.add('onlineindicator1')
+      console.log('pictures')
+
+      const setUserStatusesUrl = chrome.runtime.getURL('./addons/addUserStatuses/lib/setUserStatuses.js')
+      const contentMain = await import(setUserStatusesUrl)
+      contentMain.setUserStatuses(profilePictures, onlineIndicator)
+      // addon(false)
+    }
+  })
 }
 )

@@ -206,7 +206,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       console.log('going to execute polls')
       testrunaddon()
 
-      addon()
+      // addon()
     }, 3000)
     // addon()
     console.log('finsihed reloading addon user statises')
