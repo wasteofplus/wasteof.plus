@@ -84,7 +84,7 @@ function addonRun () {
 
     const setUserStatusesUrl = chrome.runtime.getURL('./addons/addUserStatuses/lib/setUserStatuses.js')
     const contentMain = await import(setUserStatusesUrl)
-    contentMain.setUserStatuses(profilePictures, onlineIndicator)
+    contentMain.setUserStatuses(profilePictures, onlineIndicator, false)
     // addon(false)
   }) // 3 sec
   // console.log('it\'s been 3 seconds since reload')
@@ -124,7 +124,7 @@ addon(false).then(async () => {
 
     const setUserStatusesUrl = chrome.runtime.getURL('./addons/addUserStatuses/lib/setUserStatuses.js')
     const contentMain = await import(setUserStatusesUrl)
-    contentMain.setUserStatuses(addedNodesFromWait, onlineIndicator)
+    contentMain.setUserStatuses(addedNodesFromWait, onlineIndicator, true)
     // addon(false)
   })
 }
