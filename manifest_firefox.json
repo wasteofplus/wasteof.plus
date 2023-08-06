@@ -9,7 +9,7 @@
       "*://*.wasteof.money/*"
     ],
     "description": "adds helpful features to wasteof.money",
-    "permissions": ["activeTab", "scripting", "storage", "tabs", "webNavigation"],
+    "permissions": ["scripting", "storage", "tabs", "webNavigation"],
     "optional_permissions": ["notifications"],
 
     "background": {
