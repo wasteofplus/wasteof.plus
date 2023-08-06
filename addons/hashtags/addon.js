@@ -1,51 +1,36 @@
 // generate hashtag links from elements containing # symbols
-function hashtag (text) {
-  const domtostr = text.innerText
-  const tag = domtostr.replace(
+// change code to make it open a popup later
+function hashtag(text) {
+  const tag = text.replace(
     /#(\w+)/g,
     '<a href="https://wasteof.money/search?q=$1">#$1</a>'
-  )
-  return tag
+  );
+  return tag;
 }
+
 // add hashtags to html (make them clickable)
-async function addhashtags () {
-  const utilsUrl = chrome.runtime.getURL('../utils.js')
-  const utils = await import(utilsUrl)
-  await utils.waitForElm('img.border-2')
+function addhashtags() {
+  console.log('executing hashtags script!');
 
-  await new Promise(resolve => setTimeout(resolve, 600)) // 3 sec
-  console.log('executing hastags script!')
+  // get all the posts containing the class prose dark:prose-light max-w-none break-words
+  const postcollection = document.querySelectorAll('.prose.dark\\:prose-light.max-w-none.break-words');
 
-  const postcollection = document.getElementsByClassName('break-words')
-  let i = 0
+  // go through all posts (boring)
+  postcollection.forEach(post => {
+    // find all the text paragraph elements within the post
+    const paragraphs = post.querySelectorAll('p');
 
-  console.log('postcollection', postcollection)
-
-  // go through all posts
-  while (i < postcollection.length) {
-    let v = 0
-
-    // go through all lines in each post to find lines containing # symbols
-    const postlines = postcollection[i].childNodes
-    console.log('postlines', postlines)
-    while (v < postlines.length) {
-      // make new element with hashtag link code
-      const newP = document.createElement('p')
-
-      console.log('postlines[v]', postlines[v])
-      const strtodom = hashtag(postlines[v])
-
-      console.log('strtodom', strtodom)
-
-      newP.innerHTML = strtodom
-
-      // replace current hashtag with hashtag with link
-      postlines[v].replaceWith(newP)
-      v++
-    }
-
-    i++
-  }
+    // go through all paragraph elements to find and update hashtags
+    paragraphs.forEach(p => {
+      const updatedContent = hashtag(p.textContent);
+      p.innerHTML = updatedContent;
+    });
+  });
 }
 
-addhashtags()
+// execute the function when the page and posts are loaded
+if (document.readyState === 'complete') {
+  addhashtags();
+} else {
+  document.addEventListener('DOMContentLoaded', addhashtags);
+}
