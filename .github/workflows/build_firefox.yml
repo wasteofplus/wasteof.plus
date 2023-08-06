@@ -1,16 +1,18 @@
 name: 🦊 Build Firefox
+run-name: Build branch ${{ inputs.branch }} for Chromium by @${{ github.actor }}
 
 on: 
     workflow_dispatch:
+         inputs:
+            branch:
+                description: 'Branch to checkout'
 jobs:
     build:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-#             - uses: actions/setup-node@v3
-#               with:
-#                 node-version: 18
-#                 cache: npm
+              with:
+                    ref: ${{ inputs.branch }}
             - name: Install dependencies
               run: npm ci --production
             - name: Run Build
@@ -19,7 +21,9 @@ jobs:
               run: mkdir dist
             - name: Zip Extension
               run: zip -r dist/wasteof-plus-firefox.zip . -x .git/ -x manifest_chromium.json -x manifest_firefox.json -x dist/
+            - name: Unzip Extension
+              run: unzip dist/wasteof-plus-firefox.zip -d artifact
             - uses: actions/upload-artifact@v3
               with:
-                name: my-artifact
-                path: dist/wasteof-plus-firefox.zip
+                name: wasteof-plus-firefox
+                path: artifact
