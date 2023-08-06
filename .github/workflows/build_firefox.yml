@@ -20,7 +20,7 @@ jobs:
             - name: Create dist folder
               run: mkdir dist
             - name: Zip Extension
-              run: zip -r dist/wasteof-plus-firefox.zip . -x .git/\* -x  .github/\* -x ./.git/* -x ./.github/* -x ./.git/**\* -x ./.github/**\* -x .eslintrc.js -x manifest_chromium.json -x manifest_firefox.json -x .gitignore -x ./node_modules/resolve/test/resolver/malformed_package_json/package.json -x ./node_modules/tailwindcss/src/cli/index.js -x ./node_modules/tailwindcss/peers/index.js-x dist/
+              run: zip -r dist/wasteof-plus-firefox.zip . -x .git/\* -x  .github/\* -x ./.git/* -x ./.github/* -x ./.git/**\* -x ./.github/**\* -x .eslintrc.js -x manifest_chromium.json -x manifest_firefox.json -x .gitignore -x ./node_modules/resolve/test/resolver/malformed_package_json/package.json -x ./node_modules/tailwindcss/src/cli/index.js -x ./node_modules/tailwindcss/peers/index.js -x dist/
             - name: Unzip Extension
               run: unzip dist/wasteof-plus-firefox.zip -d artifact
             - uses: actions/upload-artifact@v3
