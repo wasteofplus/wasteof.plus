@@ -1,6 +1,28 @@
 // import('../node_modules/socket.io-client/dist/socket.io.js').then((io) => {
-const io = import('../node_modules/socket.io-client/dist/socket.io.js')
-console.log('io', io)
+// const { io } = await import('../node_modules/socket.io-client/dist/socket.io.js')
+// const io = require("socket.io-client");
+
+const socketScript = document.createElement('script')
+// socketScript.id = 'socketScript1'
+console.log('socketScript', chrome.runtime.getURL('node_modules/socket.io-client/dist/socket.io.js'))
+socketScript.src = chrome.runtime.getURL('node_modules/socket.io-client/dist/socket.io.js')
+document.getElementsByTagName('head')[0].appendChild(socketScript)
+const delay = ms => new Promise((resolve) => setTimeout(resolve, ms))
+async function testhello () {
+  await delay(5000)
+  const socket1 = io('https://api.wasteof.money', {
+    transports: ['websocket'],
+    auth: { token: '377f136e7d5f3f4cfc3b5cfddf86a30e4b4656640a642bf3c0d37677442eb4524ba2c4d54f875330c2ef3ac3f55bfcfd' }
+  })
+
+  socket1.on('updateMessageCount', async function (count) {
+    console.log('updateMessageCount', count)
+  })
+}
+
+testhello()
+// console.log('io', io(), document)
+console.log('started backgrouond script')
 function getMessageSummary (message) {
   let summary = '@' + message.data.actor.name
   if (message.type === 'wall_comment_mention') {
@@ -144,7 +166,7 @@ function simulateMessage (request, enabledAddons) {
                   count,
                   token: request.token,
                   dontNotify: false
-                })
+                }, enabledAddons)
                 // sendResponse({ response: 'Response from offscreen script' })
                 // chrome.runtime.sendMessage({ count })
               } else {
@@ -159,7 +181,7 @@ function simulateMessage (request, enabledAddons) {
                   count,
                   token: request.token,
                   dontNotify: true
-                })
+                }, enabledAddons)
                 // logMessage('No new messages', logUrl)
                 console.log('no new messages1')
               }

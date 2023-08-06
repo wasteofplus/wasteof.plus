@@ -13,10 +13,7 @@
     "optional_permissions": ["notifications"],
 
     "background": {
-      "scripts": [
-        "background/firefox_background.js"
-      ],
-      "type": "module"
+      "scripts": ["firefox_background.js"]
     },
     "content_scripts": [
       {
