@@ -40,7 +40,7 @@ wasteof.plus is still being ported to work in Firefox. You can follow developmen
 - Allows you to create and vote in rich polls
 
 ### All Addons
-|  Profile Hover Cards  |  User Permission/Status Badges  |  Unread Messages Badge and Sound  |  New Message Notifications  |
+|  Profile Hover Cards  |  User Status Badges  |  Unread Messages Badge  |  New Message Notifications  |
 | -------- | ------ | --------- | -------- |
 | <img width="200px" height="200px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/dc5ad41e-d26b-4d92-b979-1774ffe1683e">  |  <img width="200px" height="200px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/3dfe43b5-13a5-4cb1-8cdd-802ae9a34faa"> | <img width="200px" height="200px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/2400ea6a-bcc5-406f-bd61-fdedf62cb649"> | <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/f61d6efa-cb7e-4e22-9ac1-f99127cf4069" width="200px" height="200px"> |
 | Polls | Chat Presence Notifier | Hashtags |  |
