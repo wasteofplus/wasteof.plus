@@ -30,7 +30,7 @@ Currently, wasteof.plus is not available on the Chrome web store, Edge add-on st
 #### Firefox
 wasteof.plus is still being ported to work in Firefox. You can follow development progress [here](https://github.com/imadeanaccount1/wasteof.plus/pull/32).
 
-## Features:
+## ✨ Features:
 - Adds beta, banned, admin, and verified badges next to usernames across the site. (in messages, on your feed, on explore, and on profiles)
 - Shows online status dot indicator across the site (same places as above)
 - Adds hover cards for user profiles on links
@@ -39,18 +39,25 @@ wasteof.plus is still being ported to work in Firefox. You can follow developmen
 - Posts a message in wasteof.money/chat when you leave or enter chat
 - Allows you to create and vote in rich polls
 
+### All Addons
+|  Chrome  |  Edge  |  Firefox  |  Opera  |
+| -------- | ------ | --------- | -------- |
+| ✅ Tested, Working  | ✅ Tested, Working | ❌ Not Tested | ✅ Tested, Working |
+| -------- | ------ | --------- | -------- |
+| ✅ Tested, Working  | ✅ Tested, Working | ❌ Not Tested | ✅ Tested, Working |
+
 <!--- ![followsyoubadge - Copy (3)](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/1c4c32bb-8951-4055-b820-9b9ebd545167)
 ![Screenshot2023070714](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/73f53d4a-91e3-4cd7-996f-d49fb1ad1b47) -->
 
 
-## Roadmap (not in any particular order):
+## 🗺 Roadmap (not in any particular order):
 - Typescript
 - Clean up code
 
 ## Contributing:
 Find information about contributing code/addons in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-## License:
+### 📜 License:
 wasteof.plus is licensed under the BSD-3 license. read it [here](LICENSE). It is primarily maintained by @imadeanaccount1.
 
 ## Motivation:
