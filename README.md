@@ -43,8 +43,8 @@ wasteof.plus is still being ported to work in Firefox. You can follow developmen
 |  Profile Hover Cards  |  User Status Badges  |  Unread Messages Badge  |  New Message Notifications  |
 | -------- | ------ | --------- | -------- |
 | <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/dc5ad41e-d26b-4d92-b979-1774ffe1683e">  |  <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/3dfe43b5-13a5-4cb1-8cdd-802ae9a34faa"> | <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/2400ea6a-bcc5-406f-bd61-fdedf62cb649"> | <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/f61d6efa-cb7e-4e22-9ac1-f99127cf4069" width="190px" height="190px"> |
-| Polls | Chat Presence Notifier | Hashtags |  |
-| <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/851d2cf2-4fcd-4e8d-9924-1e9eb90f7ff0">  |  <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/fe2f08e7-b86a-42e2-90a5-a23c51d669a9"> | <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/33a611cc-2e41-40df-acc1-5d1aee0bbbeb"> |  |
+| Polls | Chat Presence Notifier |  |  |
+| <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/851d2cf2-4fcd-4e8d-9924-1e9eb90f7ff0">  |  <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/fe2f08e7-b86a-42e2-90a5-a23c51d669a9"> |  |  |
 
 <!--- ![followsyoubadge - Copy (3)](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/1c4c32bb-8951-4055-b820-9b9ebd545167)
 ![Screenshot2023070714](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/73f53d4a-91e3-4cd7-996f-d49fb1ad1b47) -->
