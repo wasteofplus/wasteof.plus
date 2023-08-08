@@ -39,11 +39,6 @@ wasteof.plus is still being ported to work in Firefox. You can follow developmen
 - Posts a message in wasteof.money/chat when you leave or enter chat
 - Allows you to create and vote in rich polls
 
-## Features:
-- Adds beta, banned, admin, and verified badges next to usernames across the site. (in messages, on your feed, on explore, and on profiles)
-- Shows online status dot indicator across the site. (same places as above)
-- Adds hover cards for user profiles on links
-
 <!--- ![followsyoubadge - Copy (3)](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/1c4c32bb-8951-4055-b820-9b9ebd545167)
 ![Screenshot2023070714](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/73f53d4a-91e3-4cd7-996f-d49fb1ad1b47) -->
 
