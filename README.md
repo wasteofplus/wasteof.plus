@@ -30,7 +30,7 @@ Currently, wasteof.plus is not available on the Chrome web store, Edge add-on st
 #### Firefox
 wasteof.plus is still being ported to work in Firefox. You can follow development progress [here](https://github.com/imadeanaccount1/wasteof.plus/pull/32).
 
-## Features:
+## ✨ Features:
 - Adds beta, banned, admin, and verified badges next to usernames across the site. (in messages, on your feed, on explore, and on profiles)
 - Shows online status dot indicator across the site (same places as above)
 - Adds hover cards for user profiles on links
@@ -39,18 +39,25 @@ wasteof.plus is still being ported to work in Firefox. You can follow developmen
 - Posts a message in wasteof.money/chat when you leave or enter chat
 - Allows you to create and vote in rich polls
 
+### All Addons
+|  Profile Hover Cards  |  User Status Badges  |  Unread Messages Badge  |  New Message Notifications  |
+| -------- | ------ | --------- | -------- |
+| <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/dc5ad41e-d26b-4d92-b979-1774ffe1683e">  |  <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/3dfe43b5-13a5-4cb1-8cdd-802ae9a34faa"> | <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/2400ea6a-bcc5-406f-bd61-fdedf62cb649"> | <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/f61d6efa-cb7e-4e22-9ac1-f99127cf4069" width="190px" height="190px"> |
+| Polls | Chat Presence Notifier |  |  |
+| <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/851d2cf2-4fcd-4e8d-9924-1e9eb90f7ff0">  |  <img width="190px" height="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/fe2f08e7-b86a-42e2-90a5-a23c51d669a9"> |  |  |
+
 <!--- ![followsyoubadge - Copy (3)](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/1c4c32bb-8951-4055-b820-9b9ebd545167)
 ![Screenshot2023070714](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/73f53d4a-91e3-4cd7-996f-d49fb1ad1b47) -->
 
 
-## Roadmap (not in any particular order):
+## 🗺 Roadmap (not in any particular order):
 - Typescript
 - Clean up code
 
 ## Contributing:
 Find information about contributing code/addons in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-## License:
+### 📜 License:
 wasteof.plus is licensed under the BSD-3 license. read it [here](LICENSE). It is primarily maintained by @imadeanaccount1.
 
 ## Motivation:
