@@ -1,6 +1,12 @@
-console.log('route change script loaded/injected')
+console.log('route change script loaded/injected', window.$nuxt)
 
-window.wrappedJSObject.$nuxt.$router.afterEach((to, from) => {
+window.eval(`
+$nuxt.$router.afterEach((to, from) => {
+  console.log('route changed from content script!')
+})
+
+`)
+window.unwrapJSObject.$nuxt.$router.afterEach((to, from) => {
   console.log('route changed')
 
   //   const extensionId = document.querySelector('#routeChangeScript').dataset.extensionId
