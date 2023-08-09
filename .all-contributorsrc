@@ -21,7 +21,8 @@
         "doc",
         "review",
         "question",
-        "platform"
+        "platform",
+        "content"
       ]
     },
     {
@@ -52,7 +53,8 @@
       "profile": "https://github.com/jakednolastname",
       "contributions": [
         "code",
-        "ideas"
+        "ideas",
+        "design"
       ]
     },
     {
@@ -62,6 +64,16 @@
       "profile": "http://illogicalapple.github.io",
       "contributions": [
         "bug"
+      ]
+    },
+    {
+      "login": "ScolderCreations",
+      "name": "Scolder",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69083943?v=4",
+      "profile": "https://scoldercreations.github.io",
+      "contributions": [
+        "code",
+        "ideas"
       ]
     }
   ],
