@@ -63,6 +63,16 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "ScolderCreations",
+      "name": "Scolder",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69083943?v=4",
+      "profile": "https://scoldercreations.github.io",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
