@@ -1,0 +1,13 @@
+{
+    "urls": ["https://wasteof.money/", "https://beta.wasteof.money/"],
+    "urlcontains": ["wasteof.money"],
+    "name": "Discord Emoji Syntax",
+    "description": "Converts colon-encased emoji names to emojis, like :sob: or :cold_face:.",
+    "developers": [
+        {"name": "ScolderCreations", "link": "https://github.com/ScolderCreations"}
+    ],
+    "hasContentScript": true,
+    "hasContentStyle": false,
+    "enabledByDefault": true,
+    "options": []
+}
