@@ -3,7 +3,7 @@
   "manifest_version": 3,
   "version": "0.1.0",
   "version_name": "0.1.0-alpha",
-  "description": "adds helpful features to wasteof.money",
+  "description": "wasteof.plus is a browser extension that adds customizable addons to the wasteof.money social media. 🌠",
   "externally_connectable": {
     "matches": ["*://*.wasteof.money/*"]
   },
