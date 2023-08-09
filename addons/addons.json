@@ -1,9 +1,9 @@
 [
-    "discordEmojiCodes",
     "addUserStatuses",
     "profileHoverCards",
     "chatPresenceNotify",
     "polls",
     "addMessageCountBadge",
-    "addMessageNotifications"
+    "addMessageNotifications",
+    "discordEmojiCodes"
 ]
