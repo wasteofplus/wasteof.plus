@@ -1,4 +1,4 @@
-const codes = {
+export const codes = {
     "-1": "👎",
     "+1": "👍",
     "8ball": "🎱",
