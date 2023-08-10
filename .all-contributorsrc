@@ -75,6 +75,15 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "test",
+      "name": "test",
+      "avatar_url": "https://avatars.githubusercontent.com/u/383316?v=4",
+      "profile": "https://github.com/test",
+      "contributions": [
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -82,5 +91,5 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "projectName": "wasteof.plus",
-  "projectOwner": "imadeanaccount1"
+  "projectOwner": "wasteofplus"
 }
