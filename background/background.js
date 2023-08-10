@@ -256,6 +256,19 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                     console.log('response from offscreen', response)
                     console.log(chrome.runtime.getURL('assets/sounds/notify.mp3'))
                   })
+                } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Zap') {
+                  chrome.runtime.sendMessage({
+                    type: 'token-send',
+                    target: 'offscreen',
+                    logUrl,
+                    token: request.token,
+                    sound: chrome.runtime.getURL('assets/sounds/wasteof_notification.wav'),
+                    volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                    playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+                  }, function (response) {
+                    console.log('response from offscreen', response)
+                    console.log(chrome.runtime.getURL('assets/sounds/wasteof_notification.wav'))
+                  })
                 } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Custom') {
                   chrome.storage.local.get(['notificationsSound'], async (theResultCustomSound) => {
                     chrome.runtime.sendMessage({
@@ -355,6 +368,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             sendResponse({
               numberOfMessages: key.numberOfMessages,
               sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
+              volume: theResultOptions.addMessageCountBadgeOptions.volume,
+              playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+            })
+          } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Zap') {
+            sendResponse({
+              numberOfMessages: key.numberOfMessages,
+              sound: chrome.runtime.getURL('assets/sounds/wasteof_notification.wav'),
               volume: theResultOptions.addMessageCountBadgeOptions.volume,
               playSound: theResultOptions.addMessageCountBadgeOptions.playSound
             })
