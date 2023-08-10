@@ -11,8 +11,6 @@ async function addon() {
         // search for potential emojis and replace them with counterparts
         for (const emoji of rawContent.matchAll(/\:[A-Za-z0-9\+\-]+\:/g)) {
             console.log('emoji', emoji, emoji[0], emoji[0].substring(1,emoji[0].length-1))
-            console.log('full bigboy', bigBoy.codes)
-            console.log('value from bigboy', bigBoy.codes[emoji[0].substring(1,emoji[0].length-1)])
 
             console.log('bigboy', Object.values(bigBoy.codes).filter((emojicode) => bigBoy.codes[emojicode]==emoji[0].substring(1,-1)))
             if (bigBoy.codes[emoji[0].substring(1,emoji[0].length-1)]) {
