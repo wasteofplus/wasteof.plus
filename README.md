@@ -12,7 +12,7 @@
 
 wasteof.plus is a browser extension that adds customizable addons to the wasteof.money social media. 🌠
 
-## Getting Started:
+## 👋 Getting Started:
 Currently, wasteof.plus is not available on the Chrome web store, Edge add-on store, or the Firefox add-on marketplace. You must install it manually using one the following instructions:
 
 ### Browser Support
