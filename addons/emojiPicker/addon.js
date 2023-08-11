@@ -5,8 +5,9 @@ const emojiPopupScript = document.createElement('script')
 emojiPopupScript.id = 'emojiPopupScript'
 emojiPopupScript.src = chrome.runtime.getUrl('node_modules/@picmo/popup-picker/dist/umd/index.js')
 
-console.log('create picker', createPopup)
-const trigger = document.querySelector('.emoji-button');
+console.log('emoji script src ', chrome.runtime.getUrl('node_modules/@picmo/popup-picker/dist/umd/index.js'))
+console.log('emoji create picker', createPopup)
+const trigger = document.querySelector('.emoji-button')
 
 const picker = createPopup({
   // picker options go here
