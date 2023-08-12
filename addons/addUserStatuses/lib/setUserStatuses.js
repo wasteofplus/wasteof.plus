@@ -1,15 +1,17 @@
-function setUserStatuses (profilePictures, onlineIndicator) {
+function setUserStatuses (profilePictures, onlineIndicator, shouldNotDelete) {
   console.log('setUserStatuses.js loaded')
 
-  if (document.querySelectorAll('.onlineindicator1')) {
-    for (const indicator of document.querySelectorAll('.onlineindicator1')) {
-      indicator.remove()
+  if (!shouldNotDelete) {
+    if (document.querySelectorAll('.onlineindicator1')) {
+      for (const indicator of document.querySelectorAll('.onlineindicator1')) {
+        indicator.remove()
+      }
     }
-  }
-  if (document.querySelectorAll('.userstatusicon')) {
-    for (const icon of document.querySelectorAll('.userstatusicon')) {
-      console.log('remove icon', icon)
-      icon.remove()
+    if (document.querySelectorAll('.userstatusicon')) {
+      for (const icon of document.querySelectorAll('.userstatusicon')) {
+        console.log('remove icon', icon)
+        icon.remove()
+      }
     }
   }
 

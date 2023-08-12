@@ -1,4 +1,4 @@
-function addon () {
+function testrunaddon () {
   const cookieMatch = document.cookie.match(/token=([^;]+)/)
   const token = cookieMatch ? cookieMatch[1] : null
 
@@ -189,5 +189,28 @@ function addon () {
     element.replaceWith(poll)
   })
 }
+
+function addon () {
+  console.log('executing addon, polls')
+  testrunaddon()
+}
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log('message polls', message)
+  sendResponse({ message: 'hello' })
+  if (message.action === 'reload') {
+    console.log('RELOADING!!! user statuses')
+    // wait 3 seconds
+    setTimeout(() => {
+      console.log('it\'s been 3 seconds, reloading addon polls')
+      console.log('going to execute polls')
+      testrunaddon()
+
+      // addon()
+    }, 3000)
+    // addon()
+    console.log('finsihed reloading addon user statises')
+  }
+})
 
 addon()

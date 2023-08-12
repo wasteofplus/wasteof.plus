@@ -1,7 +1,7 @@
-function waitForElm (selector, callback, ignoreClasses) {
+function waitForElm (selector, callback, className) {
   return new Promise(resolve => {
     if (document.querySelector(selector)) {
-      return resolve(document.querySelector(selector))
+      resolve(document.querySelector(selector))
     }
 
     const observer = new MutationObserver(mutations => {
@@ -27,18 +27,42 @@ function waitForElm (selector, callback, ignoreClasses) {
           console.log('observer ended up!')
           resolve(document.querySelector(selector))
           if (callback) {
-            callback()
+            console.log('mutations', mutations)
+            for (const record of mutations) {
+              console.log('mutation record', record)
+              const nodelist = []
+              for (const node of record.addedNodes) {
+                console.log('onenode', node, node.nodeType === Node.TEXT_NODE)
+                if (node.nodeType !== Node.TEXT_NODE) {
+                  if (node.matches('div.border-2.mb-4')) {
+                    console.log('pushing node', node.querySelector('a > div.w-full > a > img.border-2'))
+                    nodelist.push(node.querySelector('a > div.w-full > a > img.border-2'))
+                  }
+                }
+              }
+              if (nodelist.length > 0) {
+                callback(nodelist)
+              } else {
+                console.log('can\'t call back')
+              }
+            }
           } else {
             observer.disconnect()
           }
         }
       }
     })
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    })
+    if (callback) {
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      })
+    } else {
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      })
+    }
   })
 }
 
