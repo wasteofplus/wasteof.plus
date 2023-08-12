@@ -94,7 +94,8 @@
       "contributions": [
         "data",
         "code",
-        "infra"
+        "infra",
+        "maintenance"
       ]
     }
   ],
