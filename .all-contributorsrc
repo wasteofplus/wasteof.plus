@@ -17,7 +17,12 @@
         "design",
         "ideas",
         "maintenance",
-        "infra"
+        "infra",
+        "doc",
+        "review",
+        "question",
+        "platform",
+        "content"
       ]
     },
     {
@@ -36,6 +41,36 @@
       "name": "Gilbert189",
       "avatar_url": "https://avatars.githubusercontent.com/u/57717273?v=4",
       "profile": "https://github.com/Gilbert189",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "jakednolastname",
+      "name": "jakednolastname",
+      "avatar_url": "https://avatars.githubusercontent.com/u/122004617?v=4",
+      "profile": "https://github.com/jakednolastname",
+      "contributions": [
+        "code",
+        "ideas",
+        "design"
+      ]
+    },
+    {
+      "login": "illogicalapple",
+      "name": "illogicalapple",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80916557?v=4",
+      "profile": "http://illogicalapple.github.io",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "ScolderCreations",
+      "name": "Scolder",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69083943?v=4",
+      "profile": "https://scoldercreations.github.io",
       "contributions": [
         "code",
         "ideas"
