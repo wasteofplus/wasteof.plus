@@ -1,6 +1,6 @@
 let newNodes = 0
 
-async function addonTwo(reload) {
+async function addonTwo (reload) {
   console.log('reloading started')
   console.log('executing addon function', chrome.runtime.getURL('../utils.js'))
   const utilsUrl = chrome.runtime.getURL('../utils.js')
@@ -41,7 +41,7 @@ async function addonTwo(reload) {
   console.log('pictures')
 
   const setUserStatusesUrl = chrome.runtime.getURL(
-    './addons/addUserStatuses/lib/setUserStatuses.js',
+    './addons/addUserStatuses/lib/setUserStatuses.js'
   )
   const contentMain = await import(setUserStatusesUrl)
   contentMain.setUserStatuses(profilePictures, onlineIndicator)
@@ -50,7 +50,7 @@ async function addonTwo(reload) {
   observer.observe(document.querySelector('main > div.my-4'), config)
 }
 
-async function addon(reload) {
+async function addon (reload) {
   console.log('reloading started')
   console.log('executing addon function', chrome.runtime.getURL('../utils.js'))
   const utilsUrl = chrome.runtime.getURL('../utils.js')
@@ -91,7 +91,7 @@ async function addon(reload) {
   console.log('pictures')
 
   const setUserStatusesUrl = chrome.runtime.getURL(
-    './addons/addUserStatuses/lib/setUserStatuses.js',
+    './addons/addUserStatuses/lib/setUserStatuses.js'
   )
   const contentMain = await import(setUserStatusesUrl)
   contentMain.setUserStatuses(profilePictures, onlineIndicator)
@@ -119,7 +119,7 @@ async function addon(reload) {
 
 // document.body.appendChild(routeChangeScript)
 
-function addonRun() {
+function addonRun () {
   console.log('addon run user statuses - after reload')
   // wait 3 seconds
   new Promise((resolve) => setTimeout(resolve, 3000)).then(() => {

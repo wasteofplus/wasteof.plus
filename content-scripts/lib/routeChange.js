@@ -17,7 +17,7 @@ $nuxt.$router.afterEach((to, from) => {
   //   }, '*')
 
   const event = new CustomEvent('PassToBackgroundRoute', {
-    detail: 'HELLO!!!',
+    detail: 'HELLO!!!'
   })
   window.dispatchEvent(event)
 })

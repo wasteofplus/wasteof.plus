@@ -13,7 +13,7 @@
     "build:firefox:windows": "copy manifest_firefox.json manifest.json",
     "build:firefox:default": "cp manifest_firefox.json manifest.json",
     "lint": "npx eslint \"./**/*.js\" --cache --cache-strategy content --fix",
-    "prettier": "npx prettier --write \"**/*.js\""
+    "prettier": "npx prettier . --write "
   },
   "author": "",
   "license": "BSD",

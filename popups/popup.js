@@ -1,4 +1,4 @@
-function updateOptions(card, showing) {
+function updateOptions (card, showing) {
   if (showing) {
     card.querySelector('.addonOptions').style.display = 'block'
     card.querySelector('.optionsExpand').src =
@@ -11,12 +11,12 @@ function updateOptions(card, showing) {
   return !showing
 }
 
-function setOptionValue(
+function setOptionValue (
   option,
   value,
   addon,
   optionsJSON,
-  optionsParentElement,
+  optionsParentElement
 ) {
   chrome.storage.local.get([addon + 'Options'], function (result) {
     if (result[addon + 'Options'] !== undefined) {
@@ -35,12 +35,12 @@ function setOptionValue(
       optionsJSON,
       addon,
       optionsParentElement,
-      true,
+      true
     )
   })
 }
 
-function compare(a, b) {
+function compare (a, b) {
   if (a.order < b.order) {
     return -1
   }
@@ -51,12 +51,12 @@ function compare(a, b) {
 }
 
 // updateOptionDependencies(loopOption.id, addonData.options, addon, card.querySelector('.addonOptions'))
-function updateOptionDependencies(
+function updateOptionDependencies (
   option,
   optionsJSON,
   addon,
   optionsParentElement,
-  originalShowing,
+  originalShowing
 ) {
   console.log('evaluating dependencies')
   chrome.storage.local.get([addon + 'Options'], function (result) {
@@ -79,10 +79,10 @@ function updateOptionDependencies(
               'option with dynamic vsiibility',
               otherOption,
               'has a rule for option',
-              option,
+              option
             )
             console.log(
-              'Value currently is ' + result[addon + 'Options'][option],
+              'Value currently is ' + result[addon + 'Options'][option]
             )
             const indexOfOtherOption = optionsJSON.indexOf(otherOption)
 
@@ -90,7 +90,7 @@ function updateOptionDependencies(
               'value for option',
               option,
               'is ',
-              result[addon + 'Options'][option],
+              result[addon + 'Options'][option]
             )
 
             if (
@@ -104,7 +104,7 @@ function updateOptionDependencies(
                 'but the original dependency option',
                 option,
                 'is',
-                originalShowing,
+                originalShowing
               )
               if (originalShowing) {
                 optionsParentElement.children[
@@ -113,14 +113,14 @@ function updateOptionDependencies(
                 console.log(
                   'evaluating dependencies recursively for option',
                   otherOption.id,
-                  'because it is showing!!!',
+                  'because it is showing!!!'
                 )
                 updateOptionDependencies(
                   otherOption.id,
                   optionsJSON,
                   addon,
                   optionsParentElement,
-                  true,
+                  true
                 )
               } else {
                 optionsParentElement.children[
@@ -129,14 +129,14 @@ function updateOptionDependencies(
                 console.log(
                   'evaluating dependencies recursively for option',
                   otherOption.id,
-                  'because it is hidden',
+                  'because it is hidden'
                 )
                 updateOptionDependencies(
                   otherOption.id,
                   optionsJSON,
                   addon,
                   optionsParentElement,
-                  false,
+                  false
                 )
               }
             } else {
@@ -145,14 +145,14 @@ function updateOptionDependencies(
               console.log(
                 'evaluating dependencies recursively for option',
                 otherOption.id,
-                'because it is hidden',
+                'because it is hidden'
               )
               updateOptionDependencies(
                 otherOption.id,
                 optionsJSON,
                 addon,
                 optionsParentElement,
-                false,
+                false
               )
             }
           } else {
@@ -160,14 +160,14 @@ function updateOptionDependencies(
               'option with dynamic vsiibility',
               otherOption.dynamicVisibility,
               'does not hava a rule for option',
-              option,
+              option
             )
           }
         } else {
           console.log(
             'object does not have dynamic visibility',
             otherOption,
-            otherOption.id,
+            otherOption.id
           )
         }
       }
@@ -175,31 +175,31 @@ function updateOptionDependencies(
   })
 }
 
-function getOptionValue(option, addon) {
+function getOptionValue (option, addon) {
   return new Promise((resolve, reject) => {
     console.log(
       'getting storage value for option',
       option,
       'for addon',
       addon,
-      addon + 'Options',
+      addon + 'Options'
     )
     chrome.storage.local.get([addon + 'Options'], function (result) {
       if (result[addon + 'Options'] === undefined) {
         console.log(
-          'option setting that the get function requested is not already set',
+          'option setting that the get function requested is not already set'
         )
         reject(
           new Error(
-            'option setting that the get function requested is not already set',
-          ),
+            'option setting that the get function requested is not already set'
+          )
         )
       } else {
         console.log(
           'the raw result from get function for option',
           option,
           ' is ',
-          result[addon + 'Options'],
+          result[addon + 'Options']
         )
         console.log('Value currently is ' + result[addon + 'Options'][option])
         resolve(result[addon + 'Options'][option])
@@ -229,7 +229,7 @@ fetch('templates/extensionCard.html')
             console.log('addons.json', data)
             const addonList = document.querySelector('.addons')
 
-            function addonSorter(a, b) {
+            function addonSorter (a, b) {
               if (a.name < b.name) {
                 return -1
               }
@@ -247,7 +247,7 @@ fetch('templates/extensionCard.html')
                   setIconTheme(
                     document.documentElement.classList.contains('dark')
                       ? 'dark'
-                      : 'light',
+                      : 'light'
                   )
                   const card = addonList.lastElementChild
                   card.querySelector('.addonName').innerText = addonData.name
@@ -272,7 +272,7 @@ fetch('templates/extensionCard.html')
                       console.log(
                         'toggled!!!',
                         enabledAddonsList,
-                        enabledAddonsList.length,
+                        enabledAddonsList.length
                       )
                       if (enabledAddonsList.includes(addon)) {
                         if (enabledAddonsList.length < 2) {
@@ -280,7 +280,7 @@ fetch('templates/extensionCard.html')
                           chrome.storage.local.set({ enabledAddons: [] })
                           console.log(
                             'removed all addons!!!',
-                            enabledAddonsList.length,
+                            enabledAddonsList.length
                           )
                         } else {
                           const index = enabledAddonsList.indexOf(addon)
@@ -289,25 +289,25 @@ fetch('templates/extensionCard.html')
                           console.log('removed addon', addon, enabledAddonsList)
 
                           chrome.storage.local.set({
-                            enabledAddons: enabledAddonsList,
+                            enabledAddons: enabledAddonsList
                           })
                         }
                         expandReversed = updateOptions(
                           card,
-                          enabledAddonsList.includes(addon),
+                          enabledAddonsList.includes(addon)
                         )
                       } else {
                         if (addonData.permissions) {
                           console.log('addon has permissions')
                           chrome.permissions.contains(
                             {
-                              permissions: addonData.permissions,
+                              permissions: addonData.permissions
                             },
                             (resultPerm) => {
                               if (!resultPerm) {
                                 chrome.permissions.request(
                                   {
-                                    permissions: addonData.permissions,
+                                    permissions: addonData.permissions
                                   },
                                   (granted) => {
                                     if (granted) {
@@ -315,49 +315,49 @@ fetch('templates/extensionCard.html')
                                       enabledAddonsList.push(addon)
                                       console.log(
                                         'add item to enabled addons list',
-                                        enabledAddonsList,
+                                        enabledAddonsList
                                       )
                                       chrome.storage.local.set({
-                                        enabledAddons: enabledAddonsList,
+                                        enabledAddons: enabledAddonsList
                                       })
                                       expandReversed = updateOptions(
                                         card,
-                                        enabledAddonsList.includes(addon),
+                                        enabledAddonsList.includes(addon)
                                       )
                                     } else {
                                       console.log('not granted')
                                     }
-                                  },
+                                  }
                                 )
                               } else {
                                 console.log('permission already granted')
                                 enabledAddonsList.push(addon)
                                 chrome.storage.local.set({
-                                  enabledAddons: enabledAddonsList,
+                                  enabledAddons: enabledAddonsList
                                 })
                                 console.log(
                                   'should options show',
-                                  enabledAddonsList.includes(addon),
+                                  enabledAddonsList.includes(addon)
                                 )
                                 expandReversed = updateOptions(
                                   card,
-                                  enabledAddonsList.includes(addon),
+                                  enabledAddonsList.includes(addon)
                                 )
                               }
-                            },
+                            }
                           )
                         } else {
                           enabledAddonsList.push(addon)
                           console.log(
                             'add item to enabled addons list',
-                            enabledAddonsList,
+                            enabledAddonsList
                           )
                           chrome.storage.local.set({
-                            enabledAddons: enabledAddonsList,
+                            enabledAddons: enabledAddonsList
                           })
                           expandReversed = updateOptions(
                             card,
-                            enabledAddonsList.includes(addon),
+                            enabledAddonsList.includes(addon)
                           )
                         }
                       }
@@ -373,20 +373,20 @@ fetch('templates/extensionCard.html')
                           developer.link +
                           '.png?size=48"></img><p class="inline">' +
                           developer.name +
-                          '</p></a>',
+                          '</p></a>'
                       )
                     card
                       .querySelector('.addonDevelopers')
                       .lastElementChild.addEventListener('click', (event) => {
                         chrome.tabs.create({
                           active: true,
-                          url: developer.link,
+                          url: developer.link
                         })
                       })
                     setIconTheme(
                       document.documentElement.classList.contains('dark')
                         ? 'dark'
-                        : 'light',
+                        : 'light'
                     )
                   }
                   console.log(addonData.options, addonData.options.length)
@@ -447,18 +447,18 @@ fetch('templates/extensionCard.html')
                       card
                         .querySelector('.addonOptions')
                         .lastElementChild.querySelector(
-                          '.optionName',
+                          '.optionName'
                         ).innerText = option.name
                       console.log(
                         'boolean option',
                         option,
                         ' has a value of ',
-                        await getOptionValue(option.id, addon),
+                        await getOptionValue(option.id, addon)
                       )
                       card
                         .querySelector('.addonOptions')
                         .lastElementChild.querySelector(
-                          '.optionBoolean',
+                          '.optionBoolean'
                         ).checked = await getOptionValue(option.id, addon)
                       card
                         .querySelector('.addonOptions')
@@ -470,14 +470,14 @@ fetch('templates/extensionCard.html')
                             event.target.checked,
                             addon,
                             addonData.options,
-                            card.querySelector('.addonOptions'),
+                            card.querySelector('.addonOptions')
                           )
                         })
                     } else if (option.type === 'select') {
-                      function resetSelectOptionStyles(parentElement, ignore) {
+                      function resetSelectOptionStyles (parentElement, ignore) {
                         console.log(
                           'the select element/parent is',
-                          parentElement.children,
+                          parentElement.children
                         )
                         for (const selectOption of parentElement.children) {
                           if (selectOption.classList.contains('bg-blue-700')) {
@@ -487,26 +487,26 @@ fetch('templates/extensionCard.html')
                                 'dark:hover:bg-blue-600',
                                 'hover:bg-blue-600',
                                 'dark:bg-blue-700',
-                                'text-white',
+                                'text-white'
                               )
                               selectOption.classList.add(
                                 'focus:text-blue-700',
                                 'hover:text-blue-700',
                                 'bg-white',
-                                'dark:bg-gray-700',
+                                'dark:bg-gray-700'
                               )
                               // selectOption.classList.remove('bg-gray-100', 'text-blue-700', 'dark:text-blue-500')
                             }
                           }
                         }
                       }
-                      function addSelectOption(element, value, setValue) {
+                      function addSelectOption (element, value, setValue) {
                         element.innerText = value
                         console.log(
                           'adding sleect option with value',
                           value,
                           'and setValue ',
-                          setValue,
+                          setValue
                         )
                         if (setValue === value) {
                           element.classList.remove(
@@ -515,14 +515,14 @@ fetch('templates/extensionCard.html')
                             'bg-white',
                             'hover:bg-gray-100',
                             'dark:hover:bg-gray-600',
-                            'dark:bg-gray-700',
+                            'dark:bg-gray-700'
                           )
                           element.classList.add(
                             'bg-blue-700',
                             'dark:hover:bg-blue-600',
                             'hover:bg-blue-600',
                             'dark:bg-blue-700',
-                            'text-white',
+                            'text-white'
                           )
                         }
                         element.addEventListener('click', (event) => {
@@ -533,18 +533,18 @@ fetch('templates/extensionCard.html')
                             'bg-white',
                             'dark:hover:bg-gray-600',
                             'hover:bg-gray-100',
-                            'dark:bg-gray-700',
+                            'dark:bg-gray-700'
                           )
                           event.target.classList.add(
                             'bg-blue-700',
                             'dark:hover:bg-blue-600',
                             'hover:bg-blue-600',
                             'dark:bg-blue-700',
-                            'text-white',
+                            'text-white'
                           )
                           resetSelectOptionStyles(
                             event.target.parentElement,
-                            event.target,
+                            event.target
                           )
                           // px-3 py-2 ext-xs font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white
                           // convert to dark mode
@@ -553,7 +553,7 @@ fetch('templates/extensionCard.html')
                             value,
                             addon,
                             addonData.options,
-                            card.querySelector('.addonOptions'),
+                            card.querySelector('.addonOptions')
                           )
                         })
                       }
@@ -567,17 +567,17 @@ fetch('templates/extensionCard.html')
 
                       console.log(
                         'the value of the select element is ',
-                        await getOptionValue(option.id, addon),
+                        await getOptionValue(option.id, addon)
                       )
                       addSelectOption(
                         addedElement.querySelector('.firstOption'),
                         option.options[0],
-                        await getOptionValue(option.id, addon),
+                        await getOptionValue(option.id, addon)
                       )
                       addSelectOption(
                         addedElement.querySelector('.lastOption'),
                         option.options[option.options.length - 1],
-                        await getOptionValue(option.id, addon),
+                        await getOptionValue(option.id, addon)
                       )
                       for (let i = 1; i < option.options.length - 1; i++) {
                         console.log('inserting middle option!')
@@ -585,14 +585,14 @@ fetch('templates/extensionCard.html')
                           .querySelector('.lastOption')
                           .insertAdjacentHTML(
                             'beforeBegin',
-                            selectMiddleOptionText,
+                            selectMiddleOptionText
                           )
                         // addedElement.querySelector('.lastOption').previousElementSibling.innerText = option.options[i]
                         addSelectOption(
                           addedElement.querySelector('.lastOption')
                             .previousElementSibling,
                           option.options[i],
-                          await getOptionValue(option.id, addon),
+                          await getOptionValue(option.id, addon)
                         )
                       }
 
@@ -605,7 +605,7 @@ fetch('templates/extensionCard.html')
                       const fileSelector = card
                         .querySelector('.addonOptions')
                         .lastElementChild.querySelector('.optionFile > input')
-                      function dataURLtoFile(dataurl, filename) {
+                      function dataURLtoFile (dataurl, filename) {
                         const arr = dataurl.split(',')
                         const mime = arr[0].match(/:(.*?);/)[1]
                         const bstr = atob(arr[arr.length - 1])
@@ -623,7 +623,7 @@ fetch('templates/extensionCard.html')
                           if (resultFile.notificationsSound !== undefined) {
                             const myFile = dataURLtoFile(
                               resultFile.notificationsSound.file,
-                              resultFile.notificationsSound.name,
+                              resultFile.notificationsSound.name
                             )
                             const dataTransfer = new DataTransfer()
                             dataTransfer.items.add(myFile)
@@ -631,7 +631,7 @@ fetch('templates/extensionCard.html')
                           } else {
                             console.log('no file found')
                           }
-                        },
+                        }
                       )
                       fileSelector.addEventListener(
                         'change',
@@ -647,8 +647,8 @@ fetch('templates/extensionCard.html')
                             chrome.storage.local.set({
                               notificationsSound: {
                                 file: e.target.result,
-                                name: file.name,
-                              },
+                                name: file.name
+                              }
                             })
                           }
                           reader.readAsDataURL(file)
@@ -660,7 +660,7 @@ fetch('templates/extensionCard.html')
                           // const urlObj = URL.createObjectURL(fileSelector.files[0])
 
                           // console.log('url object ', urlObj)
-                        },
+                        }
                       )
                     } else if (option.type === 'slider') {
                       card
@@ -686,7 +686,7 @@ fetch('templates/extensionCard.html')
                             event.target.value,
                             addon,
                             addonData.options,
-                            card.querySelector('.addonOptions'),
+                            card.querySelector('.addonOptions')
                           )
                           console.log('slider changed!!!')
                         })
@@ -711,7 +711,7 @@ fetch('templates/extensionCard.html')
                             event.target.value,
                             addon,
                             addonData.options,
-                            card.querySelector('.addonOptions'),
+                            card.querySelector('.addonOptions')
                           )
                           console.log('text changed!!!')
                         })
@@ -719,7 +719,7 @@ fetch('templates/extensionCard.html')
                     setIconTheme(
                       document.documentElement.classList.contains('dark')
                         ? 'dark'
-                        : 'light',
+                        : 'light'
                     )
                     if (
                       sortedOptions.indexOf(option) ===
@@ -728,35 +728,35 @@ fetch('templates/extensionCard.html')
                       console.log(
                         'last option',
                         option,
-                        "so we're updating dependencies",
+                        "so we're updating dependencies"
                       )
                       for (const loopOption of sortedOptions) {
                         console.log(
                           'update dependencies for option',
                           loopOption,
                           'in addon',
-                          addon,
+                          addon
                         )
                         // updateOptionDependencies(loopOption.id, addon, addonData.options, card.querySelector('.addonOptions'))
                         console.log(
                           'about to update dependencies for option',
                           loopOption.id,
                           'in addon',
-                          addon,
+                          addon
                         )
                         console.log(
                           "this option's element is ",
                           card.querySelector('.addonOptions').children[
                             sortedOptions.indexOf(loopOption)
-                          ],
+                          ]
                         )
                         console.log(
                           'its display is ',
                           window.getComputedStyle(
                             card.querySelector('.addonOptions').children[
                               sortedOptions.indexOf(loopOption)
-                            ],
-                          ).display,
+                            ]
+                          ).display
                         )
                         updateOptionDependencies(
                           loopOption.id,
@@ -766,8 +766,8 @@ fetch('templates/extensionCard.html')
                           window.getComputedStyle(
                             card.querySelector('.addonOptions').children[
                               sortedOptions.indexOf(loopOption)
-                            ],
-                          ).display === 'flex',
+                            ]
+                          ).display === 'flex'
                         )
                       }
                     }
@@ -782,7 +782,7 @@ fetch('templates/extensionCard.html')
 const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon')
 const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon')
 
-function setIconTheme(theme) {
+function setIconTheme (theme) {
   console.log('all icons on page', document.querySelectorAll('.icon'))
   for (const icon of document.querySelectorAll('.icon')) {
     console.log('icon', icon)

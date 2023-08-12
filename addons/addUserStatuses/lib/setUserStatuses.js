@@ -1,4 +1,4 @@
-function setUserStatuses(profilePictures, onlineIndicator) {
+function setUserStatuses (profilePictures, onlineIndicator) {
   console.log('setUserStatuses.js loaded')
 
   if (document.querySelectorAll('.onlineindicator1')) {
@@ -15,25 +15,25 @@ function setUserStatuses(profilePictures, onlineIndicator) {
 
   //   let profilePictureNodes = []
   for (const profilePicture of profilePictures) {
-    function showStatus(data, username, profilePicture) {
+    function showStatus (data, username, profilePicture) {
       // if (!profilePictureNodes.includes(profilePicture)) {
       if (!profilePicture.parentElement.querySelector('.userstatusicon')) {
         if (
           !profilePicture.parentElement.parentElement.parentElement.classList.contains(
-            'grid',
+            'grid'
           )
         ) {
           console.log(
             username,
             'already has badges',
-            profilePicture.parentElement.querySelectorAll('.userstatusicon'),
+            profilePicture.parentElement.querySelectorAll('.userstatusicon')
           )
 
           console.log('showing icons', data)
           if (data.online) {
             console.log(username + ' is online')
             profilePicture.parentElement.appendChild(
-              onlineIndicator.cloneNode(true),
+              onlineIndicator.cloneNode(true)
             )
           }
           if (data.beta) {
@@ -44,7 +44,7 @@ function setUserStatuses(profilePictures, onlineIndicator) {
                 </svg></span>`
             profilePicture.parentElement.insertAdjacentHTML(
               'beforeend',
-              betaIcon,
+              betaIcon
             )
           }
           if (data.verified) {
@@ -55,7 +55,7 @@ function setUserStatuses(profilePictures, onlineIndicator) {
                 </svg></span>`
             profilePicture.parentElement.insertAdjacentHTML(
               'beforeend',
-              verifiedIcon,
+              verifiedIcon
             )
           }
           if (data.permissions.admin) {
@@ -66,7 +66,7 @@ function setUserStatuses(profilePictures, onlineIndicator) {
                 </svg></span>`
             profilePicture.parentElement.insertAdjacentHTML(
               'beforeend',
-              adminIcon,
+              adminIcon
             )
           }
 
@@ -78,7 +78,7 @@ function setUserStatuses(profilePictures, onlineIndicator) {
                 </span>`
             profilePicture.parentElement.insertAdjacentHTML(
               'beforeend',
-              bannedIcon,
+              bannedIcon
             )
           }
           //   profilePictureNodes += profilePicture
@@ -107,8 +107,8 @@ function setUserStatuses(profilePictures, onlineIndicator) {
                 beta: data.beta,
                 setAt: Date.now(),
                 verified: data.verified,
-                permissions: data.permissions,
-              },
+                permissions: data.permissions
+              }
             }
 
             chrome.storage.local.set(userStatuses).then(() => {

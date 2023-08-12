@@ -1,7 +1,7 @@
 let hovering = false
 let hoveringArea = false
 
-function greyOutFollowButton(button) {
+function greyOutFollowButton (button) {
   button.classList.remove('bg-primary-500')
   button.classList.add('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Unfollow'
@@ -9,7 +9,7 @@ function greyOutFollowButton(button) {
   button.style.left = '225px'
 }
 
-function unGreyOutFollowButton(button) {
+function unGreyOutFollowButton (button) {
   button.classList.add('bg-primary-500')
   button.classList.remove('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Follow'
@@ -17,7 +17,7 @@ function unGreyOutFollowButton(button) {
   button.style.left = '230px'
 }
 
-async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
+async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
   const theme = document.querySelector('html').classList.contains('dark')
     ? 'dark'
     : 'light'
@@ -30,14 +30,14 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
   username = username
     .replace(
       /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
-      '',
+      ''
     )
     .trim()
   const apiUrl = 'https://api.wasteof.money/users/' + username.slice(1)
   const userUrl = 'https://wasteof.money/users/' + username.slice(1)
   const user = await fetch(apiUrl).then((response) => response.json())
   const loggedInUser = document.querySelector(
-    'span.flex > li > a.inline-block.font-semibold > span',
+    'span.flex > li > a.inline-block.font-semibold > span'
   )
   const followButton = hovercard.querySelector('.followButton')
 
@@ -54,16 +54,16 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
       'https://wasteof.money/users/' +
         actualUserUsername +
         '/followers/' +
-        username.slice(1),
+        username.slice(1)
     )
     const followingMe = await fetch(
       'https://api.wasteof.money/users/' +
         actualUserUsername +
         '/followers/' +
-        username.slice(1),
+        username.slice(1)
     ).then((response) => response.json())
     meFollowing = await fetch(apiUrl + '/followers/' + actualUserUsername).then(
-      (response) => response.json(),
+      (response) => response.json()
     )
 
     console.log('following me', followingMe)
@@ -82,9 +82,9 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
         {
           method: 'POST',
           headers: {
-            Authorization: document.querySelector('body').dataset.token,
-          },
-        },
+            Authorization: document.querySelector('body').dataset.token
+          }
+        }
       )
         .then((response) => response.json())
         .then((data) => {
@@ -192,12 +192,12 @@ async function fillInHoverCardTemplate(hovercard, postHeader, utils) {
   }
 }
 
-async function addon() {
+async function addon () {
   console.log('executing addon , profileHoverCards')
   const htmlFileContent = await fetch(
     chrome.runtime.getURL(
-      './addons/profileHoverCards/templates/hovercard.html',
-    ),
+      './addons/profileHoverCards/templates/hovercard.html'
+    )
   ).then((response) => response.text())
   // console.log("htmlFileContent", htmlFileContent)
   const utilsUrl = chrome.runtime.getURL('../utils.js')
@@ -211,7 +211,7 @@ async function addon() {
 
   console.log(
     'all posts list',
-    document.querySelectorAll('div.border-2.rounded-xl'),
+    document.querySelectorAll('div.border-2.rounded-xl')
   )
   for (const post of document.querySelectorAll('div.border-2.rounded-xl')) {
     console.log('looping post')
@@ -221,12 +221,12 @@ async function addon() {
       postHeader.parentElement.style.position = 'relative'
       console.log(
         'post1',
-        postHeader.parentElement.querySelectorAll('div.hoverCard'),
+        postHeader.parentElement.querySelectorAll('div.hoverCard')
       )
       if (!postHeader.parentElement.querySelector('div.hoverCard')) {
         postHeader.parentElement.insertAdjacentHTML(
           'beforeend',
-          await htmlFileContent,
+          await htmlFileContent
         )
         const hovercard =
           postHeader.parentElement.querySelector('div.hoverCard')
@@ -265,12 +265,12 @@ async function addon() {
   //   console.log('Response: ', response)
   // })
 }
-async function addonTwo() {
+async function addonTwo () {
   console.log('executing addon , profileHoverCards')
   const htmlFileContent = await fetch(
     chrome.runtime.getURL(
-      './addons/profileHoverCards/templates/hovercard.html',
-    ),
+      './addons/profileHoverCards/templates/hovercard.html'
+    )
   ).then((response) => response.text())
   // console.log("htmlFileContent", htmlFileContent)
   const utilsUrl = chrome.runtime.getURL('../utils.js')
@@ -284,7 +284,7 @@ async function addonTwo() {
 
   console.log(
     'all posts list',
-    document.querySelectorAll('div.border-2.rounded-xl'),
+    document.querySelectorAll('div.border-2.rounded-xl')
   )
   for (const post of document.querySelectorAll('div.border-2.rounded-xl')) {
     console.log('looping post')
@@ -294,12 +294,12 @@ async function addonTwo() {
       postHeader.parentElement.style.position = 'relative'
       console.log(
         'post1',
-        postHeader.parentElement.querySelectorAll('div.hoverCard'),
+        postHeader.parentElement.querySelectorAll('div.hoverCard')
       )
       if (!postHeader.parentElement.querySelector('div.hoverCard')) {
         postHeader.parentElement.insertAdjacentHTML(
           'beforeend',
-          await htmlFileContent,
+          await htmlFileContent
         )
         const hovercard =
           postHeader.parentElement.querySelector('div.hoverCard')

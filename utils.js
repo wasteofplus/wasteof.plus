@@ -1,4 +1,4 @@
-function waitForElm(selector, callback, ignoreClasses) {
+function waitForElm (selector, callback, ignoreClasses) {
   return new Promise((resolve) => {
     if (document.querySelector(selector)) {
       return resolve(document.querySelector(selector))
@@ -39,12 +39,12 @@ function waitForElm(selector, callback, ignoreClasses) {
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true,
+      subtree: true
     })
   })
 }
 
-function observeUrlChange(onUrlChange) {
+function observeUrlChange (onUrlChange) {
   let oldHref = document.location.href
   const body = document.querySelector('body')
   const observer = new MutationObserver((mutations) => {
@@ -58,11 +58,11 @@ function observeUrlChange(onUrlChange) {
   observer.observe(body, { childList: true, subtree: true })
 }
 
-function generateSelector(elem) {
+function generateSelector (elem) {
   const element = elem
   let str = ''
 
-  function loop(element) {
+  function loop (element) {
     // stop here = element has ID
     if (element.getAttribute('id')) {
       str = str.replace(/^/, ' #' + element.getAttribute('id'))
@@ -166,7 +166,7 @@ function generateSelector(elem) {
   return str
 }
 
-function timeDifference(current, previous) {
+function timeDifference (current, previous) {
   const msPerMinute = 60 * 1000
   const msPerHour = msPerMinute * 60
   const msPerDay = msPerHour * 24
@@ -190,7 +190,7 @@ function timeDifference(current, previous) {
   }
 }
 
-function getMessageSummary(message) {
+function getMessageSummary (message) {
   return 'Giving you a message'
 }
 
@@ -199,5 +199,5 @@ export {
   observeUrlChange,
   getMessageSummary,
   generateSelector,
-  timeDifference,
+  timeDifference
 }

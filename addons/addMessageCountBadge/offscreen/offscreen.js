@@ -1,22 +1,22 @@
-function playAudio({ source, volume }) {
+function playAudio ({ source, volume }) {
   const audio = new Audio(source)
   audio.volume = volume
   audio.play()
 }
 
-function logMessage(message, url) {
+function logMessage (message, url) {
   if (url !== '' && url != null && url !== undefined) {
     const myHeaders = new Headers()
     myHeaders.append('Content-Type', 'application/json')
     const raw = JSON.stringify({
-      message,
+      message
     })
 
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: raw,
-      redirect: 'follow',
+      redirect: 'follow'
     }
 
     fetch(url, requestOptions)
@@ -38,8 +38,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   } else if (request.type === 'token-send') {
     fetch('https://api.wasteof.money/messages/count', {
       headers: {
-        Authorization: request.token,
-      },
+        Authorization: request.token
+      }
     })
       .then((response) => response.json())
       .then(async (data) => {
@@ -51,12 +51,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           chrome.runtime.sendMessage({
             type: 'new_messages',
             count: data.count,
-            dontNotify: true,
+            dontNotify: true
           })
         } else {
           chrome.runtime.sendMessage({
             type: 'new_messages',
-            count: 0,
+            count: 0
           })
         }
       })
@@ -64,24 +64,24 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       logMessage('Token received: ' + request.token)
       const logUrl = request.logUrl
       sendResponse({
-        response: 'Response from offscreen script' + request.token,
+        response: 'Response from offscreen script' + request.token
       })
       const socket = io('https://api.wasteof.money', {
         transports: ['websocket'],
-        auth: { token: request.token },
+        auth: { token: request.token }
       })
       websocketListening = true
 
       socket.on('updateMessageCount', function (count) {
         logMessage('The message count is ' + count.toString(), logUrl)
 
-        function getStorageData() {
+        function getStorageData () {
           return new Promise((resolve, reject) => {
             chrome.runtime.sendMessage(
               { type: 'get_message_count' },
               (response) => {
                 resolve(response)
-              },
+              }
             )
           })
         }
@@ -96,12 +96,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                     storageData.sound +
                     ' with volume ' +
                     storageData.volume.toString(),
-                  logUrl,
+                  logUrl
                 )
                 if (storageData.playSound) {
                   playAudio({
                     source: storageData.sound,
-                    volume: storageData.volume,
+                    volume: storageData.volume
                   })
                 }
                 logMessage('New message received!' + count.toString(), logUrl)
@@ -109,7 +109,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                   type: 'new_messages',
                   count,
                   token: request.token,
-                  dontNotify: false,
+                  dontNotify: false
                 })
 
                 sendResponse({ response: 'Response from offscreen script' })
@@ -119,7 +119,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                   type: 'new_messages',
                   count,
                   token: request.token,
-                  dontNotify: true,
+                  dontNotify: true
                 })
                 logMessage('No new messages', logUrl)
               }
@@ -127,7 +127,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
               logMessage(
                 'No new messages' +
                   JSON.stringify(storageData.numberOfMessages),
-                logUrl,
+                logUrl
               )
             }
           })

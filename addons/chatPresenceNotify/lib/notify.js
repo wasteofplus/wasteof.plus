@@ -1,30 +1,30 @@
 const isWasteof3 = /beta/.test(new URL(document.URL).host)
 let userName = document.querySelector(
-  isWasteof3 ? 'a.mx-2 > span:nth-child(2)' : 'span.hidden:nth-child(2)',
+  isWasteof3 ? 'a.mx-2 > span:nth-child(2)' : 'span.hidden:nth-child(2)'
 ).innerText
 let unloaded = true
 let _unloaded = unloaded
 let socket
 
-function sendMessage(message) {
+function sendMessage (message) {
   // ok I found it
   console.log(socket)
   socket.emit('message', message)
 }
 
-function onUnload() {
+function onUnload () {
   unloaded = true
   sendMessage(`<i>${userName} leaves the chat.</i>`)
   console.log('unloaded!')
 }
 
-function onLoad() {
+function onLoad () {
   unloaded = false
   sendMessage(`<i>${userName} enters the chat.</i>`)
   console.log('loaded!')
 }
 
-function checkLocation() {
+function checkLocation () {
   unloaded = !(window.location.pathname === '/chat')
   if (_unloaded !== unloaded) {
     ;[onLoad, onUnload][+unloaded]() // a cursed if block
@@ -32,7 +32,7 @@ function checkLocation() {
   }
 }
 
-function init() {
+function init () {
   window.addEventListener('beforeunload', function (event) {
     // FIXME: sometimes this doesn't emit properly
     if (window.location.pathname === '/chat') onUnload()
