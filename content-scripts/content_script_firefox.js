@@ -35,6 +35,10 @@ window.addEventListener(
   },
   false
 )
+
+chrome.runtime.sendMessage({ text: 'what is my tab_id?' }, tabId => {
+  console.log('My tabId is', tabId)
+})
 // document.body.style.backgroundColor = 'red'
 const getTokenScript = document.createElement('script')
 getTokenScript.id = 'getTokenScript1'

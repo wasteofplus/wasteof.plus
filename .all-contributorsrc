@@ -75,6 +75,16 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "TheAwesome98-Real",
+      "name": "lily celeste newton",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59254971?v=4",
+      "profile": "http://tauon.dev",
+      "contributions": [
+        "ideas",
+        "audio"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -82,5 +92,5 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "projectName": "wasteof.plus",
-  "projectOwner": "imadeanaccount1"
+  "projectOwner": "wasteofplus"
 }
