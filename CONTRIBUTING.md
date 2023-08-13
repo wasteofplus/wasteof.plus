@@ -1,13 +1,22 @@
 # Contributing
 
 ### Contents:
-1. [Developing an Addon](#developing-an-addon)
+1. [Forking the repository](#forking-the-repository)
+2. [Developing an Addon](#developing-an-addon)
 
    a. [Chrome.Storage API](#chromestorage-api)
    
    b. [Background Scripts/Service Workers](#background-scriptsservice-workers)
 4. [Contributing an Addon](#contributing-an-addon)
 5. [Package.json Scripts](#packagejson-scripts)
+
+## Forking the repository
+To develop or build wasteof.plus locally on your device, you should first create a fork on GitHub.
+![image](https://github.com/wasteofplus/wasteof.plus/assets/138229538/8f48ebdd-6f20-4639-85c1-7d0a2845e027)
+
+Once you fork is created, run `git clone https://github.com/YOUR_USER_NAME/YOUR_FORK_NAME.git` to clone it into a local folder.
+
+To install the required dependencies for wasteof.plus, you must run `npm ci` in the newly-cloned folder. ✨ There you have it! Now, you can follow the tutorials below to create a new addon or make any other modififcations to wasteof.plus!
 
 ## Developing an Addon
 To contribute an addon to wasteof.plus, you must create a folder for the addon under the `addons/` directory. This subfolder must be named using a descriptive addon id that describes the addon's "main purpose" well. 
