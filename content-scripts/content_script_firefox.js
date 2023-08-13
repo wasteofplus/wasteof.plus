@@ -35,6 +35,10 @@ window.addEventListener(
   },
   false
 )
+
+chrome.runtime.sendMessage({ text: 'what is my tab_id?' }, tabId => {
+  console.log('My tabId is', tabId)
+})
 // document.body.style.backgroundColor = 'red'
 const getTokenScript = document.createElement('script')
 getTokenScript.id = 'getTokenScript1'
@@ -45,9 +49,7 @@ document.body.appendChild(getTokenScript)
 
 const routeChangeScript = document.createElement('script')
 routeChangeScript.id = 'routeChangeScript1'
-routeChangeScript.src = chrome.runtime.getURL(
-  'content-scripts/lib/routeChange.js'
-)
+routeChangeScript.src = chrome.runtime.getURL('content-scripts/lib/routeChange.js')
 // getTokenScript.dataset.extensionId = chrome.runtime.id
 
 document.body.appendChild(routeChangeScript)

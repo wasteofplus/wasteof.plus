@@ -20,5 +20,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest'
   },
-  rules: {}
+  rules: {},
+  globals: {
+    $nuxt: true,
+    io: true
+  }
 }
