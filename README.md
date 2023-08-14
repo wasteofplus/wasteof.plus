@@ -1,26 +1,33 @@
 # wasteof.plus
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-[![](https://img.shields.io/github/stars/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/stargazers) 
+
+[![](https://img.shields.io/github/stars/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/stargazers)
 [![](https://img.shields.io/github/forks/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/network/members)
-[![](https://img.shields.io/github/watchers/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/watchers) 
-[![](https://img.shields.io/github/issues/imadeanaccount1/wasteof.plus?color=green&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/issues) 
-[![](https://img.shields.io/github/issues-pr/imadeanaccount1/wasteof.plus?color=green&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/pulls) 
+[![](https://img.shields.io/github/watchers/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/watchers)
+[![](https://img.shields.io/github/issues/imadeanaccount1/wasteof.plus?color=green&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/issues)
+[![](https://img.shields.io/github/issues-pr/imadeanaccount1/wasteof.plus?color=green&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/pulls)
 [![](https://img.shields.io/github/license/imadeanaccount1/wasteof.plus?style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/blob/master/LICENSE)
 [![](https://img.shields.io/badge/website-wasteofplus.github.io-ff7b26.svg?style=flat-square&color=blue)](https://wasteofplus.github.io)
 
 wasteof.plus is a browser extension that adds customizable addons to the wasteof.money social media. 🌠
 
-## 👋 Getting Started:
+## Getting Started:
+
 Currently, wasteof.plus is not available on the Chrome web store, Edge add-on store, or the Firefox add-on marketplace. You must install it manually using one the following instructions:
 
 ### Browser Support
-|  Chrome  |  Edge  |  Firefox  |  Opera  |
-| -------- | ------ | --------- | -------- |
-| ✅ Tested, Working  | ✅ Tested, Working | ❌ Not Tested | ✅ Tested, Working |
+
+| Chrome             | Edge               | Firefox       | Opera              |
+| ------------------ | ------------------ | ------------- | ------------------ |
+| ✅ Tested, Working | ✅ Tested, Working | ❌ Not Tested | ✅ Tested, Working |
 
 #### For Chrome, Edge, and Opera:
+
 - Go to the [Releases tab](https://github.com/imadeanaccount1/wasteof.plus/releases) and download the latest release for your browser platform. Edge, Chrome, and Opera users should download releases marked as "chromium" while FireFox users should use "firefox" releases.
 - Extract the Zip file on your device.
 - Go to chrome://extensions (or opera://extensions, edge://extensions) in a new browser tab and toggle developer mode so that it's enabled.
@@ -28,9 +35,11 @@ Currently, wasteof.plus is not available on the Chrome web store, Edge add-on st
 - There you go! You've successfully installed wasteof.plus. To test it out, try going to [wasteof.money](https://wasteof.money).
 
 #### Firefox
+
 wasteof.plus is still being ported to work in Firefox. You can follow development progress [here](https://github.com/imadeanaccount1/wasteof.plus/pull/32).
 
 ## ✨ Features:
+
 - Adds beta, banned, admin, and verified badges next to usernames across the site. (in messages, on your feed, on explore, and on profiles)
 - Shows online status dot indicator across the site (same places as above)
 - Adds hover cards for user profiles on links
@@ -40,30 +49,35 @@ wasteof.plus is still being ported to work in Firefox. You can follow developmen
 - Allows you to create and vote in rich polls
 
 ### All Addons
-|  Profile Hover Cards  |  User Status Badges  |  Unread Messages Badge  |  New Message Notifications  |
-| -------- | ------ | --------- | -------- |
-| <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/dc5ad41e-d26b-4d92-b979-1774ffe1683e">  |  <img width="190px"  src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/3dfe43b5-13a5-4cb1-8cdd-802ae9a34faa"> | <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/2400ea6a-bcc5-406f-bd61-fdedf62cb649"> | <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/f61d6efa-cb7e-4e22-9ac1-f99127cf4069" width="190px"> |
-| Polls | Chat Presence Notifier |  |  |
-| <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/851d2cf2-4fcd-4e8d-9924-1e9eb90f7ff0">  |  <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/fe2f08e7-b86a-42e2-90a5-a23c51d669a9"> |  |  |
+
+| Profile Hover Cards                                                                                                             | User Status Badges                                                                                                               | Unread Messages Badge                                                                                                           | New Message Notifications                                                                                                       |
+| ------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/dc5ad41e-d26b-4d92-b979-1774ffe1683e"> | <img width="190px"  src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/3dfe43b5-13a5-4cb1-8cdd-802ae9a34faa"> | <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/2400ea6a-bcc5-406f-bd61-fdedf62cb649"> | <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/f61d6efa-cb7e-4e22-9ac1-f99127cf4069" width="190px"> |
+| Polls                                                                                                                           | Chat Presence Notifier                                                                                                           |                                                                                                                                 |                                                                                                                                 |
+| <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/851d2cf2-4fcd-4e8d-9924-1e9eb90f7ff0"> | <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/fe2f08e7-b86a-42e2-90a5-a23c51d669a9">  |                                                                                                                                 |                                                                                                                                 |
 
 <!--- ![followsyoubadge - Copy (3)](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/1c4c32bb-8951-4055-b820-9b9ebd545167)
 ![Screenshot2023070714](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/73f53d4a-91e3-4cd7-996f-d49fb1ad1b47) -->
 
-
 ## 🗺 Roadmap (not in any particular order):
+
 - Typescript
 - Clean up code
 
 ## Contributing:
+
 Find information about contributing code/addons in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ### 📜 License:
+
 wasteof.plus is licensed under the BSD-3 license. read it [here](LICENSE). It is primarily maintained by @imadeanaccount1.
 
 ## Motivation:
-Make wasteof.money better by adding cool community-requested features that may or may not necessarily fit into the base social media and may or may not be wanted by everybody (users  have the option to turn on/off addons.)
+
+Make wasteof.money better by adding cool community-requested features that may or may not necessarily fit into the base social media and may or may not be wanted by everybody (users have the option to turn on/off addons.)
 
 ## Other Projects
+
 Wasteof.plus is inspired by [ScratchAddons](https://github.com/ScratchAddons/ScratchAddons), which is developed by the [ScratchAddons](https://github.com/ScratchAddons) team, and wasteof.mobile by [Micah Lindley](https://github.com/micahlt). Wasteof.money is developed by [jeffalo.](https://github.com/jeffalo)
 
 ## Contributors
