@@ -2,7 +2,7 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -95,6 +95,9 @@ Wasteof.plus is inspired by [ScratchAddons](https://github.com/ScratchAddons/Scr
       <td align="center" valign="top" width="14.28%"><a href="http://illogicalapple.github.io"><img src="https://avatars.githubusercontent.com/u/80916557?v=4?s=100" width="100px;" alt="illogicalapple"/><br /><sub><b>illogicalapple</b></sub></a><br /><a href="https://github.com/wasteofplus/wasteof.plus/issues?q=author%3Aillogicalapple" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://scoldercreations.github.io"><img src="https://avatars.githubusercontent.com/u/69083943?v=4?s=100" width="100px;" alt="Scolder"/><br /><sub><b>Scolder</b></sub></a><br /><a href="https://github.com/wasteofplus/wasteof.plus/commits?author=ScolderCreations" title="Code">💻</a> <a href="#ideas-ScolderCreations" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://tauon.dev"><img src="https://avatars.githubusercontent.com/u/59254971?v=4?s=100" width="100px;" alt="lily celeste newton"/><br /><sub><b>lily celeste newton</b></sub></a><br /><a href="#ideas-TheAwesome98-Real" title="Ideas, Planning, & Feedback">🤔</a> <a href="#audio-TheAwesome98-Real" title="Audio">🔊</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://radi8.dev"><img src="https://avatars.githubusercontent.com/u/124477460?v=4?s=100" width="100px;" alt="radeeyate"/><br /><sub><b>radeeyate</b></sub></a><br /><a href="#data-radeeyate" title="Data">🔣</a> <a href="https://github.com/wasteofplus/wasteof.plus/commits?author=radeeyate" title="Code">💻</a> <a href="#infra-radeeyate" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-radeeyate" title="Maintenance">🚧</a></td>
     </tr>
   </tbody>
 </table>
