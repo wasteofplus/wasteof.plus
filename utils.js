@@ -1,11 +1,12 @@
-function waitForElm (selector, callback, className) {
+function waitForElm (selector, debug, callback) {
   return new Promise(resolve => {
     if (document.querySelector(selector)) {
       resolve(document.querySelector(selector))
     }
 
     const observer = new MutationObserver(mutations => {
-      console.log('mutation', mutations)
+      debug.log('mutation', mutations)
+
       if (document.querySelector(selector)) {
         let elementsThatDidntHaveClass = false
         for (const { addedNodes } of mutations) {
@@ -24,18 +25,18 @@ function waitForElm (selector, callback, className) {
           }
         }
         if (elementsThatDidntHaveClass) {
-          console.log('observer ended up!')
+          debug.log('observer ended up!')
           resolve(document.querySelector(selector))
           if (callback) {
-            console.log('mutations', mutations)
+            debug.log('mutations', mutations)
             for (const record of mutations) {
-              console.log('mutation record', record)
+              debug.log('mutation record', record)
               const nodelist = []
               for (const node of record.addedNodes) {
-                console.log('onenode', node, node.nodeType === Node.TEXT_NODE)
+                debug.log('onenode', node, node.nodeType === Node.TEXT_NODE)
                 if (node.nodeType !== Node.TEXT_NODE) {
                   if (node.matches('div.border-2.mb-4')) {
-                    console.log('pushing node', node.querySelector('a > div.w-full > a > img.border-2'))
+                    debug.log('pushing node', node.querySelector('a > div.w-full > a > img.border-2'))
                     nodelist.push(node.querySelector('a > div.w-full > a > img.border-2'))
                   }
                 }
@@ -43,7 +44,7 @@ function waitForElm (selector, callback, className) {
               if (nodelist.length > 0) {
                 callback(nodelist)
               } else {
-                console.log('can\'t call back')
+                debug.log('can\'t call back')
               }
             }
           } else {
@@ -72,7 +73,7 @@ function observeUrlChange (onUrlChange) {
   const observer = new MutationObserver(mutations => {
     if (oldHref !== document.location.href) {
       oldHref = document.location.href
-      console.log('url changed!')
+      debug.log('url changed!')
       onUrlChange(true)
       observer.disconnect()
     }

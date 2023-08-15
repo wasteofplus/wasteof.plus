@@ -167,8 +167,11 @@ async function addon () {
   // console.log("htmlFileContent", htmlFileContent)
   const utilsUrl = chrome.runtime.getURL('../utils.js')
   const utils = await import(utilsUrl)
+
+  const debug = await import(chrome.runtime.getURL('../debug.js'))
+
   if (!document.querySelector('div.border-2.rounded-xl')) {
-    await utils.waitForElm('div.border-2.rounded-xl')
+    await utils.waitForElm('div.border-2.rounded-xl', debug)
   }
 
   console.log('navigation bar is ')
@@ -226,8 +229,11 @@ async function addonTwo () {
   // console.log("htmlFileContent", htmlFileContent)
   const utilsUrl = chrome.runtime.getURL('../utils.js')
   const utils = await import(utilsUrl)
+
+  const debug = await import(chrome.runtime.getURL('../debug.js'))
+
   if (!document.querySelector('div.border-2.rounded-xl')) {
-    await utils.waitForElm('div.border-2.rounded-xl')
+    await utils.waitForElm('div.border-2.rounded-xl', debug)
   }
 
   console.log('navigation bar is ')
@@ -310,7 +316,9 @@ addon().then(async () => {
 
   const utils = await import(utilsUrl)
 
-  await utils.waitForElm('img.border-2', async (addedNodesFromWait) => {
+  const debug = await import(chrome.runtime.getURL('../debug.js'))
+
+  await utils.waitForElm('img.border-2', debug, async (addedNodesFromWait) => {
     addonTwo()
 
     // addon(false)
