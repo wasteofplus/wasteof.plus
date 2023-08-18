@@ -166,7 +166,7 @@ async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
 async function addon () {
   const debug = await import(chrome.runtime.getURL('../debug.js'))
 
-  console.log('executing addon , profileHoverCards1')
+  debug.log('executing addon , profileHoverCards', 'alwayslog')
   const htmlFileContent = await fetch(chrome.runtime.getURL('./addons/profileHoverCards/templates/hovercard.html')).then(response => response.text())
   // console.log("htmlFileContent", htmlFileContent)
   const utilsUrl = chrome.runtime.getURL('../utils.js')

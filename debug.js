@@ -5,6 +5,10 @@ function log (...args) {
 
   if (!isProdMode) {
     console.log('%c wasteof.plus %c', pill1, args[0], ...args, '')
+  } else {
+    if (args[args.length - 1] === 'alwayslog') {
+      console.log('%c wasteof.plus %c', pill1, args[0], ...args, '')
+    }
   }
 }
 

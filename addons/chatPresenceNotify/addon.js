@@ -1,6 +1,6 @@
 function addon () {
   import(chrome.runtime.getURL('../debug.js')).then((debug) => {
-    debug.log('executing addon , chatPresenceNotify')
+    debug.log('executing addon , chatPresenceNotify', 'alwayslog')
     const SCRIPT_ID = 'chat-presence-notify'
     // HACK: inject the notify.js script (because that's the only solution I can find)
     if (document.getElementById(SCRIPT_ID) !== null) { // make sure this script isn't there already

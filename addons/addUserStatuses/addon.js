@@ -4,7 +4,7 @@ async function addon (reload) {
   const debug = await import(chrome.runtime.getURL('../debug.js'))
 
   debug.log('reloading started')
-  debug.log('executing addon function', chrome.runtime.getURL('../utils.js'))
+  debug.log('executing addon function', chrome.runtime.getURL('../utils.js'), 'alwayslog')
   const utilsUrl = chrome.runtime.getURL('../utils.js')
   const utils = await import(utilsUrl)
 
