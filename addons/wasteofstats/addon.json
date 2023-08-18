@@ -1,6 +1,8 @@
 {
-  "urls": ["https://wasteof.money/", "https://wasteof.money"],
-  "urlcontains": ["wasteof.money"],
+  "urls": [],
+  "urlcontains": [
+      "wasteof.money/users"
+  ],
   "name": "User Profile Statistics",
   "description": "Shows statistics about wasteof users in a profile widget. Inspired by wasteof.stats.",
   "developers": [

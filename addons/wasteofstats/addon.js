@@ -15,7 +15,7 @@ const apexChartsScript = document.createElement('script')
 apexChartsScript.src = chrome.runtime.getURL('./node_modules/apexcharts/dist/apexcharts.min.js')
 document.body.appendChild(apexChartsScript)
 
-document.body.querySelector('main > div').insertAdjacentHTML('afterend', `
+document.body.querySelector('main > div.bg-gray-100').insertAdjacentHTML('afterend', `
 <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
   <div class="flex justify-between mb-5">
     <div class="grid gap-4 grid-cols-2">
