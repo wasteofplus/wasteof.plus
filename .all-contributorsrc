@@ -17,7 +17,11 @@
         "design",
         "ideas",
         "maintenance",
-        "infra"
+        "infra",
+        "doc",
+        "review",
+        "question",
+        "platform"
       ]
     },
     {
@@ -39,6 +43,25 @@
       "contributions": [
         "code",
         "ideas"
+      ]
+    },
+    {
+      "login": "jakednolastname",
+      "name": "jakednolastname",
+      "avatar_url": "https://avatars.githubusercontent.com/u/122004617?v=4",
+      "profile": "https://github.com/jakednolastname",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "illogicalapple",
+      "name": "illogicalapple",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80916557?v=4",
+      "profile": "http://illogicalapple.github.io",
+      "contributions": [
+        "bug"
       ]
     }
   ],
