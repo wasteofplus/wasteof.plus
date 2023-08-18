@@ -8,11 +8,7 @@
     "*://*.wasteof.money/*"
   ],
   "version": "0.2.3",
-  "version_name": "0.2.3-alpha",
   "description": "Browser extension that adds customizable addons to the wasteof.money social media. 🌠",
-  "externally_connectable": {
-    "matches": ["*://*.wasteof.money/*"]
-  },
   "permissions": ["scripting", "storage", "tabs", "webNavigation"],
   "optional_permissions": ["notifications"],
 
