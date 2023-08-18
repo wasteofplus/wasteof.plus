@@ -6,18 +6,18 @@ console.log('1hello from the content script!!!')
 // function test (window) {
 //   console.log('unsafe lambda', window)
 // }
-// test(window.unsafeWindow)
-const testnewfunction = window.wrappedJSObject.$nuxt.$router
-console.log(testnewfunction)
-function testfunction () {
-  console.log('hello route may have changed from content script')
-}
-window.wrappedJSObject.$nuxt.$router = cloneInto(testfunction, window, {
-  cloneFunctions: true
-})
-testnewfunction.afterEach((to, from) => {
-  console.log('hello from content script again!!!')
-})
+// // test(window.unsafeWindow)
+// const testnewfunction = window.wrappedJSObject.$nuxt.$router
+// console.log(testnewfunction)
+// function testfunction () {
+//   console.log('hello route may have changed from content script')
+// }
+// window.wrappedJSObject.$nuxt.$router = cloneInto(testfunction, window, {
+//   cloneFunctions: true
+// })
+// testnewfunction.afterEach((to, from) => {
+//   console.log('hello from content script again!!!')
+// })
 // window.wrappedJSObject.$nuxt.$router.afterEach((to, from) => {
 //   console.log('hello from content script again!!!')
 // })

@@ -441,7 +441,7 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
     console.log('received message from content script', sender.tab.id)
     chrome.scripting.executeScript({
       target: { tabId: sender.tab.id },
-      files: ['content-scripts/lib/getToken.js', 'content-scripts/lib/routeChange.js']
+      files: ['content-scripts/lib/getToken.js', 'content-scripts/lib/routeChange_firefox.js']
     })
     sendResponse({ tab: sender.tab.id })
   } else {
