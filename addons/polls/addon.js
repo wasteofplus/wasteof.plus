@@ -194,7 +194,7 @@ function testrunaddon () {
 
 function addon () {
   import(chrome.runtime.getURL('../debug.js')).then((debug) => {
-    debug.log('executing addon, polls')
+    debug.log('executing addon, polls', 'alwayslog')
   })
   testrunaddon()
 }
