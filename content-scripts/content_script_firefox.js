@@ -79,4 +79,5 @@ chrome.runtime.sendMessage({ text: 'what is my tab_id?' }, tabId => {
 // By the way, this could just be
 //   var win = content;
 // or
-//   var win = gBrowser.contentWindow;// voila!
+//   var win = gBrowser.contentWindow;
+// voila!

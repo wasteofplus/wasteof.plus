@@ -1,10 +1,7 @@
-console.log('injected script running1')
-console.log('getting wrapped object', window.wrappedJSObject.$nuxt)
-console.log('getting token1', window.wrappedJSObject.$nuxt)
-console.log('getting token', window.wrappedJSObject.$nuxt.$auth.token)
+console.log('injected script running')
 
-document.querySelector('body').dataset.token = window.wrappedJSObject.$nuxt.$auth.token
-console.log('getting token', window.wrappedJSObject.$nuxt.$auth.token)
+document.querySelector('body').dataset.token = $nuxt.$auth.token
+console.log('getting token')
 const event = new CustomEvent('PassToBackgroundToken', { detail: 'HELLO!!!' })
 window.dispatchEvent(event)
 // chrome.runtime.sendMessage(document.querySelector('#getTokenScript1').dataset.extensionId, { type: 'login-token', token: document.querySelector('body').dataset.token }, function (response) {

@@ -1,22 +1,24 @@
-function waitForElm (selector, callback, ignoreClasses) {
+function waitForElm (selector, callback, className) {
   return new Promise(resolve => {
     if (document.querySelector(selector)) {
-      return resolve(document.querySelector(selector))
+      resolve(document.querySelector(selector))
     }
 
-    const observer = new MutationObserver(mutations => {
+    const observer = new MutationObserver((mutations) => {
       console.log('mutation', mutations)
       if (document.querySelector(selector)) {
         let elementsThatDidntHaveClass = false
         for (const { addedNodes } of mutations) {
           for (const node of addedNodes) {
             if (!node.tagName) continue // not an element
-            if (node.classList.contains('replyCount') ||
-                            node.classList.contains('actionDropdownItem') ||
-                            node.classList.contains('commentActionDropdown') ||
-                            node.classList.contains('readIndicator') ||
-                            node.classList.contains('replyIcon') ||
-                            node.classList.contains('dropdownIcon')) {
+            if (
+              node.classList.contains('replyCount') ||
+              node.classList.contains('actionDropdownItem') ||
+              node.classList.contains('commentActionDropdown') ||
+              node.classList.contains('readIndicator') ||
+              node.classList.contains('replyIcon') ||
+              node.classList.contains('dropdownIcon')
+            ) {
               continue
             } else {
               elementsThatDidntHaveClass = true
@@ -27,25 +29,49 @@ function waitForElm (selector, callback, ignoreClasses) {
           console.log('observer ended up!')
           resolve(document.querySelector(selector))
           if (callback) {
-            callback()
+            console.log('mutations', mutations)
+            for (const record of mutations) {
+              console.log('mutation record', record)
+              const nodelist = []
+              for (const node of record.addedNodes) {
+                console.log('onenode', node, node.nodeType === Node.TEXT_NODE)
+                if (node.nodeType !== Node.TEXT_NODE) {
+                  if (node.matches('div.border-2.mb-4')) {
+                    console.log('pushing node', node.querySelector('a > div.w-full > a > img.border-2'))
+                    nodelist.push(node.querySelector('a > div.w-full > a > img.border-2'))
+                  }
+                }
+              }
+              if (nodelist.length > 0) {
+                callback(nodelist)
+              } else {
+                console.log('can\'t call back')
+              }
+            }
           } else {
             observer.disconnect()
           }
         }
       }
     })
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    })
+    if (callback) {
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      })
+    } else {
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      })
+    }
   })
 }
 
 function observeUrlChange (onUrlChange) {
   let oldHref = document.location.href
   const body = document.querySelector('body')
-  const observer = new MutationObserver(mutations => {
+  const observer = new MutationObserver((mutations) => {
     if (oldHref !== document.location.href) {
       oldHref = document.location.href
       console.log('url changed!')
@@ -54,7 +80,7 @@ function observeUrlChange (onUrlChange) {
     }
   })
   observer.observe(body, { childList: true, subtree: true })
-};
+}
 
 function generateSelector (elem) {
   const element = elem
@@ -84,7 +110,7 @@ function generateSelector (elem) {
       elemClasses = elemClasses.replace(/^/g, ' ')
       let newElemClasses = '.'
       for (const className in elemClasses.split('.')) {
-        if (!(className.includes('dark'))) {
+        if (!className.includes('dark')) {
           newElemClasses += className
         }
       }
@@ -101,8 +127,9 @@ function generateSelector (elem) {
       const similarClasses = []
 
       for (let i = 0; i < childrens.length; i++) {
-        if (element.getAttribute('class') ===
-  childrens[i].getAttribute('class')) {
+        if (
+          element.getAttribute('class') === childrens[i].getAttribute('class')
+        ) {
           similarClasses.push(childrens[i])
         }
       }
@@ -191,4 +218,10 @@ function getMessageSummary (message) {
   return 'Giving you a message'
 }
 
-export { waitForElm, observeUrlChange, getMessageSummary, generateSelector, timeDifference }
+export {
+  waitForElm,
+  observeUrlChange,
+  getMessageSummary,
+  generateSelector,
+  timeDifference
+}
