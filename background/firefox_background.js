@@ -444,6 +444,12 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
       files: ['content-scripts/lib/getToken.js', 'content-scripts/lib/routeChange_firefox.js']
     })
     sendResponse({ tab: sender.tab.id })
+  } else if (request.type === 'route-changed') {
+    console.log('route change message received!')
+    console.log('tab id is', sender.tab.id, 'url is', sender.tab.url)
+    chrome.tabs.sendMessage(sender.tab.id, { action: 'reload' }, function (response) {
+      console.log('response', response)
+    })
   } else {
     chrome.storage.local.get(['enabledAddons']).then(async (result) => {
       if (request.type === 'login-token') {

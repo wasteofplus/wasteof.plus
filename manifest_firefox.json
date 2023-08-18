@@ -47,7 +47,7 @@
             "addons/*/addon.json",
             "addons/*/lib/*.js",
             "utils.js",
-            "content-scripts/lib/routeInjectedScript.js.js"
+            "content-scripts/lib/routeInjectedScript.js"
         ]
       }]
   }
