@@ -68,17 +68,19 @@ function waitForElm (selector, debug, callback) {
 }
 
 function observeUrlChange (onUrlChange) {
-  let oldHref = document.location.href
-  const body = document.querySelector('body')
-  const observer = new MutationObserver(mutations => {
-    if (oldHref !== document.location.href) {
-      oldHref = document.location.href
-      debug.log('url changed!')
-      onUrlChange(true)
-      observer.disconnect()
-    }
+  import(chrome.runtime.getURL('../debug.js')).then((debug) => {
+    let oldHref = document.location.href
+    const body = document.querySelector('body')
+    const observer = new MutationObserver(mutations => {
+      if (oldHref !== document.location.href) {
+        oldHref = document.location.href
+        debug.log('url changed!')
+        onUrlChange(true)
+        observer.disconnect()
+      }
+    })
+    observer.observe(body, { childList: true, subtree: true })
   })
-  observer.observe(body, { childList: true, subtree: true })
 };
 
 function generateSelector (elem) {
