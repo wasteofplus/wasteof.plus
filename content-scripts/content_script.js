@@ -45,7 +45,9 @@ document.body.appendChild(getTokenScript)
 
 const routeChangeScript = document.createElement('script')
 routeChangeScript.id = 'routeChangeScript1'
-routeChangeScript.src = chrome.runtime.getURL('content-scripts/lib/routeChange.js')
+routeChangeScript.src = chrome.runtime.getURL(
+  'content-scripts/lib/routeChange.js'
+)
 // getTokenScript.dataset.extensionId = chrome.runtime.id
 
 document.body.appendChild(routeChangeScript)

@@ -19,10 +19,7 @@ function testrunaddon () {
           return
         }
         const values = mappedComments.get(comment.content)
-        mappedComments.set(comment.content, [
-          ...(values ?? []),
-          comment.poster
-        ])
+        mappedComments.set(comment.content, [...(values ?? []), comment.poster])
         votedAuthors.push(comment.poster.id)
       })
       if (response.last) {
@@ -40,12 +37,7 @@ function testrunaddon () {
     .find((el) => el.textContent === 'Create post')
     .parentElement.querySelector('#modal-header ~ div > div > div > div')
   const insertPollsButton = document.createElement('button')
-  insertPollsButton.classList.add(
-    'text-white',
-    'p-1',
-    'rounded',
-    'bg-gray-500'
-  )
+  insertPollsButton.classList.add('text-white', 'p-1', 'rounded', 'bg-gray-500')
   const insertPollsButtonSpan = document.createElement('span')
   insertPollsButtonSpan.innerHTML = pollSvg
   insertPollsButton.appendChild(insertPollsButtonSpan)

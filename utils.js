@@ -12,12 +12,14 @@ function waitForElm (selector, debug, callback) {
         for (const { addedNodes } of mutations) {
           for (const node of addedNodes) {
             if (!node.tagName) continue // not an element
-            if (node.classList.contains('replyCount') ||
-                            node.classList.contains('actionDropdownItem') ||
-                            node.classList.contains('commentActionDropdown') ||
-                            node.classList.contains('readIndicator') ||
-                            node.classList.contains('replyIcon') ||
-                            node.classList.contains('dropdownIcon')) {
+            if (
+              node.classList.contains('replyCount') ||
+              node.classList.contains('actionDropdownItem') ||
+              node.classList.contains('commentActionDropdown') ||
+              node.classList.contains('readIndicator') ||
+              node.classList.contains('replyIcon') ||
+              node.classList.contains('dropdownIcon')
+            ) {
               continue
             } else {
               elementsThatDidntHaveClass = true
@@ -111,7 +113,7 @@ function generateSelector (elem) {
       elemClasses = elemClasses.replace(/^/g, ' ')
       let newElemClasses = '.'
       for (const className in elemClasses.split('.')) {
-        if (!(className.includes('dark'))) {
+        if (!className.includes('dark')) {
           newElemClasses += className
         }
       }
@@ -128,8 +130,9 @@ function generateSelector (elem) {
       const similarClasses = []
 
       for (let i = 0; i < childrens.length; i++) {
-        if (element.getAttribute('class') ===
-  childrens[i].getAttribute('class')) {
+        if (
+          element.getAttribute('class') === childrens[i].getAttribute('class')
+        ) {
           similarClasses.push(childrens[i])
         }
       }
@@ -218,4 +221,10 @@ function getMessageSummary (message) {
   return 'Giving you a message'
 }
 
-export { waitForElm, observeUrlChange, getMessageSummary, generateSelector, timeDifference }
+export {
+  waitForElm,
+  observeUrlChange,
+  getMessageSummary,
+  generateSelector,
+  timeDifference
+}

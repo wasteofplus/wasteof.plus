@@ -26,14 +26,18 @@ async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
   const userTheme = postHeader.querySelector('span.ml-1.inline-block').classList[2]
   debug.log('user theme is ', userTheme)
   username = username.replace(/\s/g, '')
-  username = username.replace(
-    /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
-    ''
-  ).trim()
+  username = username
+    .replace(
+      /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
+      ''
+    )
+    .trim()
   const apiUrl = 'https://api.wasteof.money/users/' + username.slice(1)
   const userUrl = 'https://wasteof.money/users/' + username.slice(1)
-  const user = await fetch(apiUrl).then(response => response.json())
-  const loggedInUser = document.querySelector('span.flex > li > a.inline-block.font-semibold > span')
+  const user = await fetch(apiUrl).then((response) => response.json())
+  const loggedInUser = document.querySelector(
+    'span.flex > li > a.inline-block.font-semibold > span'
+  )
   const followButton = hovercard.querySelector('.followButton')
 
   let meFollowing = false
@@ -59,12 +63,15 @@ async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
     }
 
     followButton.addEventListener('click', async () => {
-      fetch('https://api.wasteof.money/users/' + username.slice(1) + '/followers', {
-        method: 'POST',
-        headers: {
-          Authorization: document.querySelector('body').dataset.token
+      fetch(
+        'https://api.wasteof.money/users/' + username.slice(1) + '/followers',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: document.querySelector('body').dataset.token
+          }
         }
-      }).then(response => response.json()).then(data => {
+      ).then(response => response.json()).then(data => {
         debug.log('finished following/unfollowing', data)
         if (data.error) {
           alert(data.error)
@@ -87,7 +94,8 @@ async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
 
   const profilePicture = postHeader.querySelector('img.border-2').src
   hovercard.querySelector('.userPfp').src = profilePicture
-  hovercard.querySelector('.userPfp').alt = username.slice(1) + "'s Profile Picture"
+  hovercard.querySelector('.userPfp').alt =
+    username.slice(1) + "'s Profile Picture"
 
   const banner = apiUrl + '/banner'
   hovercard.querySelector('.userBanner').src = banner
@@ -132,13 +140,14 @@ async function fillInHoverCardTemplate (hovercard, postHeader, utils) {
 
   if (theme === 'light') {
     hovercard.querySelector('.userBeta').style.fill = '#6366f1'
-    hovercard.querySelector('.userFollowingMe').style.color = 'var(--primary-500)'
+    hovercard.querySelector('.userFollowingMe').style.color =
+      'var(--primary-500)'
   }
 
   if (verified && !admin) {
     hovercard.querySelector('.userVerified').style.left = '0px'
   }
-  if (beta && ((!admin || !verified) && !(!admin && !verified))) {
+  if (beta && (!admin || !verified) && !(!admin && !verified)) {
     hovercard.querySelector('.userBeta').style.left = '25px'
   } else if (!admin && !verified) {
     hovercard.querySelector('.userBeta').style.left = '0px'
@@ -188,8 +197,12 @@ async function addon () {
       postHeader.parentElement.style.position = 'relative'
       debug.log('post1', postHeader.parentElement.querySelectorAll('div.hoverCard'))
       if (!postHeader.parentElement.querySelector('div.hoverCard')) {
-        postHeader.parentElement.insertAdjacentHTML('beforeend', await htmlFileContent)
-        const hovercard = postHeader.parentElement.querySelector('div.hoverCard')
+        postHeader.parentElement.insertAdjacentHTML(
+          'beforeend',
+          await htmlFileContent
+        )
+        const hovercard =
+          postHeader.parentElement.querySelector('div.hoverCard')
         hovercard.style.display = 'none'
         const hoverArea = document.createElement('div')
         hoverArea.classList.add('hoverArea')
