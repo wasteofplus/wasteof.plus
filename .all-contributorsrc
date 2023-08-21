@@ -70,7 +70,13 @@
       "name": "radeeyate",
       "avatar_url": "https://avatars.githubusercontent.com/u/124477460?v=4",
       "profile": "http://radi8.dev",
-      "contributions": ["data", "code", "infra", "maintenance"]
+      "contributions": [
+        "data",
+        "code",
+        "infra",
+        "maintenance",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
