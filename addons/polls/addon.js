@@ -74,6 +74,8 @@ function testrunaddon () {
   modalHeader.insertBefore(insertPollsButton, modalHeader.lastChild)
 
   document.querySelectorAll('.prose > pre').forEach(async (element) => {
+    const debug = await import(chrome.runtime.getURL('../debug.js'))
+
     const rawContent = element.textContent
     const postId = (
       element.parentElement.parentElement.getAttribute('to') ||
@@ -88,7 +90,7 @@ function testrunaddon () {
       !(options instanceof Array) ||
       options.some((option) => typeof option !== 'string')
     ) {
-      console.log(`Expected options to be an array of strings, got ${content}`)
+      debug.log(`Expected options to be an array of strings, got ${content}`)
     }
     const comments = await getPostCommentsByPoster(postId, options)
     const voteAmounts = [...comments.values()]
@@ -183,26 +185,30 @@ function testrunaddon () {
 }
 
 function addon () {
-  console.log('executing addon, polls')
+  import(chrome.runtime.getURL('../debug.js')).then((debug) => {
+    debug.log('executing addon, polls', 'alwayslog')
+  })
   testrunaddon()
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log('message polls', message)
-  sendResponse({ message: 'hello' })
-  if (message.action === 'reload') {
-    console.log('RELOADING!!! user statuses')
-    // wait 3 seconds
-    setTimeout(() => {
-      console.log('it\'s been 3 seconds, reloading addon polls')
-      console.log('going to execute polls')
-      testrunaddon()
+  import(chrome.runtime.getURL('../debug.js')).then((debug) => {
+    debug.log('message polls', message)
+    sendResponse({ message: 'hello' })
+    if (message.action === 'reload') {
+      debug.log('RELOADING!!! user statuses')
+      // wait 3 seconds
+      setTimeout(() => {
+        debug.log('it\'s been 3 seconds, reloading addon polls')
+        debug.log('going to execute polls')
+        testrunaddon()
 
       // addon()
-    }, 3000)
-    // addon()
-    console.log('finsihed reloading addon user statises')
-  }
+      }, 3000)
+      // addon()
+      debug.log('finsihed reloading addon user statises')
+    }
+  })
 })
 
 addon()

@@ -1,9 +1,7 @@
 # wasteof.plus
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
 [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
-
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![](https://img.shields.io/github/stars/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/stargazers)
@@ -97,7 +95,7 @@ Wasteof.plus is inspired by [ScratchAddons](https://github.com/ScratchAddons/Scr
       <td align="center" valign="top" width="14.28%"><a href="http://tauon.dev"><img src="https://avatars.githubusercontent.com/u/59254971?v=4?s=100" width="100px;" alt="lily celeste newton"/><br /><sub><b>lily celeste newton</b></sub></a><br /><a href="#ideas-TheAwesome98-Real" title="Ideas, Planning, & Feedback">🤔</a> <a href="#audio-TheAwesome98-Real" title="Audio">🔊</a></td>
     </tr>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="http://radi8.dev"><img src="https://avatars.githubusercontent.com/u/124477460?v=4?s=100" width="100px;" alt="radeeyate"/><br /><sub><b>radeeyate</b></sub></a><br /><a href="#data-radeeyate" title="Data">🔣</a> <a href="https://github.com/wasteofplus/wasteof.plus/commits?author=radeeyate" title="Code">💻</a> <a href="#infra-radeeyate" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-radeeyate" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://radi8.dev"><img src="https://avatars.githubusercontent.com/u/124477460?v=4?s=100" width="100px;" alt="radeeyate"/><br /><sub><b>radeeyate</b></sub></a><br /><a href="#data-radeeyate" title="Data">🔣</a> <a href="https://github.com/wasteofplus/wasteof.plus/commits?author=radeeyate" title="Code">💻</a> <a href="#infra-radeeyate" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-radeeyate" title="Maintenance">🚧</a> <a href="#ideas-radeeyate" title="Ideas, Planning, & Feedback">🤔</a></td>
     </tr>
   </tbody>
 </table>
