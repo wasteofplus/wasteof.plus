@@ -9,10 +9,11 @@
 
    b. [Background Scripts/Service Workers](#background-scriptsservice-workers)
 
-2. [Contributing an Addon](#contributing-an-addon)
-3. [Package.json Scripts](#packagejson-scripts)
+3. [Contributing an Addon](#contributing-an-addon)
+4. [Package.json Scripts](#packagejson-scripts)
 
 ## Forking the repository
+
 To develop or build wasteof.plus locally on your device, you should first create a fork on GitHub.
 ![image](https://github.com/wasteofplus/wasteof.plus/assets/138229538/8f48ebdd-6f20-4639-85c1-7d0a2845e027)
 

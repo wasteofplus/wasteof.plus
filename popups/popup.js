@@ -58,6 +58,8 @@ function updateOptionDependencies (option, optionsJSON, addon, optionsParentElem
             const indexOfOtherOption = optionsJSON.indexOf(otherOption)
 
             console.log('value for option', option, 'is ', result[addon + 'Options'][option])
+            console.log('dynamic vis', otherOption.id, otherOption, otherOption.dynamicVisibility)
+            console.log(otherOption.dynamicVisibility.find(rule => rule.id === option))
 
             if (otherOption.dynamicVisibility.find(rule => rule.id === option).values.includes(result[addon + 'Options'][option])) {
               console.log('showing an option, ', otherOption.id, 'but the original dependency option', option, 'is', originalShowing)

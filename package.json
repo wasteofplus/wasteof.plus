@@ -1,6 +1,6 @@
 {
   "name": "wasteof.plus",
-  "version": "0.1.3",
+  "version": "0.2.3",
   "description": "Browser extension that adds customizable addons to the wasteof.money social media. 🌠",
   "main": "background/background.js",
   "scripts": {

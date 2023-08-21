@@ -1,7 +1,5 @@
 {
-  "files": [
-    "README.md"
-  ],
+  "files": ["README.md"],
   "imageSize": 100,
   "commit": false,
   "commitType": "docs",
@@ -30,61 +28,42 @@
       "name": "mybearworld",
       "avatar_url": "https://avatars.githubusercontent.com/u/130385691?v=4",
       "profile": "https://github.com/mybearworld",
-      "contributions": [
-        "bug",
-        "ideas",
-        "code"
-      ]
+      "contributions": ["bug", "ideas", "code"]
     },
     {
       "login": "Gilbert189",
       "name": "Gilbert189",
       "avatar_url": "https://avatars.githubusercontent.com/u/57717273?v=4",
       "profile": "https://github.com/Gilbert189",
-      "contributions": [
-        "code",
-        "ideas"
-      ]
+      "contributions": ["code", "ideas"]
     },
     {
       "login": "jakednolastname",
       "name": "jakednolastname",
       "avatar_url": "https://avatars.githubusercontent.com/u/122004617?v=4",
       "profile": "https://github.com/jakednolastname",
-      "contributions": [
-        "code",
-        "ideas",
-        "design"
-      ]
+      "contributions": ["code", "ideas", "design"]
     },
     {
       "login": "illogicalapple",
       "name": "illogicalapple",
       "avatar_url": "https://avatars.githubusercontent.com/u/80916557?v=4",
       "profile": "http://illogicalapple.github.io",
-      "contributions": [
-        "bug"
-      ]
+      "contributions": ["bug"]
     },
     {
       "login": "ScolderCreations",
       "name": "Scolder",
       "avatar_url": "https://avatars.githubusercontent.com/u/69083943?v=4",
       "profile": "https://scoldercreations.github.io",
-      "contributions": [
-        "code",
-        "ideas"
-      ]
+      "contributions": ["code", "ideas"]
     },
     {
       "login": "TheAwesome98-Real",
       "name": "lily celeste newton",
       "avatar_url": "https://avatars.githubusercontent.com/u/59254971?v=4",
       "profile": "http://tauon.dev",
-      "contributions": [
-        "ideas",
-        "audio"
-      ]
+      "contributions": ["ideas", "audio"]
     },
     {
       "login": "radeeyate",
