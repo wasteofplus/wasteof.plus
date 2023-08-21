@@ -1,33 +1,33 @@
 .onlineindicator1::after {
-    border: 0 solid #e5e7eb;
-    box-sizing: border-box;
+  border: 0 solid #e5e7eb;
+  box-sizing: border-box;
 }
 
 .onlineindicator1 {
-    border-width: 2px;
-    border-radius: 9999px;
-    background-color: #4ade80;
-    width: 0.75rem;
-    height: 0.75rem;
-    position: absolute;
-    left: 1.3333rem;
-    bottom: 0;
+  border-width: 2px;
+  border-radius: 9999px;
+  background-color: #4ade80;
+  width: 0.75rem;
+  height: 0.75rem;
+  position: absolute;
+  left: 1.3333rem;
+  bottom: 0;
 }
 
 a:has(.onlineindicator1) {
-    position: relative;
+  position: relative;
 }
 
 .userstatusicon > svg {
-    width: 14px;
-    height: 14px;
-    position: absolute;
-    bottom: -1.5px;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  bottom: -1.5px;
 }
 
 .userstatusicon {
-    position: relative;
-    height: 100%;
-    margin-left: 2px;
-    width: 12px;
+  position: relative;
+  height: 100%;
+  margin-left: 2px;
+  width: 12px;
 }

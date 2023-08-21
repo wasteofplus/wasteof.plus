@@ -1,4 +1,4 @@
-function addon () {
+function testrunaddon () {
   const cookieMatch = document.cookie.match(/token=([^;]+)/)
   const token = cookieMatch ? cookieMatch[1] : null
 
@@ -19,10 +19,7 @@ function addon () {
           return
         }
         const values = mappedComments.get(comment.content)
-        mappedComments.set(comment.content, [
-          ...(values ?? []),
-          comment.poster
-        ])
+        mappedComments.set(comment.content, [...(values ?? []), comment.poster])
         votedAuthors.push(comment.poster.id)
       })
       if (response.last) {
@@ -40,12 +37,7 @@ function addon () {
     .find((el) => el.textContent === 'Create post')
     .parentElement.querySelector('#modal-header ~ div > div > div > div')
   const insertPollsButton = document.createElement('button')
-  insertPollsButton.classList.add(
-    'text-white',
-    'p-1',
-    'rounded',
-    'bg-gray-500'
-  )
+  insertPollsButton.classList.add('text-white', 'p-1', 'rounded', 'bg-gray-500')
   const insertPollsButtonSpan = document.createElement('span')
   insertPollsButtonSpan.innerHTML = pollSvg
   insertPollsButton.appendChild(insertPollsButtonSpan)
@@ -189,5 +181,28 @@ function addon () {
     element.replaceWith(poll)
   })
 }
+
+function addon () {
+  console.log('executing addon, polls')
+  testrunaddon()
+}
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log('message polls', message)
+  sendResponse({ message: 'hello' })
+  if (message.action === 'reload') {
+    console.log('RELOADING!!! user statuses')
+    // wait 3 seconds
+    setTimeout(() => {
+      console.log('it\'s been 3 seconds, reloading addon polls')
+      console.log('going to execute polls')
+      testrunaddon()
+
+      // addon()
+    }, 3000)
+    // addon()
+    console.log('finsihed reloading addon user statises')
+  }
+})
 
 addon()

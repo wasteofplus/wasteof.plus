@@ -262,10 +262,10 @@ async function runAddon (tabId, contentScript, addonSettings) {
     })
   }
   if (addonSettings.hasContentStyle) {
-    // chrome.scripting.insertCSS({
-    //   target: { tabId },
-    //   files: ['addons/' + contentScript + '/addon.css']
-    // })
+    chrome.scripting.insertCSS({
+      target: { tabId },
+      files: ['addons/' + contentScript + '/addon.css']
+    })
   }
 }
 
@@ -399,7 +399,7 @@ browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
                 runAddon(tabId, addon, data)
               } else {
                 console.log('script already exists. reloading tab')
-                chrome.tabs.reload(tabId)
+                // chrome.tabs.reload(tabId)
               }
             }
           })
@@ -495,4 +495,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
   })
   return true
+})
+
+chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+  if (msg.text === 'what is my tab_id?') {
+    sendResponse({ tab: sender.tab.id })
+  }
 })

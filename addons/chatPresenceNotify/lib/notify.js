@@ -1,5 +1,7 @@
 const isWasteof3 = /beta/.test(new URL(document.URL).host)
-let userName = document.querySelector(isWasteof3 ? 'a.mx-2 > span:nth-child(2)' : 'span.hidden:nth-child(2)').innerText
+let userName = document.querySelector(
+  isWasteof3 ? 'a.mx-2 > span:nth-child(2)' : 'span.hidden:nth-child(2)'
+).innerText
 let unloaded = true
 let _unloaded = unloaded
 let socket
@@ -25,7 +27,7 @@ function onLoad () {
 function checkLocation () {
   unloaded = !(window.location.pathname === '/chat')
   if (_unloaded !== unloaded) {
-    [onLoad, onUnload][+unloaded]() // a cursed if block
+    ;[onLoad, onUnload][+unloaded]() // a cursed if block
     _unloaded = unloaded
   }
 }

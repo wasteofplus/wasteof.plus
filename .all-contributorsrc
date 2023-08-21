@@ -17,7 +17,12 @@
         "design",
         "ideas",
         "maintenance",
-        "infra"
+        "infra",
+        "doc",
+        "review",
+        "question",
+        "platform",
+        "content"
       ]
     },
     {
@@ -40,6 +45,58 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "jakednolastname",
+      "name": "jakednolastname",
+      "avatar_url": "https://avatars.githubusercontent.com/u/122004617?v=4",
+      "profile": "https://github.com/jakednolastname",
+      "contributions": [
+        "code",
+        "ideas",
+        "design"
+      ]
+    },
+    {
+      "login": "illogicalapple",
+      "name": "illogicalapple",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80916557?v=4",
+      "profile": "http://illogicalapple.github.io",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "ScolderCreations",
+      "name": "Scolder",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69083943?v=4",
+      "profile": "https://scoldercreations.github.io",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "TheAwesome98-Real",
+      "name": "lily celeste newton",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59254971?v=4",
+      "profile": "http://tauon.dev",
+      "contributions": [
+        "ideas",
+        "audio"
+      ]
+    },
+    {
+      "login": "radeeyate",
+      "name": "radeeyate",
+      "avatar_url": "https://avatars.githubusercontent.com/u/124477460?v=4",
+      "profile": "http://radi8.dev",
+      "contributions": [
+        "data",
+        "code",
+        "infra",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -47,5 +104,5 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "projectName": "wasteof.plus",
-  "projectOwner": "imadeanaccount1"
+  "projectOwner": "wasteofplus"
 }
