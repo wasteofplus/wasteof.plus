@@ -1,0 +1,26 @@
+{
+  "urls": [
+    "https://wasteof.money/",
+    "https://wasteof.money",
+    "https://beta.wasteof.money/",
+    "https://beta.wasteof.money"
+  ],
+  "urlcontains": [
+    "wasteof.money/posts",
+    "wasteof.money/users",
+    "wasteof.money/explore",
+    "wasteof.money/messages"
+  ],
+  "name": "Navigation Customizations",
+  "description": "Customize the top-bar navigation with links to /chat and other pages.",
+  "hasContentScript": true,
+  "hasContentStyle": false,
+  "enabledByDefault": true,
+  "developers": [
+    {
+      "name": "imadeanaccount",
+      "link": "https://github.com/imadeanaccount1"
+    }
+  ],
+  "options": []
+}
