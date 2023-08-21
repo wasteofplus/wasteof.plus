@@ -1,7 +1,7 @@
 console.log('route change script loaded')
 
 $nuxt.$router.afterEach((to, from) => {
-  console.log('route changed')
+  console.log('route change detected!')
 
   //   const extensionId = document.querySelector('#routeChangeScript').dataset.extensionId
   //   console.log('the extension id is ', extensionId)

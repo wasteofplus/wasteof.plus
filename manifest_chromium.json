@@ -48,7 +48,8 @@
         "addons/*/templates/*.html",
         "addons/*/addon.json",
         "addons/*/lib/*.js",
-        "utils.js"
+        "utils.js",
+        "debug.js"
       ]
     }
   ]

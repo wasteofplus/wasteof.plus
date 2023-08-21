@@ -1,11 +1,12 @@
-function waitForElm (selector, callback, className) {
+function waitForElm (selector, debug, callback) {
   return new Promise(resolve => {
     if (document.querySelector(selector)) {
       resolve(document.querySelector(selector))
     }
 
-    const observer = new MutationObserver((mutations) => {
-      console.log('mutation', mutations)
+    const observer = new MutationObserver(mutations => {
+      debug.log('mutation', mutations)
+
       if (document.querySelector(selector)) {
         let elementsThatDidntHaveClass = false
         for (const { addedNodes } of mutations) {
@@ -26,18 +27,18 @@ function waitForElm (selector, callback, className) {
           }
         }
         if (elementsThatDidntHaveClass) {
-          console.log('observer ended up!')
+          debug.log('observer ended up!')
           resolve(document.querySelector(selector))
           if (callback) {
-            console.log('mutations', mutations)
+            debug.log('mutations', mutations)
             for (const record of mutations) {
-              console.log('mutation record', record)
+              debug.log('mutation record', record)
               const nodelist = []
               for (const node of record.addedNodes) {
-                console.log('onenode', node, node.nodeType === Node.TEXT_NODE)
+                debug.log('onenode', node, node.nodeType === Node.TEXT_NODE)
                 if (node.nodeType !== Node.TEXT_NODE) {
                   if (node.matches('div.border-2.mb-4')) {
-                    console.log('pushing node', node.querySelector('a > div.w-full > a > img.border-2'))
+                    debug.log('pushing node', node.querySelector('a > div.w-full > a > img.border-2'))
                     nodelist.push(node.querySelector('a > div.w-full > a > img.border-2'))
                   }
                 }
@@ -45,7 +46,7 @@ function waitForElm (selector, callback, className) {
               if (nodelist.length > 0) {
                 callback(nodelist)
               } else {
-                console.log('can\'t call back')
+                debug.log('can\'t call back')
               }
             }
           } else {
@@ -69,18 +70,20 @@ function waitForElm (selector, callback, className) {
 }
 
 function observeUrlChange (onUrlChange) {
-  let oldHref = document.location.href
-  const body = document.querySelector('body')
-  const observer = new MutationObserver((mutations) => {
-    if (oldHref !== document.location.href) {
-      oldHref = document.location.href
-      console.log('url changed!')
-      onUrlChange(true)
-      observer.disconnect()
-    }
+  import(chrome.runtime.getURL('../debug.js')).then((debug) => {
+    let oldHref = document.location.href
+    const body = document.querySelector('body')
+    const observer = new MutationObserver(mutations => {
+      if (oldHref !== document.location.href) {
+        oldHref = document.location.href
+        debug.log('url changed!')
+        onUrlChange(true)
+        observer.disconnect()
+      }
+    })
+    observer.observe(body, { childList: true, subtree: true })
   })
-  observer.observe(body, { childList: true, subtree: true })
-}
+};
 
 function generateSelector (elem) {
   const element = elem
