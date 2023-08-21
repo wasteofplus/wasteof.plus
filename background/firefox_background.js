@@ -148,6 +148,7 @@ function simulateMessage (request, enabledAddons) {
               })
             }
             if (responseFromBackground.numberOfMessages !== undefined) {
+              console.log('background says there are messages', responseFromBackground.numberOfMessages, count)
               if (count > responseFromBackground.numberOfMessages) {
                 // Play sound with access to DOM APIs
                 console.log('should play a sound')
@@ -200,7 +201,7 @@ function simulateMessage (request, enabledAddons) {
       chrome.action.setBadgeTextColor({ color: '#ffffff' })
     }
 
-    console.log('new messages found', request.count, request.token)
+    console.log('new messages found', request.count, request.token, request.dontNotify)
     if (!request.dontNotify) {
       if (enabledAddons.includes('addMessageNotifications')) {
         fetch('https://api.wasteof.money/messages/unread', {
@@ -294,7 +295,7 @@ async function runAddon (tabId, contentScript, addonSettings) {
   }
 }
 
-chrome.runtime.onInstalled.addListener(function (details) {
+browser.runtime.onInstalled.addListener(function (details) {
   if (details.reason === 'install') {
     chrome.tabs.create({ url: '../popups/popup.html' })
 
@@ -326,6 +327,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
     console.log('Extension has been updated!')
     fetch('../addons/addons.json').then(response => response.json()).then(async (data) => {
       chrome.storage.local.get(['allAddons']).then((result) => {
+        console.log('all addons are', result.allAddons)
         if (result.allAddons !== undefined) {
           const allAddons = data
           const newlyEnabledAddons = []
@@ -358,6 +360,30 @@ chrome.runtime.onInstalled.addListener(function (details) {
             } else {
               chrome.storage.local.set({ enabledAddons: newlyEnabledAddons })
             }
+          })
+        } else {
+          fetch('../addons/addons.json').then(response => response.json()).then(async (data) => {
+            const allAddons = data
+            const enabledAddons = []
+            for (const addon of allAddons) {
+              fetch('../addons/' + addon + '/addon.json').then(response => response.json()).then(async (addonData) => {
+                if (addonData.enabledByDefault) {
+                  enabledAddons.push(addon)
+                  console.log('addon', addon, 'is enabled by default')
+                  chrome.storage.local.set({ enabledAddons })
+                  chrome.storage.local.set({ allAddons })
+                }
+                if (addonData.options) {
+                  const optionsData = {}
+                  for (const option of addonData.options) {
+                    optionsData[option.id] = option.default
+                  }
+                  console.log('default option data', optionsData)
+                  chrome.storage.local.set({ [addon + 'Options']: optionsData })
+                }
+              })
+            }
+            console.log('enabled addons', enabledAddons)
           })
         }
       })
