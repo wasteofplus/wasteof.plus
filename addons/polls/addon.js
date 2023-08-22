@@ -36,7 +36,9 @@ function testrunaddon () {
   const modalHeader = [...document.querySelectorAll('#modal-header')]
     .find((el) => el.textContent === 'Create post')
     .parentElement.querySelector('#modal-header ~ div > div > div > div')
+  if (!(document.getElementById('insertPollsButton'))) {
   const insertPollsButton = document.createElement('button')
+  insertPollsButton.id = "insertPollsButton"
   insertPollsButton.classList.add('text-white', 'p-1', 'rounded', 'bg-gray-500')
   const insertPollsButtonSpan = document.createElement('span')
   insertPollsButtonSpan.innerHTML = pollSvg
@@ -72,6 +74,7 @@ function testrunaddon () {
     document.querySelector('.ProseMirror').appendChild(pre)
   })
   modalHeader.insertBefore(insertPollsButton, modalHeader.lastChild)
+}
 
   document.querySelectorAll('.prose > pre').forEach(async (element) => {
     const debug = await import(chrome.runtime.getURL('../debug.js'))
