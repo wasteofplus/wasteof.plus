@@ -9,7 +9,8 @@
     "wasteof.money/posts",
     "wasteof.money/users",
     "wasteof.money/explore",
-    "wasteof.money/messages"
+    "wasteof.money/messages",
+    "wasteof.money/chat"
   ],
   "name": "Navigation Customizations",
   "description": "Customize the top-bar navigation with links to /chat and other pages.",
