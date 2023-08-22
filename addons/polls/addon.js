@@ -36,7 +36,6 @@ function testrunaddon () {
   const modalHeader = [...document.querySelectorAll('#modal-header')]
     .find((el) => el.textContent === 'Create post')
     .parentElement.querySelector('#modal-header ~ div > div > div > div')
-  console.log('insertPollsButton', document.getElementById('insertPollsButton'))
   if (!(document.getElementById('insertPollsButton'))) {
   const insertPollsButton = document.createElement('button')
   insertPollsButton.id = "insertPollsButton"
