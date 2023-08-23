@@ -37,44 +37,44 @@ function testrunaddon () {
     .find((el) => el.textContent === 'Create post')
     .parentElement.querySelector('#modal-header ~ div > div > div > div')
   if (!(document.getElementById('insertPollsButton'))) {
-  const insertPollsButton = document.createElement('button')
-  insertPollsButton.id = "insertPollsButton"
-  insertPollsButton.classList.add('text-white', 'p-1', 'rounded', 'bg-gray-500')
-  const insertPollsButtonSpan = document.createElement('span')
-  insertPollsButtonSpan.innerHTML = pollSvg
-  insertPollsButton.appendChild(insertPollsButtonSpan)
-  insertPollsButton.addEventListener('click', () => {
-    if (
-      [...document.querySelectorAll('nav + div .ProseMirror pre code')].some(
-        (el) => el.textContent.startsWith('poll: ')
-      )
-    ) {
-      alert('Only one poll per post is supported.')
-      return
-    }
-    const options = []
-    while (true) {
-      const option = prompt(
+    const insertPollsButton = document.createElement('button')
+    insertPollsButton.id = 'insertPollsButton'
+    insertPollsButton.classList.add('text-white', 'p-1', 'rounded', 'bg-gray-500')
+    const insertPollsButtonSpan = document.createElement('span')
+    insertPollsButtonSpan.innerHTML = pollSvg
+    insertPollsButton.appendChild(insertPollsButtonSpan)
+    insertPollsButton.addEventListener('click', () => {
+      if (
+        [...document.querySelectorAll('nav + div .ProseMirror pre code')].some(
+          (el) => el.textContent.startsWith('poll: ')
+        )
+      ) {
+        alert('Only one poll per post is supported.')
+        return
+      }
+      const options = []
+      while (true) {
+        const option = prompt(
         `Current options: ${options.join(
           ', '
         )}\nPut in another option, or press Cancel to stop.`
-      )
-      if (option === null) {
-        break
+        )
+        if (option === null) {
+          break
+        }
+        options.push(option)
       }
-      options.push(option)
-    }
-    if (options.length === 0) {
-      return
-    }
-    const pre = document.createElement('pre')
-    const code = document.createElement('code')
-    code.textContent = `poll: ${JSON.stringify(options)}`
-    pre.appendChild(code)
-    document.querySelector('.ProseMirror').appendChild(pre)
-  })
-  modalHeader.insertBefore(insertPollsButton, modalHeader.lastChild)
-}
+      if (options.length === 0) {
+        return
+      }
+      const pre = document.createElement('pre')
+      const code = document.createElement('code')
+      code.textContent = `poll: ${JSON.stringify(options)}`
+      pre.appendChild(code)
+      document.querySelector('.ProseMirror').appendChild(pre)
+    })
+    modalHeader.insertBefore(insertPollsButton, modalHeader.lastChild)
+  }
 
   document.querySelectorAll('.prose > pre').forEach(async (element) => {
     const debug = await import(chrome.runtime.getURL('../debug.js'))
