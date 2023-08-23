@@ -73,13 +73,19 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       websocketListening = true
 
       socket.on('updateMessageCount', function (count) {
-        logMessage('The message count is ' + count.toString(), logUrl)
+        localStorage.setItem('myCat', 'Tom')
+        const cat = localStorage.getItem('myCat')
+
+        logMessage('The message coun1t is ' + count.toString() + JSON.stringify(chrome.runtime.id) + cat, logUrl)
 
         function getStorageData () {
           return new Promise((resolve, reject) => {
             chrome.runtime.sendMessage(
+              chrome.runtime.id,
               { type: 'get_message_count' },
               (response) => {
+                logMessage('resolving promise' + count.toString(), logUrl)
+
                 resolve(response)
               }
             )

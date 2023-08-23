@@ -27,65 +27,8 @@
       "id": "preset",
       "dynamicVisibility": [
         {
-          "type": "boolean",
-          "name": "Play Sound for Unread Messages",
-          "default": true,
           "id": "playSound",
-          "order": 1
-        },
-        {
-          "type": "select",
-          "name": "Preset",
-          "default": "Cha-Ching",
-          "id": "preset",
-          "dynamicVisibility": [
-            {
-              "id": "playSound",
-              "values": [true]
-            }
-          ],
-          "options": ["Cha-Ching", "Discord", "Zap", "Custom"],
-          "order": 2
-        },
-        {
-          "type": "file",
-          "name": "Custom Sound",
-          "id": "customSound",
-          "default": "",
-          "dynamicVisibility": [
-            {
-              "id": "preset",
-              "values": ["Custom"]
-            }
-          ],
-          "options": ["mp3", "wav", "ogg"],
-          "order": 3
-        },
-        {
-          "type": "slider",
-          "name": "Volume",
-          "default": 1,
-          "settings": {
-            "min": 0,
-            "max": 1,
-            "step": 0.1
-          },
-          "dynamicVisibility": [
-            {
-              "id": "playSound",
-              "values": [true]
-            }
-          ],
-          "id": "volume",
-          "order": 4
-        },
-        {
-          "type": "text",
-          "name": "Log URL",
-          "default": "",
-          "placeholder": "https://example.com/api/log",
-          "id": "logUrl",
-          "order": 5
+          "values": [true]
         }
       ],
       "options": ["Cha-Ching", "Discord", "Custom"],
