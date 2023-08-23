@@ -23,5 +23,13 @@
       "link": "https://github.com/imadeanaccount1"
     }
   ],
-  "options": []
+  "options": [
+    {
+      "type": "boolean",
+      "name": "Add Chat Link to Top Bar",
+      "default": true,
+      "id": "chatEnabled",
+      "order": 1
+    }
+  ]
 }
