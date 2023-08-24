@@ -1,9 +1,7 @@
 # wasteof.plus
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![](https://img.shields.io/github/stars/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/stargazers)
@@ -98,6 +96,7 @@ Wasteof.plus is inspired by [ScratchAddons](https://github.com/ScratchAddons/Scr
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="http://radi8.dev"><img src="https://avatars.githubusercontent.com/u/124477460?v=4?s=100" width="100px;" alt="radeeyate"/><br /><sub><b>radeeyate</b></sub></a><br /><a href="#data-radeeyate" title="Data">🔣</a> <a href="https://github.com/wasteofplus/wasteof.plus/commits?author=radeeyate" title="Code">💻</a> <a href="#infra-radeeyate" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-radeeyate" title="Maintenance">🚧</a> <a href="#ideas-radeeyate" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://micahlindley.com"><img src="https://avatars.githubusercontent.com/u/28816297?v=4?s=100" width="100px;" alt="Micah Lindley"/><br /><sub><b>Micah Lindley</b></sub></a><br /><a href="#ideas-micahlt" title="Ideas, Planning, & Feedback">🤔</a> <a href="#promotion-micahlt" title="Promotion">📣</a></td>
     </tr>
   </tbody>
 </table>
