@@ -108,6 +108,15 @@
         "ideas",
         "promotion"
       ]
+    },
+    {
+      "login": "NihalNavath",
+      "name": "Nihal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66069728?v=4",
+      "profile": "https://nihalnavath.com",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
