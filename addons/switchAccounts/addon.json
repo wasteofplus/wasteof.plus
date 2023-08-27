@@ -8,6 +8,6 @@
   ],
   "hasContentScript": true,
   "hasContentStyle": true,
-  "enabledByDefault": true,
+  "enabledByDefault": false,
   "options": []
 }
