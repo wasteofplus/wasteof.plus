@@ -14,7 +14,7 @@ function addon () {
 <div id="accountsList" class="hidden bg-gray-100 dark:bg-gray-700 px-2 py-2 my-8 border-4 dark:border-gray-600 rounded-xl">
 <svg class="mb-2 inline-block" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M627-210q17-33 26-69.5t9-75.5q0-80-35-146.5T532-612l-92 92v-320h320l-92 92q52 47 83 112t31 141q0 91-42.5 165T627-210Zm-427 90 92-92q-53-47-83.5-112T178-465q0-91 42.5-165T334-750q-17 33-26.5 69.5T298-605q0 80 35.5 146.5T428-348l92-92v320H200Z"/></svg>
 <p id="switchLabel" class="inline-block">Switch account</p>
-<button id="addAccountToSwitcher" class="dark:bg-gray-800 mt-1 pl-2 px-4 dark:hover:bg-gray-7
+<button id="addAccountToSwitcher" class="dark:bg-gray-800 mt-2 pl-2 px-4 dark:hover:bg-gray-7
     00 px-4 py-2 rounded-lg block">
     <svg class="inline-block mr-1" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" fill="#ffffff" width="24"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
     <p class="inline-block">Add new account</p>
