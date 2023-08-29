@@ -14,7 +14,7 @@ function addon () {
 <div id="accountsList" class="hidden bg-gray-100 dark:bg-gray-700 px-2 py-2 my-8 border-4 dark:border-gray-600 rounded-xl">
 <svg class="mb-2 inline-block" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M627-210q17-33 26-69.5t9-75.5q0-80-35-146.5T532-612l-92 92v-320h320l-92 92q52 47 83 112t31 141q0 91-42.5 165T627-210Zm-427 90 92-92q-53-47-83.5-112T178-465q0-91 42.5-165T334-750q-17 33-26.5 69.5T298-605q0 80 35.5 146.5T428-348l92-92v320H200Z"/></svg>
 <p id="switchLabel" class="inline-block">Switch account</p>
-<button id="addAccountToSwitcher" class="dark:bg-gray-800 mt-2 pl-2 px-4 dark:hover:bg-gray-7
+<button id="addAccountToSwitcher" class="dark:bg-gray-800 mt-4 pl-2 px-4 dark:hover:bg-gray-7
     00 px-4 py-2 rounded-lg block">
     <svg class="inline-block mr-1" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" fill="#ffffff" width="24"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
     <p class="inline-block">Add new account</p>
@@ -23,26 +23,33 @@ function addon () {
 </a>
 `)
 
-      function addCurrentAccountToSwitcher (username, accounts, userId, token, add) {
+      function addCurrentAccountToSwitcher (username, accounts, userId, token, add, permissions) {
         chrome.storage.local.get(['accountSwitcher'], (result) => {
         // if (result.accountSwitcher === undefined) {
         // } else {}
         // console.error(result.accountSwitcher.filter((account) => account.username === username))
           document.getElementById('addAccountToSwitcher').insertAdjacentHTML('beforebegin', `
     <a href="#" class="block w-full mt-2 truncate relative z-10"><div class="inline-block"><img src="https://api.wasteof.money/users/${username}/picture" alt="${username}'s profile picture" class="inline h-8 bg-white dark:border-gray-700 rounded-full "> <span data-v-70f0e806="" class="ml-1">${username}</span></div>
-    <svg xmlns="http://www.w3.org/2000/svg" class="deleteAcocuntSwitch inline-block" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" class="deleteAcocuntSwitch inline-block" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none"/><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
     </a>
     `)
+          // if (username === document.body.dataset.username) {
+          //   accounts.children[accounts.children.length - 2].querySelector('.deleteAcocuntSwitch').insertAdjacentHTML('beforebegin', `
+          //   <div id="loggedInAccount" class="inline-block theme-indigo">
+          //   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#a5b4fc"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          //   </div>
+          //   `)
+          // }
 
           if (add) {
             let accountList = null
             if (result.accountSwitcher === undefined) {
               accountList = []
-              accountList.push({ username, userId, token })
+              accountList.push({ username, userId, token, permissions })
             } else {
               accountList = result.accountSwitcher
               if (accountList.filter((account) => account.username === username).length === 0) {
-                accountList.push({ username, userId, token })
+                accountList.push({ username, userId, token, permissions })
               }
             }
             chrome.storage.local.set({ accountSwitcher: accountList })
@@ -96,7 +103,7 @@ function addon () {
               }
             })
           })
-          const data = JSON.parse(document.querySelector('body').dataset.permissions)
+          const data = permissions
           //   console.error(accounts.children[accounts.children.length - 2])
 
           if (data.beta) {
@@ -140,6 +147,7 @@ function addon () {
         const oldusername = document.querySelector('body').dataset.username
         const olduserId = document.querySelector('body').dataset.userId
         const oldtoken = document.querySelector('body').dataset.token
+        const oldpermissions = JSON.parse(document.querySelector('body').dataset.permissions)
 
         //   const accounts = document.querySelector('#accountsList')
         chrome.storage.local.get(['accountSwitcher'], (result) => {
@@ -147,7 +155,7 @@ function addon () {
             const saveAccount = confirm('would you like to save the currently-logged-in token so it is available to switch to?')
             console.error(saveAccount)
             if (saveAccount) {
-              addCurrentAccountToSwitcher(oldusername, document.getElementById('accountsList'), olduserId, oldtoken, true)
+              addCurrentAccountToSwitcher(oldusername, document.getElementById('accountsList'), olduserId, oldtoken, true, oldpermissions)
               //   if (accountList.filter((account) => account.username === username).length === 0) {
               //     accountList.push({ username, userId, token })
               //     chrome.storage.local.set({ accountSwitcher: accountList })
@@ -172,11 +180,12 @@ function addon () {
                     })
                   }).then((response) => response.json()).then((res) => {
                   if (res.error || res === {} || Object.keys(res).length === 0) {
+                    console.error(res)
                     alert('the token for this account is invalid/expired')
                   } else {
                     document.cookie = 'token=' + res.token
-                    addCurrentAccountToSwitcher(username, document.getElementById('accountsList'), '', res.token, true)
-                    // location.reload()
+                    addCurrentAccountToSwitcher(username, document.getElementById('accountsList'), '', res.token, true, { beta: false, verified: false, permissions: { banned: false, admin: false } })
+                    location.reload()
                     console.log('return', res)
                   }
                 })
@@ -215,9 +224,10 @@ function addon () {
                   const indexInList = changedResult.indexOf(account)
                   changedResult[indexInList].token = document.querySelector('body').dataset.token
                   chrome.storage.local.set({ accountSwitcher: changedResult })
-                  addCurrentAccountToSwitcher(account.username, document.querySelector('#accountsList'), account.userId, document.querySelector('body').dataset.token, false)
+
+                  addCurrentAccountToSwitcher(account.username, document.querySelector('#accountsList'), account.userId, document.querySelector('body').dataset.token, false, { beta: false, verified: false, permissions: { banned: false, admin: false } })
                 } else {
-                  addCurrentAccountToSwitcher(account.username, document.querySelector('#accountsList'), account.userId, account.token, false)
+                  addCurrentAccountToSwitcher(account.username, document.querySelector('#accountsList'), account.userId, account.token, false, { beta: false, verified: false, permissions: { banned: false, admin: false } })
                 }
               } else {
                 if (document.querySelector('body').dataset.username === account.username && document.querySelector('body').dataset.token !== account.token) {
@@ -225,9 +235,10 @@ function addon () {
                   const indexInList = changedResult.indexOf(account)
                   changedResult[indexInList].token = document.querySelector('body').dataset.token
                   chrome.storage.local.set({ accountSwitcher: changedResult })
-                  addCurrentAccountToSwitcher(account.username, document.querySelector('#accountsList'), account.userId, document.querySelector('body').dataset.token, false)
+
+                  addCurrentAccountToSwitcher(account.username, document.querySelector('#accountsList'), account.userId, document.querySelector('body').dataset.token, { beta: false, verified: false, permissions: { banned: false, admin: false } })
                 } else {
-                  addCurrentAccountToSwitcher(account.username, document.querySelector('#accountsList'), account.userId, account.token, false)
+                  addCurrentAccountToSwitcher(account.username, document.querySelector('#accountsList'), account.userId, account.token, false, { beta: false, verified: false, permissions: { banned: false, admin: false } })
                 }
               }
             })
