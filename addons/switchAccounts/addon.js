@@ -87,7 +87,39 @@ function addon () {
             }).then((response) => response.json()).then((res) => {
               console.error('res from session', token, res === {}, Object.keys(res).length === 0, JSON.stringify(res))
               if (res.error || res === {} || Object.keys(res).length === 0) {
-                alert('the token for this account is invalid/expired')
+                const confirmed = confirm('The token for this account is invalid/expired. Would you like to re-login?')
+                if (confirmed) {
+                  const password = prompt('Enter the password for the account "' + username + '":')
+                  if (password !== null) {
+                    fetch('https://api.wasteof.money/session',
+                      {
+                        method: 'POST',
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify({
+                          username,
+                          password
+                        })
+                      }).then((response) => response.json()).then((res) => {
+                      if (res.error || res === {} || Object.keys(res).length === 0) {
+                        console.error(res)
+                        alert('an error occured. you may have entered the wrong password.')
+                      } else {
+                        document.cookie = 'token=' + res.token
+                        chrome.storage.local.get(['accountSwitcher'], (result) => {
+                          const changedResult = result.accountSwitcher
+                          console.error(changedResult.filter((account) => account.username === username)[0])
+                          const indexInList = changedResult.indexOf(changedResult.filter((account) => account.username === username)[0])
+                          console.error(indexInList)
+                          changedResult[indexInList].token = res.token
+                          chrome.storage.local.set({ accountSwitcher: changedResult })
+                          location.reload()
+                          console.log('return', res)
+                        })
+                        // addCurrentAccountToSwitcher(username, document.getElementById('accountsList'), '', res.token, true, { beta: false, verified: false, permissions: { banned: false, admin: false } })
+                      }
+                    })
+                  }
+                }
               } else {
                 if (document.querySelector('body').dataset.username === username) {
                   alert('you are already signed into this account')
@@ -181,7 +213,7 @@ function addon () {
                   }).then((response) => response.json()).then((res) => {
                   if (res.error || res === {} || Object.keys(res).length === 0) {
                     console.error(res)
-                    alert('the token for this account is invalid/expired')
+                    alert('an error occured. you may have entered the wrong username or password. Error message: ' + JSON.stringify(res))
                   } else {
                     document.cookie = 'token=' + res.token
                     addCurrentAccountToSwitcher(username, document.getElementById('accountsList'), '', res.token, true, { beta: false, verified: false, permissions: { banned: false, admin: false } })
