@@ -1,71 +1,73 @@
 function waitForElm (selector, debug, callback) {
-  return new Promise(resolve => {
-    if (document.querySelector(selector)) {
-      resolve(document.querySelector(selector))
-    }
-
-    const observer = new MutationObserver(mutations => {
-      debug.log('mutation', mutations)
-
+  import(chrome.runtime.getURL('../debug.js')).then((debug) => {
+    return new Promise(resolve => {
       if (document.querySelector(selector)) {
-        let elementsThatDidntHaveClass = false
-        for (const { addedNodes } of mutations) {
-          for (const node of addedNodes) {
-            if (!node.tagName) continue // not an element
-            if (
-              node.classList.contains('replyCount') ||
+        resolve(document.querySelector(selector))
+      }
+
+      const observer = new MutationObserver(mutations => {
+        debug.log('mutation', mutations)
+
+        if (document.querySelector(selector)) {
+          let elementsThatDidntHaveClass = false
+          for (const { addedNodes } of mutations) {
+            for (const node of addedNodes) {
+              if (!node.tagName) continue // not an element
+              if (
+                node.classList.contains('replyCount') ||
               node.classList.contains('actionDropdownItem') ||
               node.classList.contains('commentActionDropdown') ||
               node.classList.contains('readIndicator') ||
               node.classList.contains('replyIcon') ||
               node.classList.contains('dropdownIcon')
-            ) {
-              continue
-            } else {
-              elementsThatDidntHaveClass = true
+              ) {
+                continue
+              } else {
+                elementsThatDidntHaveClass = true
+              }
             }
           }
-        }
-        if (elementsThatDidntHaveClass) {
-          debug.log('observer ended up!')
-          resolve(document.querySelector(selector))
-          if (callback) {
-            debug.log('mutations', mutations)
-            for (const record of mutations) {
-              debug.log('mutation record', record)
-              const nodelist = []
-              for (const node of record.addedNodes) {
-                debug.log('onenode', node, node.nodeType === Node.TEXT_NODE)
-                if (node.nodeType !== Node.TEXT_NODE) {
-                  if (node.matches('div.border-2.mb-4')) {
-                    debug.log('pushing node', node.querySelector('a > div.w-full > a > img.border-2'))
-                    nodelist.push(node.querySelector('a > div.w-full > a > img.border-2'))
+          if (elementsThatDidntHaveClass) {
+            debug.log('observer ended up!')
+            resolve(document.querySelector(selector))
+            if (callback) {
+              debug.log('mutations', mutations)
+              for (const record of mutations) {
+                debug.log('mutation record', record)
+                const nodelist = []
+                for (const node of record.addedNodes) {
+                  debug.log('onenode', node, node.nodeType === Node.TEXT_NODE)
+                  if (node.nodeType !== Node.TEXT_NODE) {
+                    if (node.matches('div.border-2.mb-4')) {
+                      debug.log('pushing node', node.querySelector('a > div.w-full > a > img.border-2'))
+                      nodelist.push(node.querySelector('a > div.w-full > a > img.border-2'))
+                    }
                   }
                 }
+                if (nodelist.length > 0) {
+                  callback(nodelist)
+                } else {
+                  debug.log('can\'t call back')
+                }
               }
-              if (nodelist.length > 0) {
-                callback(nodelist)
-              } else {
-                debug.log('can\'t call back')
-              }
+            } else {
+              observer.disconnect()
             }
-          } else {
-            observer.disconnect()
           }
         }
+      })
+      if (callback) {
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        })
+      } else {
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        })
       }
     })
-    if (callback) {
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
-      })
-    } else {
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
-      })
-    }
   })
 }
 
