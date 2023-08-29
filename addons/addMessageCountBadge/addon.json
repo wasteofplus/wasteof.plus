@@ -31,7 +31,7 @@
           "values": [true]
         }
       ],
-      "options": ["Cha-Ching", "Discord", "Custom"],
+      "options": ["Cha-Ching", "Discord", "Zap", "Custom"],
       "order": 2
     },
     {
