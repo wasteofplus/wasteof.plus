@@ -2,19 +2,21 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+[logo]: https://img.shields.io/badge/all_contributors-8-orange.svg 'Number of contributors on All-Contributors'
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[![](https://img.shields.io/github/stars/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/stargazers)
-[![](https://img.shields.io/github/forks/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/network/members)
-[![](https://img.shields.io/github/watchers/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/watchers)
-[![](https://img.shields.io/github/issues/imadeanaccount1/wasteof.plus?color=green&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/issues)
-[![](https://img.shields.io/github/issues-pr/imadeanaccount1/wasteof.plus?color=green&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/pulls)
-[![](https://img.shields.io/github/license/imadeanaccount1/wasteof.plus?style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/blob/master/LICENSE)
-[![](https://img.shields.io/badge/website-wasteofplus.github.io-ff7b26.svg?style=flat-square&color=blue)](https://wasteofplus.github.io)
+[![All Contributors][logo]](#link)
+[![](https://img.shields.io/github/stars/imadeanaccount1/wasteof.plus?color=blue)](https://github.com/imadeanaccount1/wasteof.plus/stargazers)
+[![](https://img.shields.io/github/forks/imadeanaccount1/wasteof.plus?color=blue)](https://github.com/imadeanaccount1/wasteof.plus/network/members)
+[![](https://img.shields.io/github/issues/imadeanaccount1/wasteof.plus?color=green)](https://github.com/imadeanaccount1/wasteof.plus/issues)
+[![](https://img.shields.io/github/issues-pr/imadeanaccount1/wasteof.plus?color=green)](https://github.com/imadeanaccount1/wasteof.plus/pulls)
+[![](https://img.shields.io/github/license/imadeanaccount1/wasteof.plus)](https://github.com/imadeanaccount1/wasteof.plus/blob/master/LICENSE)
+[![](https://img.shields.io/badge/website-wasteofplus.github.io-ff7b26.svg?color=blue)](https://wasteofplus.github.io)
 
 wasteof.plus is a browser extension that adds customizable addons to the wasteof.money social media. 🌠
+
+![Logomark Light](https://github.com/imadeanaccount1/fork-wasteof.plus/assets/138229538/f5438df3-8ace-4227-9eab-a521651733f1)
 
 ## Getting Started:
 
