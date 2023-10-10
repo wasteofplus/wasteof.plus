@@ -36,47 +36,69 @@ function testrunaddon () {
   const modalHeader = [...document.querySelectorAll('#modal-header')]
     .find((el) => el.textContent === 'Create post')
     .parentElement.querySelector('#modal-header ~ div > div > div > div')
-  if (!(document.getElementById('insertPollsButton'))) {
+  if (!document.getElementById('insertPollsButton')) {
     const insertPollsButton = document.createElement('button')
     insertPollsButton.id = 'insertPollsButton'
-    insertPollsButton.classList.add('text-white', 'p-1', 'rounded', 'bg-gray-500')
+    insertPollsButton.classList.add(
+      'text-white',
+      'p-1',
+      'rounded',
+      'bg-gray-500'
+    )
     const insertPollsButtonSpan = document.createElement('span')
     insertPollsButtonSpan.innerHTML = pollSvg
     insertPollsButton.appendChild(insertPollsButtonSpan)
     insertPollsButton.addEventListener('click', () => {
       if (
-        [...document.querySelectorAll('nav + div .ProseMirror pre code')].some(
-          (el) => el.textContent.startsWith('poll: ')
+        [...document.querySelectorAll('nav + div .ProseMirror p')].some((el) =>
+          el.textContent.startsWith('poll: ')
         )
       ) {
         alert('Only one poll per post is supported.')
         return
       }
       const options = []
+      const question = prompt(
+        'What is the poll question?'
+      )
       while (true) {
         const option = prompt(
-        `Current options: ${options.join(
-          ', '
-        )}\nPut in another option, or press Cancel to stop.`
+          `Current options: ${options.join(
+            ', '
+          )}\nAdd another option, or press Cancel to stop.`
         )
-        if (option === null) {
+        if (option === null || option === '') {
           break
+        }
+        if (options.includes(option)) {
+          alert('Sorry, you cannot add two options with the same id.')
+          continue
         }
         options.push(option)
       }
       if (options.length === 0) {
         return
       }
-      const pre = document.createElement('pre')
-      const code = document.createElement('code')
-      code.textContent = `poll: ${JSON.stringify(options)}`
-      pre.appendChild(code)
-      document.querySelector('.ProseMirror').appendChild(pre)
+      const ul = document.createElement('ul')
+      const quote = document.createElement('blockquote')
+      quote.appendChild(ul)
+      const p = document.createElement('p')
+      p.textContent = `poll: ${question}`
+      for (const option of options) {
+        const li = document.createElement('li')
+        const optionP = document.createElement('p')
+        optionP.textContent = option
+        li.appendChild(optionP)
+        ul.appendChild(li)
+      }
+      document.querySelector('.ProseMirror').appendChild(p)
+      document.querySelector('.ProseMirror').appendChild(quote)
+      document.querySelector('.ProseMirror > p.is-empty').remove()
     })
     modalHeader.insertBefore(insertPollsButton, modalHeader.lastChild)
   }
 
-  document.querySelectorAll('.prose > pre').forEach(async (element) => {
+  document.querySelectorAll('.prose > p').forEach(async (element) => {
     const debug = await import(chrome.runtime.getURL('../debug.js'))
 
     const rawContent = element.textContent
@@ -88,7 +110,11 @@ function testrunaddon () {
       return
     }
     const content = rawContent.replace(/^poll: /, '')
-    const options = JSON.parse(content)
+    const items = element.nextSibling.querySelectorAll('ul > li')
+    const array = Array.prototype.map.call(items, function (item) {
+      return item.textContent
+    })
+    const options = array
     if (
       !(options instanceof Array) ||
       options.some((option) => typeof option !== 'string')
@@ -100,6 +126,9 @@ function testrunaddon () {
       .map((value) => value.length)
       .reduce((a, b) => a + b, 0)
     const poll = document.createElement('form')
+    const question = document.createElement('p')
+    question.innerHTML = '<strong>' + content + '</strong>'
+    poll.appendChild(question)
     poll.classList.add(
       'bg-gray-100',
       'dark:bg-gray-800',
@@ -183,6 +212,10 @@ function testrunaddon () {
       submitButton.textContent = 'Vote'
       poll.appendChild(submitButton)
     }
+    console.log(element.nextSibling)
+    element.nextSibling.querySelectorAll('ul > li').forEach((li) => {
+      li.remove()
+    })
     element.replaceWith(poll)
   })
 }
@@ -202,11 +235,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       debug.log('RELOADING!!! user statuses')
       // wait 3 seconds
       setTimeout(() => {
-        debug.log('it\'s been 3 seconds, reloading addon polls')
+        debug.log("it's been 3 seconds, reloading addon polls")
         debug.log('going to execute polls')
         testrunaddon()
 
-      // addon()
+        // addon()
       }, 3000)
       // addon()
       debug.log('finsihed reloading addon user statises')
