@@ -1,28 +1,35 @@
 function addon () {
-  document.querySelectorAll('.emoji').forEach((el) => {
-    console.log(el.parentElement.textContent)
-    if (el.parentElement.textContent === '') {
-      console.log('its null')
-      if (el.parentElement.querySelectorAll('.emoji').length < 2) {
-        el.style.width = '48px'
-        el.classList.add('bigEmoji')
-        el.style.height = '48px'
-      } else if (el.parentElement.querySelectorAll('.emoji').length < 4) {
-        el.style.width = '36px'
-        el.classList.add('bigEmoji')
-        el.style.height = '36px'
+  chrome.runtime.sendMessage({ type: 'getOptions', addon: 'bigEmojis' }, function (response) {
+    document.querySelectorAll('.emoji').forEach((el) => {
+      console.log(el.parentElement.textContent)
+      if (el.parentElement.textContent === '') {
+        console.log('its null')
+        if (el.parentElement.querySelectorAll('.emoji').length < 2) {
+          el.style.width = response.large.toString() + 'px'
+          el.style.height = response.large.toString() + 'px'
+          el.classList.add('bigEmoji')
+        } else if (el.parentElement.querySelectorAll('.emoji').length < 4) {
+          el.style.width = response.medium.toString() + 'px'
+          el.style.height = response.medium.toString() + 'px'
+          el.classList.add('bigEmoji')
+        }
       }
-    }
+    })
+    console.log('response from offscreen', response)
   })
 }
 
 const observer = new MutationObserver(function (mutations) {
   mutations.forEach(function (mutation) {
-    console.log(mutation)
+    // console.log(mutation)
     if (mutation.addedNodes && mutation.addedNodes.length > 0) {
       // element added to DOM
       const hasClass = [].some.call(mutation.addedNodes, function (el) {
-        return el.classList.contains('emoji')
+        console.log(el)
+        if (typeof (el.querySelectorAll) !== 'function') return false
+        // console.log(el)
+
+        return el.querySelectorAll('.emoji').length > 0 || el.classList.contains('emoji')
       })
       if (hasClass) {
         // element has class `emoji`
@@ -36,7 +43,8 @@ const observer = new MutationObserver(function (mutations) {
 const config = {
   attributes: true,
   childList: true,
-  characterData: true
+  characterData: true,
+  subtree: true
 }
 
 observer.observe(document.body, config)

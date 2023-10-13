@@ -9,5 +9,30 @@
   "hasContentScript": true,
   "hasContentStyle": true,
   "enabledByDefault": true,
-  "options": []
+  "options": [
+    {
+      "type": "slider",
+      "name": "Large",
+      "default": 48,
+      "settings": {
+        "min": 16,
+        "max": 64,
+        "step": 4
+      },
+      "id": "large",
+      "order": 1
+    },
+    {
+      "type": "slider",
+      "name": "Medium",
+      "default": 32,
+      "settings": {
+        "min": 16,
+        "max": 64,
+        "step": 4
+      },
+      "id": "medium",
+      "order": 2
+    }
+  ]
 }
