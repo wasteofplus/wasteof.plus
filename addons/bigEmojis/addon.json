@@ -1,8 +1,8 @@
 {
   "urls": ["https://wasteof.money/", "https://wasteof.money"],
   "urlcontains": ["wasteof.money"],
-  "name": "Add big emojis",
-  "description": "Makes emoji-only lines in posts and comments bigger, like in apps such as WhatsApp and Discord.",
+  "name": "Add Big Emojis",
+  "description": "Make single-emoji lines in posts and comments show bigger emojis, similar to apps such as WhatsApp and Discord.",
   "developers": [
     { "name": "imadeanaccount", "link": "https://github.com/imadeanaccount1" }
   ],
