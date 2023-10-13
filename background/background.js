@@ -275,7 +275,14 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   console.log('got message', request, sender)
-  if (request.type === 'get_message_count') {
+  if (request.type === 'getOptions') {
+    console.log('GET ADDON OPTIONS', request.addon)
+    chrome.storage.local.get([request.addon + 'Options'], function (theResultOptions) {
+      console.log('sending result', theResultOptions[request.addon + 'Options'])
+      sendResponse(theResultOptions[request.addon + 'Options'])
+    })
+    return true
+  } else if (request.type === 'get_message_count') {
     (async function () {
       console.log('message count requested!!!')
 
