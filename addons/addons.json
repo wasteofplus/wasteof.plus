@@ -6,7 +6,8 @@
   "addMessageCountBadge",
   "addMessageNotifications",
   "switchAccounts",
-   "hashtags",
+  "autolovePosts",
+  "hashtags",
   "customNavigation",
   "bigEmojis"
 ]

@@ -1,7 +1,9 @@
 // console.log('injected script running')
 
 document.querySelector('body').dataset.token = $nuxt.$auth.token
-// console.log('getting token')
+document.querySelector('body').dataset.username = $nuxt.$auth.user.name
+console.log('getting token')
+
 const event = new CustomEvent('PassToBackgroundToken', { detail: 'HELLO!!!' })
 window.dispatchEvent(event)
 
