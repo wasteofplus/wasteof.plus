@@ -42,6 +42,7 @@ function getMessageContent (message) {
 
 async function doesContentScriptExist (tabId, contentScript) {
   console.log('does content script exist', tabId, contentScript)
+
   return new Promise((resolve, reject) => {
     try {
       chrome.tabs.sendMessage(
