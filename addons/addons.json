@@ -5,5 +5,7 @@
   "polls",
   "addMessageCountBadge",
   "addMessageNotifications",
-  "customNavigation"
+  "switchAccounts",
+  "customNavigation",
+  "bigEmojis"
 ]

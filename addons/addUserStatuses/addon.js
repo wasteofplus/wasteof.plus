@@ -1,6 +1,6 @@
-let newNodes = 0
-
 async function addon (reload) {
+  let newNodes = 0
+
   const debug = await import(chrome.runtime.getURL('../debug.js'))
 
   debug.log('reloading started')
@@ -132,7 +132,7 @@ addon(false).then(async () => {
 
     const setUserStatusesUrl = chrome.runtime.getURL('./addons/addUserStatuses/lib/setUserStatuses.js')
     const contentMain = await import(setUserStatusesUrl)
-    contentMain.setUserStatuses(addedNodesFromWait, onlineIndicator, true)
+    contentMain.setUserStatuses(document.querySelectorAll('img.border-2'), onlineIndicator, true)
     // addon(false)
   })
 }
