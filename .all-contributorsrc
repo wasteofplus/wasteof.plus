@@ -108,6 +108,15 @@
         "ideas",
         "promotion"
       ]
+    },
+    {
+      "login": "Auriali",
+      "name": "Sean Wallace",
+      "avatar_url": "https://avatars.githubusercontent.com/u/89602427?v=4",
+      "profile": "http://seanjw.com",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
