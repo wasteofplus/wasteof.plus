@@ -9,10 +9,11 @@
 
    b. [Background Scripts/Service Workers](#background-scriptsservice-workers)
 
-2. [Contributing an Addon](#contributing-an-addon)
-3. [Package.json Scripts](#packagejson-scripts)
+3. [Contributing an Addon](#contributing-an-addon)
+4. [Package.json Scripts](#packagejson-scripts)
 
 ## Forking the repository
+
 To develop or build wasteof.plus locally on your device, you should first create a fork on GitHub.
 ![image](https://github.com/wasteofplus/wasteof.plus/assets/138229538/8f48ebdd-6f20-4639-85c1-7d0a2845e027)
 
@@ -64,3 +65,6 @@ Create a Pull Request with information about your addon, why it's helpful, how i
   - This is used to copy the contents of the `manifest_firefox.json` file to `manifest.json` for testing in Firefox. Without running this, wasteof.plus will not work in Firefox.
 - `cleanup`
   - DO NOT RUN THIS IN YOUR LOCAL ENVIRONMENT. This script is only used to remove all console logs during builds.
+
+## Contributing an Addon
+Create a Pull Request with information about your addon, why it's helpful, how it works, etc. I will review the PR and give feedback. If it is accepted (which it will be in the vast majority of circumstances), the PR will be merged into the main branch.

@@ -42,6 +42,7 @@ function getMessageContent (message) {
 
 async function doesContentScriptExist (tabId, contentScript) {
   console.log('does content script exist', tabId, contentScript)
+
   return new Promise((resolve, reject) => {
     try {
       chrome.tabs.sendMessage(
@@ -274,278 +275,294 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
 })
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  chrome.storage.local.get(['enabledAddons']).then(async (result) => {
-    if (request.type === 'login-token') {
-      console.log(
-        'received login token and sending it',
-        request.token,
-        result.enabledAddons.includes('addMessageCountBadge')
-      )
-      if (result.enabledAddons !== undefined) {
-        console.log(
-          'some addons are enabled',
-          result.enabledAddons,
-          result.enabledAddons.includes('addMessageCountBadge'),
-          result.enabledAddons.includes('addMessageNotifications')
-        )
-        if (
-          result.enabledAddons.includes('addMessageCountBadge') ||
-          result.enabledAddons.includes('addMessageNotifications')
+  console.log('got message', request, sender)
+  if (request.type === 'getOptions') {
+    console.log('GET ADDON OPTIONS', request.addon)
+    chrome.storage.local.get([request.addon + 'Options'], function (theResultOptions) {
+      console.log('sending result', theResultOptions[request.addon + 'Options'])
+      sendResponse(theResultOptions[request.addon + 'Options'])
+    })
+    return true
+  } else if (request.type === 'get_message_count') {
+    (async function () {
+      console.log('message count requested!!!')
+
+      const key = await chrome.storage.local.get(['numberOfMessages'])
+      console.log('sending result', key.numberOfMessages)
+      chrome.storage.local.get(['addMessageCountBadgeOptions'], function (theResultOptions) {
+        if (theResultOptions.addMessageCountBadgeOptions.preset === 'Cha-Ching') {
+          sendResponse({
+            numberOfMessages: key.numberOfMessages,
+            sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
+            volume: theResultOptions.addMessageCountBadgeOptions.volume,
+            playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+          })
+        } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Discord') {
+          sendResponse({
+            numberOfMessages: key.numberOfMessages,
+            sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
+            volume: theResultOptions.addMessageCountBadgeOptions.volume,
+            playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+          })
+        } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Zap') {
+          sendResponse({
+            numberOfMessages: key.numberOfMessages,
+            sound: chrome.runtime.getURL('assets/sounds/wasteof_notification.wav'),
+            volume: theResultOptions.addMessageCountBadgeOptions.volume,
+            playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+          })
+        } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Custom') {
+          chrome.storage.local.get(['notificationsSound'], async (theResultCustomSound) => {
+            sendResponse({
+              numberOfMessages: key.numberOfMessages,
+              sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
+              volume: theResultOptions.addMessageCountBadgeOptions.volume,
+              playSound:
+              theResultOptions.addMessageCountBadgeOptions.playSound
+            })
+          })
+        } else if (
+          theResultOptions.addMessageCountBadgeOptions.preset === 'Discord'
         ) {
-          chrome.runtime.sendMessage(
-            {
-              type: 'check-response',
-              target: 'offscreen',
-              token: request.token
-            },
-            function (response) {
-              if (response === 'success') {
-                console.log('success')
-              } else {
-                console.log(
-                  'received message from content script',
-                  request.token
-                )
-                chrome.storage.local.get(
-                  ['addMessageCountBadgeOptions'],
-                  async (theResultOptions) => {
-                    console.log(
-                      'sending message to offscreen',
-                      theResultOptions.addMessageCountBadgeOptions.preset
+          sendResponse({
+            numberOfMessages: key.numberOfMessages,
+            sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
+            volume: theResultOptions.addMessageCountBadgeOptions.volume,
+            playSound:
+              theResultOptions.addMessageCountBadgeOptions.playSound
+          })
+        } else if (
+          theResultOptions.addMessageCountBadgeOptions.preset === 'Custom'
+        ) {
+          chrome.storage.local.get(
+            ['notificationsSound'],
+            async (theResultCustomSound) => {
+              sendResponse({
+                numberOfMessages: key.numberOfMessages,
+                sound: theResultCustomSound.notificationsSound.file,
+                volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                playSound:
+                  theResultOptions.addMessageCountBadgeOptions.playSound
+              })
+            }
+          )
+        }
+      }
+      )
+    })()
+    return true
+  } else if (request.type === 'new_messages') {
+    console.log('there are new messages')
+    chrome.storage.local.get(['enabledAddons']).then(async (result) => {
+      if (result.enabledAddons.includes('addMessageCountBadge')) {
+        chrome.action.setBadgeText({ text: request.count.toString() })
+        chrome.action.setBadgeBackgroundColor({ color: '#ef4444' })
+        chrome.action.setBadgeTextColor({ color: '#ffffff' })
+      }
+
+      console.log('new messages found', request.count)
+      sendResponse('new messages read!')
+      if (!request.dontNotify) {
+        if (result.enabledAddons.includes('addMessageNotifications')) {
+          fetch('https://api.wasteof.money/messages/unread', {
+            headers: {
+              Authorization: request.token
+            }
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data)
+              chrome.storage.local.get(['numberOfMessages'], function (result) {
+                data.unread.forEach((message, index) => {
+                  if (index < request.count - result.numberOfMessages) {
+                    console.log('new message,', message, 'at index ', index)
+                    chrome.storage.local.get(
+                      ['addMessageNotificationsOptions'],
+                      function (resultOptions) {
+                        if (
+                          resultOptions.addMessageNotificationsOptions !==
+                    undefined
+                        ) {
+                          if (
+                            resultOptions.addMessageNotificationsOptions
+                              .profilePicture
+                          ) {
+                            chrome.notifications.create('', {
+                              title: getMessageSummary(message),
+                              message: getMessageContent(message),
+                              iconUrl:
+                          'https://api.wasteof.money/users/' +
+                          message.data.actor.name +
+                          '/picture',
+                              type: 'basic'
+                            })
+                          } else {
+                            chrome.notifications.create('', {
+                              title: getMessageSummary(message),
+                              message: getMessageContent(message),
+                              iconUrl: '../assets/icons/icon128.png',
+                              type: 'basic'
+                            })
+                          }
+                        } else {
+                          chrome.notifications.create('', {
+                            title: getMessageSummary(message),
+                            message: getMessageContent(message),
+                            iconUrl:
+                        'https://api.wasteof.money/users/' +
+                        message.data.actor.name +
+                        '/picture',
+                            type: 'basic'
+                          })
+                        }
+                      }
                     )
-                    const logUrl =
+                  }
+                })
+
+                chrome.storage.local.set({ numberOfMessages: request.count })
+              })
+            })
+        }
+        console.log(
+          'badgeEnabled',
+          result.enabledAddons.includes('addMessageCountBadge')
+        )
+      } else {
+        chrome.storage.local.set({ numberOfMessages: request.count })
+      }
+      if (!result.enabledAddons.includes('addMessageCountBadge')) {
+        console.log('badge not enbaled')
+        chrome.action.setBadgeText({ text: '' })
+      }
+    })
+  } else {
+    chrome.storage.local.get(['enabledAddons']).then(async (result) => {
+      if (request.type === 'login-token') {
+        console.log(
+          'received login token and sending it',
+          request.token,
+          result.enabledAddons.includes('addMessageCountBadge')
+        )
+        if (result.enabledAddons !== undefined) {
+          console.log(
+            'some addons are enabled',
+            result.enabledAddons,
+            result.enabledAddons.includes('addMessageCountBadge'),
+            result.enabledAddons.includes('addMessageNotifications')
+          )
+          if (
+            result.enabledAddons.includes('addMessageCountBadge') ||
+          result.enabledAddons.includes('addMessageNotifications')
+          ) {
+            chrome.runtime.sendMessage(
+              {
+                type: 'check-response',
+                target: 'offscreen',
+                token: request.token
+              },
+              function (response) {
+                if (response === 'success') {
+                  console.log('success')
+                } else {
+                  console.log(
+                    'received message from content script',
+                    request.token
+                  )
+                  chrome.storage.local.get(
+                    ['addMessageCountBadgeOptions'],
+                    async (theResultOptions) => {
+                      console.log(
+                        'sending message to offscreen',
+                        theResultOptions.addMessageCountBadgeOptions.preset
+                      )
+                      const logUrl =
                       theResultOptions.addMessageCountBadgeOptions.logUrl
 
-                    if (theResultOptions.addMessageCountBadgeOptions.preset === 'Cha-Ching') {
-                      chrome.runtime.sendMessage({
-                        type: 'token-send',
-                        logUrl,
-                        target: 'offscreen',
-                        token: request.token,
-                        sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
-                        volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                        playSound: theResultOptions.addMessageCountBadgeOptions.playSound
-                      }, function (response) {
-                        console.log('response from offscreen', response)
-                      })
-                    } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Discord') {
-                      chrome.runtime.sendMessage({
-                        type: 'token-send',
-                        target: 'offscreen',
-                        logUrl,
-                        token: request.token,
-                        sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
-                        volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                        playSound: theResultOptions.addMessageCountBadgeOptions.playSound
-                      }, function (response) {
-                        console.log('response from offscreen', response)
-                        console.log(chrome.runtime.getURL('assets/sounds/notify.mp3'))
-                      })
-                    } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Zap') {
-                      chrome.runtime.sendMessage({
-                        type: 'token-send',
-                        target: 'offscreen',
-                        logUrl,
-                        token: request.token,
-                        sound: chrome.runtime.getURL('assets/sounds/wasteof_notification.wav'),
-                        volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                        playSound: theResultOptions.addMessageCountBadgeOptions.playSound
-                      }, function (response) {
-                        console.log('response from offscreen', response)
-                        console.log(chrome.runtime.getURL('assets/sounds/wasteof_notification.wav'))
-                      })
-                    } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Custom') {
-                      chrome.storage.local.get(['notificationsSound'], async (theResultCustomSound) => {
+                      if (theResultOptions.addMessageCountBadgeOptions.preset === 'Cha-Ching') {
                         chrome.runtime.sendMessage({
                           type: 'token-send',
+                          logUrl,
                           target: 'offscreen',
                           token: request.token,
-                          logUrl,
-                          sound: theResultCustomSound.notificationsSound.file,
+                          sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
                           volume: theResultOptions.addMessageCountBadgeOptions.volume,
                           playSound: theResultOptions.addMessageCountBadgeOptions.playSound
                         }, function (response) {
                           console.log('response from offscreen', response)
                         })
-                      })
-                    }
-                  })
-              }
-            })
-        }
-        sendResponse('received login token!')
-      } else if (request.type === 'new_messages') {
-        if (result.enabledAddons.includes('addMessageCountBadge')) {
-          chrome.action.setBadgeText({ text: request.count.toString() })
-          chrome.action.setBadgeBackgroundColor({ color: '#ef4444' })
-          chrome.action.setBadgeTextColor({ color: '#ffffff' })
-        }
-
-        console.log('new messages found', request.count)
-        sendResponse('new messages read!')
-        if (!request.dontNotify) {
-          if (result.enabledAddons.includes('addMessageNotifications')) {
-            fetch('https://api.wasteof.money/messages/unread', {
-              headers: {
-                Authorization: request.token
-              }
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                console.log(data)
-                chrome.storage.local.get(['numberOfMessages'], function (result) {
-                  data.unread.forEach((message, index) => {
-                    if (index < request.count - result.numberOfMessages) {
-                      console.log('new message,', message, 'at index ', index)
-                      chrome.storage.local.get(
-                        ['addMessageNotificationsOptions'],
-                        function (resultOptions) {
-                          if (
-                            resultOptions.addMessageNotificationsOptions !==
-                          undefined
-                          ) {
-                            if (
-                              resultOptions.addMessageNotificationsOptions
-                                .profilePicture
-                            ) {
-                              chrome.notifications.create('', {
-                                title: getMessageSummary(message),
-                                message: getMessageContent(message),
-                                iconUrl:
-                                'https://api.wasteof.money/users/' +
-                                message.data.actor.name +
-                                '/picture',
-                                type: 'basic'
-                              })
-                            } else {
-                              chrome.notifications.create('', {
-                                title: getMessageSummary(message),
-                                message: getMessageContent(message),
-                                iconUrl: '../assets/icons/icon128.png',
-                                type: 'basic'
-                              })
-                            }
-                          } else {
-                            chrome.notifications.create('', {
-                              title: getMessageSummary(message),
-                              message: getMessageContent(message),
-                              iconUrl:
-                              'https://api.wasteof.money/users/' +
-                              message.data.actor.name +
-                              '/picture',
-                              type: 'basic'
-                            })
-                          }
-                        }
-                      )
-                    }
-                  })
-
-                  chrome.storage.local.set({ numberOfMessages: request.count })
-                })
-              })
-          }
-          console.log(
-            'badgeEnabled',
-            result.enabledAddons.includes('addMessageCountBadge')
-          )
-        } else {
-          chrome.storage.local.set({ numberOfMessages: request.count })
-        }
-        if (!result.enabledAddons.includes('addMessageCountBadge')) {
-          console.log('badge not enbaled')
-          chrome.action.setBadgeText({ text: '' })
-        }
-      } else if (request.type === 'get_message_count') {
-        (async function () {
-          const key = await chrome.storage.local.get(['numberOfMessages'])
-          console.log('sending result', key.numberOfMessages)
-          chrome.storage.local.get(['addMessageCountBadgeOptions'], function (theResultOptions) {
-            if (theResultOptions.addMessageCountBadgeOptions.preset === 'Cha-Ching') {
-              sendResponse({
-                numberOfMessages: key.numberOfMessages,
-                sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
-                volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                playSound: theResultOptions.addMessageCountBadgeOptions.playSound
-              })
-            } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Discord') {
-              sendResponse({
-                numberOfMessages: key.numberOfMessages,
-                sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
-                volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                playSound: theResultOptions.addMessageCountBadgeOptions.playSound
-              })
-            } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Zap') {
-              sendResponse({
-                numberOfMessages: key.numberOfMessages,
-                sound: chrome.runtime.getURL('assets/sounds/wasteof_notification.wav'),
-                volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                playSound: theResultOptions.addMessageCountBadgeOptions.playSound
-              })
-            } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Custom') {
-              chrome.storage.local.get(['notificationsSound'], async (theResultCustomSound) => {
-                sendResponse({
-                  numberOfMessages: key.numberOfMessages,
-                  sound: chrome.runtime.getURL('assets/sounds/cashier.mp3'),
-                  volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                  playSound:
-                  theResultOptions.addMessageCountBadgeOptions.playSound
-                })
-              })
-            } else if (
-              theResultOptions.addMessageCountBadgeOptions.preset === 'Discord'
-            ) {
-              sendResponse({
-                numberOfMessages: key.numberOfMessages,
-                sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
-                volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                playSound:
-                  theResultOptions.addMessageCountBadgeOptions.playSound
-              })
-            } else if (
-              theResultOptions.addMessageCountBadgeOptions.preset === 'Custom'
-            ) {
-              chrome.storage.local.get(
-                ['notificationsSound'],
-                async (theResultCustomSound) => {
-                  sendResponse({
-                    numberOfMessages: key.numberOfMessages,
-                    sound: theResultCustomSound.notificationsSound.file,
-                    volume: theResultOptions.addMessageCountBadgeOptions.volume,
-                    playSound:
-                      theResultOptions.addMessageCountBadgeOptions.playSound
-                  })
+                      } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Discord') {
+                        chrome.runtime.sendMessage({
+                          type: 'token-send',
+                          target: 'offscreen',
+                          logUrl,
+                          token: request.token,
+                          sound: chrome.runtime.getURL('assets/sounds/notify.mp3'),
+                          volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                          playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+                        }, function (response) {
+                          console.log('response from offscreen', response)
+                          console.log(chrome.runtime.getURL('assets/sounds/notify.mp3'))
+                        })
+                      } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Zap') {
+                        chrome.runtime.sendMessage({
+                          type: 'token-send',
+                          target: 'offscreen',
+                          logUrl,
+                          token: request.token,
+                          sound: chrome.runtime.getURL('assets/sounds/wasteof_notification.wav'),
+                          volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                          playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+                        }, function (response) {
+                          console.log('response from offscreen', response)
+                          console.log(chrome.runtime.getURL('assets/sounds/wasteof_notification.wav'))
+                        })
+                      } else if (theResultOptions.addMessageCountBadgeOptions.preset === 'Custom') {
+                        chrome.storage.local.get(['notificationsSound'], async (theResultCustomSound) => {
+                          chrome.runtime.sendMessage({
+                            type: 'token-send',
+                            target: 'offscreen',
+                            token: request.token,
+                            logUrl,
+                            sound: theResultCustomSound.notificationsSound.file,
+                            volume: theResultOptions.addMessageCountBadgeOptions.volume,
+                            playSound: theResultOptions.addMessageCountBadgeOptions.playSound
+                          }, function (response) {
+                            console.log('response from offscreen', response)
+                          })
+                        })
+                      }
+                    })
                 }
-              )
+              })
+          }
+          sendResponse('received login token!')
+        } else if (request.type === 'route-changed') {
+          console.log('route change message received!')
+          console.log('tab id is', sender.tab.id, 'url is', sender.tab.url)
+          chrome.tabs.sendMessage(
+            sender.tab.id,
+            { action: 'reload' },
+            function (response) {
+              console.log('response', response)
             }
-          }
           )
-        })()
-      } else if (request.type === 'route-changed') {
-        console.log('route change message received!')
-        console.log('tab id is', sender.tab.id, 'url is', sender.tab.url)
-        chrome.tabs.sendMessage(
-          sender.tab.id,
-          { action: 'reload' },
-          function (response) {
-            console.log('response', response)
-          }
-        )
-      // injectAddons({ tabId: sender.tab.id, url: sender.tab.url }, true)
-      } else {
-        console.log('got message', request.type)
-        sendResponse('got other message!')
+          // injectAddons({ tabId: sender.tab.id, url: sender.tab.url }, true)
+        } else {
+          console.log('got message', request.type)
+          sendResponse('got other message!')
+        }
       }
-    }
-  })
-  return true
+    })
+    return true
+  }
 })
 
 async function createOffscreen () {
   await chrome.offscreen
     .createDocument({
       url: 'addons/addMessageCountBadge/offscreen/offscreen.html',
-      reasons: ['BLOBS'],
+      reasons: ['BLOBS', 'LOCAL_STORAGE'],
       justification: 'keep service worker running'
     })
     .catch(() => {})

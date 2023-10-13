@@ -5,5 +5,9 @@
   "polls",
   "addMessageCountBadge",
   "addMessageNotifications",
-  "autolovePosts"
+  "switchAccounts",
+  "autolovePosts",
+  "hashtags",
+  "customNavigation",
+  "bigEmojis"
 ]
