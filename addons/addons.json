@@ -6,5 +6,6 @@
   "addMessageCountBadge",
   "addMessageNotifications",
   "switchAccounts",
+  "customNavigation",
   "bigEmojis"
 ]
