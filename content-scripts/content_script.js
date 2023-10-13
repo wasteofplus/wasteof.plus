@@ -1,19 +1,19 @@
-console.log('hello from the content script!!!')
+console.log('content script loaded')
 
 window.addEventListener(
   'PassToBackgroundRoute',
   function (evt) {
-    console.log('content script got route change window event')
+    console.log('content script route changed!')
     //   chrome.runtime.sendMessage(evt.detail)
     chrome.runtime.sendMessage(
       {
         type: 'route-changed'
       },
       function (response) {
-        console.log('Response: ', response)
+        // console.log('Response: ', response)
       }
     )
-    console.log('got window event')
+    // console.log('got window event')
   },
   false
 )
@@ -28,10 +28,10 @@ window.addEventListener(
         token: document.querySelector('body').dataset.token
       },
       function (response) {
-        console.log('Response: ', response)
+        // console.log('Response: ', response)
       }
     )
-    console.log('got window event')
+    // console.log('got window event')
   },
   false
 )

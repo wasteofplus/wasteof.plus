@@ -36,44 +36,49 @@ function testrunaddon () {
   const modalHeader = [...document.querySelectorAll('#modal-header')]
     .find((el) => el.textContent === 'Create post')
     .parentElement.querySelector('#modal-header ~ div > div > div > div')
-  const insertPollsButton = document.createElement('button')
-  insertPollsButton.classList.add('text-white', 'p-1', 'rounded', 'bg-gray-500')
-  const insertPollsButtonSpan = document.createElement('span')
-  insertPollsButtonSpan.innerHTML = pollSvg
-  insertPollsButton.appendChild(insertPollsButtonSpan)
-  insertPollsButton.addEventListener('click', () => {
-    if (
-      [...document.querySelectorAll('nav + div .ProseMirror pre code')].some(
-        (el) => el.textContent.startsWith('poll: ')
-      )
-    ) {
-      alert('Only one poll per post is supported.')
-      return
-    }
-    const options = []
-    while (true) {
-      const option = prompt(
+  if (!(document.getElementById('insertPollsButton'))) {
+    const insertPollsButton = document.createElement('button')
+    insertPollsButton.id = 'insertPollsButton'
+    insertPollsButton.classList.add('text-white', 'p-1', 'rounded', 'bg-gray-500')
+    const insertPollsButtonSpan = document.createElement('span')
+    insertPollsButtonSpan.innerHTML = pollSvg
+    insertPollsButton.appendChild(insertPollsButtonSpan)
+    insertPollsButton.addEventListener('click', () => {
+      if (
+        [...document.querySelectorAll('nav + div .ProseMirror pre code')].some(
+          (el) => el.textContent.startsWith('poll: ')
+        )
+      ) {
+        alert('Only one poll per post is supported.')
+        return
+      }
+      const options = []
+      while (true) {
+        const option = prompt(
         `Current options: ${options.join(
           ', '
         )}\nPut in another option, or press Cancel to stop.`
-      )
-      if (option === null) {
-        break
+        )
+        if (option === null) {
+          break
+        }
+        options.push(option)
       }
-      options.push(option)
-    }
-    if (options.length === 0) {
-      return
-    }
-    const pre = document.createElement('pre')
-    const code = document.createElement('code')
-    code.textContent = `poll: ${JSON.stringify(options)}`
-    pre.appendChild(code)
-    document.querySelector('.ProseMirror').appendChild(pre)
-  })
-  modalHeader.insertBefore(insertPollsButton, modalHeader.lastChild)
+      if (options.length === 0) {
+        return
+      }
+      const pre = document.createElement('pre')
+      const code = document.createElement('code')
+      code.textContent = `poll: ${JSON.stringify(options)}`
+      pre.appendChild(code)
+      document.querySelector('.ProseMirror').appendChild(pre)
+    })
+    modalHeader.insertBefore(insertPollsButton, modalHeader.lastChild)
+  }
 
   document.querySelectorAll('.prose > pre').forEach(async (element) => {
+    const debug = await import(chrome.runtime.getURL('../debug.js'))
+
     const rawContent = element.textContent
     const postId = (
       element.parentElement.parentElement.getAttribute('to') ||
@@ -88,7 +93,7 @@ function testrunaddon () {
       !(options instanceof Array) ||
       options.some((option) => typeof option !== 'string')
     ) {
-      console.log(`Expected options to be an array of strings, got ${content}`)
+      debug.log(`Expected options to be an array of strings, got ${content}`)
     }
     const comments = await getPostCommentsByPoster(postId, options)
     const voteAmounts = [...comments.values()]
@@ -183,26 +188,30 @@ function testrunaddon () {
 }
 
 function addon () {
-  console.log('executing addon, polls')
+  import(chrome.runtime.getURL('../debug.js')).then((debug) => {
+    debug.log('executing addon, polls', 'alwayslog')
+  })
   testrunaddon()
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log('message polls', message)
-  sendResponse({ message: 'hello' })
-  if (message.action === 'reload') {
-    console.log('RELOADING!!! user statuses')
-    // wait 3 seconds
-    setTimeout(() => {
-      console.log('it\'s been 3 seconds, reloading addon polls')
-      console.log('going to execute polls')
-      testrunaddon()
+  import(chrome.runtime.getURL('../debug.js')).then((debug) => {
+    debug.log('message polls', message)
+    sendResponse({ message: 'hello' })
+    if (message.action === 'reload') {
+      debug.log('RELOADING!!! user statuses')
+      // wait 3 seconds
+      setTimeout(() => {
+        debug.log('it\'s been 3 seconds, reloading addon polls')
+        debug.log('going to execute polls')
+        testrunaddon()
 
       // addon()
-    }, 3000)
-    // addon()
-    console.log('finsihed reloading addon user statises')
-  }
+      }, 3000)
+      // addon()
+      debug.log('finsihed reloading addon user statises')
+    }
+  })
 })
 
 addon()
