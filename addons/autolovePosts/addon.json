@@ -1,0 +1,22 @@
+{
+  "urls": [
+    "https://wasteof.money/",
+    "https://wasteof.money",
+    "https://beta.wasteof.money/",
+    "https://beta.wasteof.money"
+  ],
+  "urlcontains": [
+    "wasteof.money/posts",
+    "wasteof.money/users",
+    "wasteof.money/explore"
+  ],
+  "name": "Auto-love your own posts",
+  "description": "Automatically adds a love to your own posts so you won't forget.",
+  "developers": [
+    { "name": "imadeanaccount", "link": "https://github.com/imadeanaccount1" }
+  ],
+  "hasContentScript": true,
+  "hasContentStyle": false,
+  "enabledByDefault": true,
+  "options": []
+}

@@ -2,7 +2,11 @@
   "addUserStatuses",
   "profileHoverCards",
   "chatPresenceNotify",
-  "polls",
   "addMessageCountBadge",
-  "addMessageNotifications"
+  "addMessageNotifications",
+  "switchAccounts",
+  "autolovePosts",
+  "hashtags",
+  "customNavigation",
+  "bigEmojis"
 ]

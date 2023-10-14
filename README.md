@@ -1,11 +1,7 @@
 # wasteof.plus
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
-
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
 [![](https://img.shields.io/github/stars/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/stargazers)
 [![](https://img.shields.io/github/forks/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/network/members)
 [![](https://img.shields.io/github/watchers/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/watchers)
@@ -13,6 +9,7 @@
 [![](https://img.shields.io/github/issues-pr/imadeanaccount1/wasteof.plus?color=green&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/pulls)
 [![](https://img.shields.io/github/license/imadeanaccount1/wasteof.plus?style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/blob/master/LICENSE)
 [![](https://img.shields.io/badge/website-wasteofplus.github.io-ff7b26.svg?style=flat-square&color=blue)](https://wasteofplus.github.io)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 wasteof.plus is a browser extension that adds customizable addons to the wasteof.money social media. 🌠
 
@@ -53,8 +50,10 @@ wasteof.plus is still being ported to work in Firefox. You can follow developmen
 | Profile Hover Cards                                                                                                             | User Status Badges                                                                                                               | Unread Messages Badge                                                                                                           | New Message Notifications                                                                                                       |
 | ------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/dc5ad41e-d26b-4d92-b979-1774ffe1683e"> | <img width="190px"  src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/3dfe43b5-13a5-4cb1-8cdd-802ae9a34faa"> | <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/2400ea6a-bcc5-406f-bd61-fdedf62cb649"> | <img src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/f61d6efa-cb7e-4e22-9ac1-f99127cf4069" width="190px"> |
-| Polls                                                                                                                           | Chat Presence Notifier                                                                                                           |                                                                                                                                 |                                                                                                                                 |
-| <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/851d2cf2-4fcd-4e8d-9924-1e9eb90f7ff0"> | <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/fe2f08e7-b86a-42e2-90a5-a23c51d669a9">  |                                                                                                                                 |                                                                                                                                 |
+| Polls (Removed)                                                                                                                          | Chat Presence Notifier                                                                                                           |                                          Switch Accounts                                                                      |             Custom Navigation                                                                                                                    |
+| <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/851d2cf2-4fcd-4e8d-9924-1e9eb90f7ff0"> | <img width="190px" src="https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/fe2f08e7-b86a-42e2-90a5-a23c51d669a9">  |               <img width="190px" alt="switchAccounts" src="https://github.com/wasteofplus/wasteof.plus/assets/138229538/86698acf-372e-4fb7-8a2e-a40932e10e71">                                   |          <img width="190px" alt="customNav" src="https://github.com/wasteofplus/wasteof.plus/assets/138229538/2ebafcf9-348d-4f7f-9e87-a5d506025bc8">  
+| Bigger Emojis                                                                                                             | Autolove Posts                                                                                                               |                                                                                                            |                                                      |
+| <img width="190px" alt="biggerEmojis" src="https://github.com/wasteofplus/wasteof.plus/assets/138229538/86c178dc-b426-4368-a5f3-df18184f9c95"> | <img width="190px" alt="autolove" src="https://github.com/wasteofplus/wasteof.plus/assets/138229538/f623de81-30b5-476f-b876-426e906414de">     |                                                                  |
 
 <!--- ![followsyoubadge - Copy (3)](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/1c4c32bb-8951-4055-b820-9b9ebd545167)
 ![Screenshot2023070714](https://github.com/imadeanaccount1/wasteof.plus/assets/138229538/73f53d4a-91e3-4cd7-996f-d49fb1ad1b47) -->
@@ -98,6 +97,8 @@ Wasteof.plus is inspired by [ScratchAddons](https://github.com/ScratchAddons/Scr
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="http://radi8.dev"><img src="https://avatars.githubusercontent.com/u/124477460?v=4?s=100" width="100px;" alt="radeeyate"/><br /><sub><b>radeeyate</b></sub></a><br /><a href="#data-radeeyate" title="Data">🔣</a> <a href="https://github.com/wasteofplus/wasteof.plus/commits?author=radeeyate" title="Code">💻</a> <a href="#infra-radeeyate" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-radeeyate" title="Maintenance">🚧</a> <a href="#ideas-radeeyate" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://micahlindley.com"><img src="https://avatars.githubusercontent.com/u/28816297?v=4?s=100" width="100px;" alt="Micah Lindley"/><br /><sub><b>Micah Lindley</b></sub></a><br /><a href="#ideas-micahlt" title="Ideas, Planning, & Feedback">🤔</a> <a href="#promotion-micahlt" title="Promotion">📣</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://seanjw.com"><img src="https://avatars.githubusercontent.com/u/89602427?v=4?s=100" width="100px;" alt="Sean Wallace"/><br /><sub><b>Sean Wallace</b></sub></a><br /><a href="#design-Auriali" title="Design">🎨</a></td>
     </tr>
   </tbody>
 </table>
