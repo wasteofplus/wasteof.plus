@@ -28,10 +28,10 @@
     "type": "module"
   },
   "icons": {
-    "16": "assets/icons/icon16.png",
-    "32": "assets/icons/icon32.png",
-    "48": "assets/icons/icon48.png",
-    "128": "assets/icons/icon128.png"
+    "16": "assets/icons/iconplus16.png",
+    "32": "assets/icons/iconplus32.png",
+    "48": "assets/icons/iconplus48.png",
+    "128": "assets/icons/iconplus128.png"
   },
   "action": {
     "default_popup": "popups/popup.html"
