@@ -1,8 +1,9 @@
 [
-  "addUserStatuses",
-  "profileHoverCards",
-  "chatPresenceNotify",
-  "polls",
-  "addMessageCountBadge",
-  "addMessageNotifications"
+    "addUserStatuses",
+    "profileHoverCards",
+    "chatPresenceNotify",
+    "polls",
+    "addMessageCountBadge",
+    "addMessageNotifications",
+    "wasteofstats"
 ]

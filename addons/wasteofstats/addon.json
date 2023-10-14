@@ -1,0 +1,16 @@
+{
+  "urls": [],
+  "urlcontains": [
+      "wasteof.money/users"
+  ],
+  "name": "User Profile Statistics",
+  "description": "Shows statistics about wasteof users in a profile widget. Inspired by wasteof.stats.",
+  "developers": [
+    { "name": "imadeanaccount", "link": "https://github.com/imadeanaccount1" },
+    { "name": "Oren Lindsey", "link": "https://github.com/Oren-Lindsey"}
+  ],
+  "hasContentScript": true,
+  "hasContentStyle": true,
+  "enabledByDefault": true,
+  "options":[]
+}

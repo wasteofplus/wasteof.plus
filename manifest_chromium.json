@@ -42,7 +42,13 @@
       "matches": ["*://*.wasteof.money/*"],
       "resources": [
         "content-scripts/lib/*.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css",
         "content-scripts/lib/getToken.js",
+        "https://cdn.jsdelivr.net/npm/apexcharts",
+        "https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js",
+        "node_modules/flowbite/dist/flowbite.min.css",
+        "node_modules/flowbite/dist/flowbite.min.js",
+        "node_modules/apexcharts/dist/apexcharts.min.js",
         "addons/*/*.js",
         "addons/*/templates/*.html",
         "addons/*/addon.json",

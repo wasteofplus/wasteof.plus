@@ -1,4 +1,9 @@
 // tailwind.config.js
 module.exports = {
-  darkMode: 'class'
+  darkMode: 'class',
+  plugins: [
+    require('flowbite/plugin')({
+      charts: true
+    })
+  ]
 }
