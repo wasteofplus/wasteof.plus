@@ -1,0 +1,38 @@
+{
+  "urls": [],
+  "urlcontains": [],
+  "name": "Custom Website Theme Colors",
+  "description": "Customize website theme colors.",
+  "hasContentScript": true,
+  "hasContentStyle": false,
+  "enabledByDefault": true,
+  "developers": [
+    {
+      "name": "imadeanaccount",
+      "link": "https://github.com/imadeanaccount1"
+    }
+  ],
+  "options": [
+    {
+      "type": "boolean",
+      "name": "Set Website theme to Dot Color",
+      "default": true,
+      "id": "surpriseColor",
+      "order": 1
+    },
+    {
+      "type": "color",
+      "name": "Custom Color",
+      "default": "indigo",
+      "id": "customColor",
+      "dynamicVisibility": [
+        {
+          "id": "surpriseColor",
+          "values": [false]
+        }
+      ],
+      "options": {"red": "#ef4444", "orange": "#f97316", "yellow": "#eab308", "green": "#22c55e", "teal": "#14b8a6", "blue": "#3b82f6", "indigo": "#6366f1", "fuchsia": "#d946ef", "gray (boring)": "#6b7280"},
+      "order": 2
+    }
+  ]
+}
