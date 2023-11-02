@@ -1,6 +1,6 @@
 {
   "urls": [],
-  "urlcontains": [],
+  "urlcontains": ["wasteof.money"],
   "name": "Custom Website Theme Colors",
   "description": "Customize website theme colors.",
   "hasContentScript": true,
