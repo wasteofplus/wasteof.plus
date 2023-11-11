@@ -1,0 +1,14 @@
+{
+    "urls": ["https://wasteof.money/", "https://wasteof.money"],
+    "urlcontains": ["wasteof.money"],
+    "name": "Twemoji Everywhere",
+    "description": "Replaces the few remaining system Emoji with Twemoji.",
+    "developers": [
+      { "name": "imadeanaccount", "link": "https://github.com/imadeanaccount1" }
+    ],
+    "hasContentScript": true,
+    "hasContentStyle": false,
+    "enabledByDefault": true,
+    "options": []
+  }
+
