@@ -53,17 +53,17 @@ async function addon (reload) {
   return 'finished!'
 }
 
-// chrome.runtime.onMessage.addListener(
-//   function (request, sender, sendResponse) {
-//     if (request.greeting === 'addUserStatuses') { sendResponse({ message: 'hello' }) }
-//   })
+chrome.runtime.onMessage.addListener(
+  function (request, sender, sendResponse) {
+    if (request.greeting === 'addUserStatuses') { sendResponse({ message: 'hello' }) }
+  })
 
-// window.addEventListener('message', function (event) {
-//   // We only accept messages from ourselves
-//   if (event.data.type && (event.data.type === 'FROM_PAGE')) {
-//     console.log('Content script received: ' + event.data.text)
-//   }
-// })
+window.addEventListener('message', function (event) {
+  // We only accept messages from ourselves
+  if (event.data.type && (event.data.type === 'FROM_PAGE')) {
+    console.log('Content script received: ' + event.data.text)
+  }
+})
 
 // const routeChangeScript = document.createElement('script')
 // routeChangeScript.id = 'routeChangeScript'

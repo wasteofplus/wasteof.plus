@@ -2,8 +2,13 @@
   "addUserStatuses",
   "profileHoverCards",
   "chatPresenceNotify",
-  "polls",
   "addMessageCountBadge",
   "addMessageNotifications",
-  "twemojiEverywhere"
+  "twemojiEverywhere",
+  "switchAccounts",
+  "autolovePosts",
+  "hashtags",
+  "customNavigation",
+  "bigEmojis",
+  "websiteThemeColors"
 ]
