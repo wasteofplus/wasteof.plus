@@ -10,7 +10,6 @@
   "permissions": [
     "unlimitedStorage",
     "offscreen",
-    "activeTab",
     "scripting",
     "storage",
     "tabs",
