@@ -8,7 +8,7 @@
     ],
     "hasContentScript": true,
     "hasContentStyle": false,
-    "enabledByDefault": true,
+    "enabledByDefault": false,
     "options": []
   }
   

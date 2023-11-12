@@ -1,9 +1,9 @@
 {
   "urls": [],
-  "urlcontains": [],
+  "urlcontains": ["wasteof.money"],
   "name": "Unread Messages Badge and Sound",
   "description": "Adds a badge to the extension icon and plays a sound for unread messages on wasteof.money",
-  "hasContentScript": false,
+  "hasContentScript": true,
   "hasContentStyle": false,
   "enabledByDefault": true,
   "developers": [
@@ -73,6 +73,13 @@
       "placeholder": "https://example.com/api/log",
       "id": "logUrl",
       "order": 5
+    },
+    {
+      "type": "boolean",
+      "name": "Show Tab Favicon Badges",
+      "default": true,
+      "id": "faviconBadges",
+      "order": 6
     }
   ]
 }
