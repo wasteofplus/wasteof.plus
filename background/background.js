@@ -42,6 +42,7 @@ function getMessageContent (message) {
 
 async function doesContentScriptExist (tabId, contentScript) {
   console.log('does content script exist', tabId, contentScript)
+
   return new Promise((resolve, reject) => {
     try {
       chrome.tabs.sendMessage(
@@ -275,7 +276,14 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   console.log('got message', request, sender)
-  if (request.type === 'get_message_count') {
+  if (request.type === 'getOptions') {
+    console.log('GET ADDON OPTIONS', request.addon)
+    chrome.storage.local.get([request.addon + 'Options'], function (theResultOptions) {
+      console.log('sending result', theResultOptions[request.addon + 'Options'])
+      sendResponse(theResultOptions[request.addon + 'Options'])
+    })
+    return true
+  } else if (request.type === 'get_message_count') {
     (async function () {
       console.log('message count requested!!!')
 
@@ -350,6 +358,32 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         chrome.action.setBadgeText({ text: request.count.toString() })
         chrome.action.setBadgeBackgroundColor({ color: '#ef4444' })
         chrome.action.setBadgeTextColor({ color: '#ffffff' })
+        chrome.storage.local.get(
+          ['addMessageCountBadgeOptions'],
+          function (resultOptions) {
+            if (
+              resultOptions.addMessageCountBadgeOptions !==
+        undefined
+            ) {
+              if (
+                resultOptions.addMessageCountBadgeOptions
+                  .faviconBadges
+              ) {
+                chrome.tabs.query({ url: 'https://wasteof.money/*' }, function (tabs) {
+                  tabs.forEach((tab) => {
+                    console.log('tab is ', tab)
+                    chrome.tabs.sendMessage(
+                      tab.id,
+                      { action: 'messageCount', count: request.count },
+                      function (response) {
+                        console.log('response', response)
+                      }
+                    )
+                  })
+                })
+              }
+            }
+          })
       }
 
       console.log('new messages found', request.count)

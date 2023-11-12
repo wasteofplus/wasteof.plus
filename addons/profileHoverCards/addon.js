@@ -2,6 +2,8 @@ let hovering = false
 let hoveringArea = false
 
 function greyOutFollowButton (button) {
+  // remove classes: text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-primary-500
+  // text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-gray-500
   button.classList.remove('bg-primary-500')
   button.classList.add('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Unfollow'
@@ -10,6 +12,8 @@ function greyOutFollowButton (button) {
 }
 
 function unGreyOutFollowButton (button) {
+  // remove classes: text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-primary-500
+  // text-white text-center font-bold p-2 h-10 rounded-lg cursor-pointer bg-gray-500
   button.classList.add('bg-primary-500')
   button.classList.remove('bg-gray-500')
   button.querySelector('span.hidden').innerText = 'Follow'
@@ -298,9 +302,9 @@ async function addonTwo () {
   }
 }
 
-// const getTokenScript = document.createElement('script')
-// getTokenScript.id = 'getTokenScript'
-// getTokenScript.src = chrome.runtime.getURL('./addons/profileHoverCards/lib/getToken.js')
+const getTokenScript = document.createElement('script')
+getTokenScript.id = 'getTokenScript'
+getTokenScript.src = chrome.runtime.getURL('./addons/profileHoverCards/lib/getToken.js')
 
 // document.body.appendChild(getTokenScript)
 

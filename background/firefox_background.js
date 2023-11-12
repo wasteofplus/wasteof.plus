@@ -411,7 +411,14 @@ browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   chrome.storage.local.get(['enabledAddons']).then(async (result) => {
-    if (request.type === 'login-token') {
+    if (request.type === 'getOptions') {
+      console.log('GET ADDON OPTIONS', request.addon)
+      chrome.storage.local.get([request.addon + 'Options'], function (theResultOptions) {
+        console.log('sending result', theResultOptions[request.addon + 'Options'])
+        sendResponse(theResultOptions[request.addon + 'Options'])
+      })
+      return true
+    } else if (request.type === 'login-token') {
       console.log('received login token and sending it', request.token, result.enabledAddons.includes('addMessageCountBadge'))
       if (result.enabledAddons !== undefined) {
         console.log('some addons are enabled', result.enabledAddons, result.enabledAddons.includes('addMessageCountBadge'), result.enabledAddons.includes('addMessageNotifications'))
