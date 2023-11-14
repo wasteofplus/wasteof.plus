@@ -109,7 +109,7 @@ document.getElementsByClassName('openInNew')[0].addEventListener('click', () => 
 
 const views = chrome.extension.getViews({ type: 'popup' })
 console.log('the views are', views)
-if (views === []) {
+if (views.length === 0) {
   document.body.style.removeProperty('max-width')
   document.getElementsByClassName('blankSpaceDiv')[0].style.display = 'none'
   document.getElementsByClassName('header')[0].style.justifyContent = 'center'
@@ -408,6 +408,26 @@ fetch('templates/extensionCard.html').then(response => response.text()).then(asy
 
                 // addedElement.querySelector('.firstOption').innerText = option.options[0]
                 // addedElement.querySelector('.lastOption').innerText = option.options[option.options.length - 1]
+              } else if (option.type === 'color') {
+                console.error(card.querySelector('.addonOptions'))
+                card.querySelector('.addonOptions').insertAdjacentHTML('beforeend', `
+                <div class="addonOption inline-flex" role="group">
+                <p class="dark:text-white optionName"></p>
+                <div class="optionSelect"></div></div>`)
+                const addedElement = card.querySelector('.addonOptions').lastElementChild
+                addedElement.querySelector('.optionName').innerText = option.name
+                console.error(card.querySelector('.addonOptions').lastElementChild.querySelector('.optionSelect').children, await getOptionValue(option.id, addon))
+
+                card.querySelector('.addonOptions').lastElementChild.children[1].insertAdjacentHTML('beforeend', '<select class="colorInput"></select>')
+                for (const [key, value] of Object.entries(option.options)) {
+                  console.error(addedElement.querySelector('.colorInput'))
+                  addedElement.querySelector('.colorInput').insertAdjacentHTML('beforeend', '<option style="color: ' + value + ';" value="' + key + '">' + key + '</option>')
+                  addedElement.querySelector('.colorInput').lastElementChild.selected = key === await getOptionValue(option.id, addon)
+                }
+                addedElement.querySelector('.colorInput').addEventListener('change', async function (event) {
+                  console.log('changed color for addon', addon)
+                  setOptionValue(option.id, event.target.value, addon, addonData.options, card.querySelector('.addonOptions'))
+                })
               } else if (option.type === 'file') {
                 card.querySelector('.addonOptions').insertAdjacentHTML('beforeend', fileOptionText)
                 const fileSelector = card.querySelector('.addonOptions').lastElementChild.querySelector('.optionFile > input')
