@@ -1,16 +1,15 @@
 # wasteof.plus
-
+<div align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
 [![](https://img.shields.io/github/stars/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/stargazers)
 [![](https://img.shields.io/github/forks/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/network/members)
 [![](https://img.shields.io/github/watchers/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/watchers)
-[![](https://img.shields.io/github/issues/imadeanaccount1/wasteof.plus?color=green&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/issues)
-[![](https://img.shields.io/github/issues-pr/imadeanaccount1/wasteof.plus?color=green&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/pulls)
-[![](https://img.shields.io/github/license/imadeanaccount1/wasteof.plus?style=flat-square&color=blue)](https://github.com/imadeanaccount1/wasteof.plus/blob/master/LICENSE)
-[![](https://img.shields.io/badge/website-wasteofplus.github.io-ff7b26.svg?style=flat-square&color=blue)](https://wasteofplus.github.io)
+[![](https://img.shields.io/github/license/imadeanaccount1/wasteof.plus?style=flat-square&color=green)](https://github.com/imadeanaccount1/wasteof.plus/blob/master/LICENSE)
+[![](https://img.shields.io/badge/website-wasteofplus.github.io-ff7b26.svg?style=flat-square&color=orange)](https://wasteofplus.github.io)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+</div>
 
 wasteof.plus is a browser extension that adds customizable addons to the wasteof.money social media. 
 
