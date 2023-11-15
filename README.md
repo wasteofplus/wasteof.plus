@@ -8,7 +8,7 @@
 [![](https://img.shields.io/github/watchers/imadeanaccount1/wasteof.plus?color=blue&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/watchers)
 [![](https://img.shields.io/github/issues/imadeanaccount1/wasteof.plus?color=green&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/issues)
 [![](https://img.shields.io/github/issues-pr/imadeanaccount1/wasteof.plus?color=green&style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/pulls)
-[![](https://img.shields.io/github/license/imadeanaccount1/wasteof.plus?style=flat-square)](https://github.com/imadeanaccount1/wasteof.plus/blob/master/LICENSE)
+[![](https://img.shields.io/github/license/imadeanaccount1/wasteof.plus?style=flat-square&color=blue)](https://github.com/imadeanaccount1/wasteof.plus/blob/master/LICENSE)
 [![](https://img.shields.io/badge/website-wasteofplus.github.io-ff7b26.svg?style=flat-square&color=blue)](https://wasteofplus.github.io)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
