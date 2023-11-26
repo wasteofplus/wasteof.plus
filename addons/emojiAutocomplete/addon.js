@@ -1,18 +1,18 @@
-const emojiPickerScript = document.createElement('script')
-emojiPickerScript.id = 'emojiPickerScript'
-emojiPickerScript.src = chrome.runtime.getURL('../../node_modules/emoji-mart/dist/browser.js')
-document.head.appendChild(emojiPickerScript)
+// const emojiPickerScript = document.createElement('script')
+// emojiPickerScript.id = 'emojiPickerScript'
+// emojiPickerScript.src = chrome.runtime.getURL('../../node_modules/emoji-mart/dist/browser.js')
+// document.head.appendChild(emojiPickerScript)
 
-// fetch(chrome.runtime.getURL('../../node_modules/@emoji-mart/data/sets/14/native.json')).then((response) => {
-//   return response.json()
-// }).then((data) => {
-//   console.log(data)
-//   window.emojiData = data
-//   document.body.dataset.emojiData = JSON.stringify(data)
-//   const addPickerScript = document.createElement('script')
-//   addPickerScript.src = chrome.runtime.getURL('addons/emojiPicker/lib/addAutocomplete.js')
-//   document.head.appendChild(addPickerScript)
-// })
+fetch(chrome.runtime.getURL('../../node_modules/@emoji-mart/data/sets/14/native.json')).then((response) => {
+  return response.json()
+}).then((data) => {
+  console.log(data)
+  window.emojiData = data
+  document.body.dataset.emojiData = JSON.stringify(data)
+  const addPickerScript = document.createElement('script')
+  addPickerScript.src = chrome.runtime.getURL('addons/emojiAutocomplete/lib/addAutocomplete.js')
+  document.head.appendChild(addPickerScript)
+})
 // const modalHeader1 = [...document.querySelectorAll('#modal-header')]
 //   .find((el) => el.textContent === 'Create post')
 //   .parentElement.querySelector('#modal-header ~ div > div > div > div')
@@ -33,9 +33,9 @@ document.head.appendChild(emojiPickerScript)
 // insertPollsButton.addEventListener('click', () => {
 // })
 // modalHeader1.insertBefore(insertPollsButton, modalHeader1.lastChild)
-const addPickerScript = document.createElement('script')
-addPickerScript.src = chrome.runtime.getURL('addons/emojiPicker/lib/addPicker.js')
-document.head.appendChild(addPickerScript)
+// const addPickerScript = document.createElement('script')
+// addPickerScript.src = chrome.runtime.getURL('addons/emojiPicker/lib/addPicker.js')
+// document.head.appendChild(addPickerScript)
 // // add picmo script from CDN
 
 // // <script src="https://unpkg.com/@picmo/popup-picker@latest/dist/umd/index.js"></script>

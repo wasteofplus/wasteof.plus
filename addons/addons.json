@@ -4,5 +4,7 @@
     "chatPresenceNotify",
     "polls",
     "addMessageCountBadge",
-    "addMessageNotifications"
+    "addMessageNotifications",
+    "emojiPicker",
+    "emojiAutocomplete"
 ]
