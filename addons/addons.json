@@ -10,6 +10,8 @@
   "switchAccounts",
   "autolovePosts",
   "hashtags",
+  "emojiPicker",
+  "emojiAutocomplete",
   "customNavigation",
   "bigEmojis",
   "websiteThemeColors"

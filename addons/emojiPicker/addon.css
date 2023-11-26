@@ -1,0 +1,13 @@
+.emojiAddButton {
+    height: 15px;
+}
+.actual-picker {
+    position: absolute;
+    z-index: 99999;
+    right: 0px;
+}
+.emojiActionButton {
+    position: relative;
+    margin-left: 4px;
+    margin-right: 4px;
+}

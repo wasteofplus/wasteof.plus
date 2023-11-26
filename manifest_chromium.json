@@ -48,6 +48,8 @@
         "addons/*/addon.json",
         "addons/*/lib/*.js",
         "utils.js",
+        "node_modules/**/*.js",
+        "node_modules/**/*.json",
         "debug.js"
       ]
     }
