@@ -1,5 +1,8 @@
+console.log('customNavigation addon loaded')
+
 if (!document.getElementById('customChatLink')) {
   chrome.storage.local.get(['customNavigation' + 'Options'], function (result) {
+    console.log('options', result)
     if (result['customNavigation' + 'Options'].chatEnabled) {
       const elem = document.querySelector('nav > .container > div.flex > ul > li')
       const clone = elem.cloneNode(true)

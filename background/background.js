@@ -358,6 +358,32 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         chrome.action.setBadgeText({ text: request.count.toString() })
         chrome.action.setBadgeBackgroundColor({ color: '#ef4444' })
         chrome.action.setBadgeTextColor({ color: '#ffffff' })
+        chrome.storage.local.get(
+          ['addMessageCountBadgeOptions'],
+          function (resultOptions) {
+            if (
+              resultOptions.addMessageCountBadgeOptions !==
+        undefined
+            ) {
+              if (
+                resultOptions.addMessageCountBadgeOptions
+                  .faviconBadges
+              ) {
+                chrome.tabs.query({ url: 'https://wasteof.money/*' }, function (tabs) {
+                  tabs.forEach((tab) => {
+                    console.log('tab is ', tab)
+                    chrome.tabs.sendMessage(
+                      tab.id,
+                      { action: 'messageCount', count: request.count },
+                      function (response) {
+                        console.log('response', response)
+                      }
+                    )
+                  })
+                })
+              }
+            }
+          })
       }
 
       console.log('new messages found', request.count)

@@ -4,11 +4,15 @@
   "chatPresenceNotify",
   "addMessageCountBadge",
   "addMessageNotifications",
+  "viewReposts",
+  "systemEmojis",
+  "twemojiEverywhere",
   "switchAccounts",
   "autolovePosts",
   "hashtags",
   "emojiPicker",
   "emojiAutocomplete",
   "customNavigation",
-  "bigEmojis"
+  "bigEmojis",
+  "websiteThemeColors"
 ]

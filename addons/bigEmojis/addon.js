@@ -19,7 +19,7 @@ function addon () {
   })
 }
 
-const observer = new MutationObserver(function (mutations) {
+const observer2 = new MutationObserver(function (mutations) {
   mutations.forEach(function (mutation) {
     // console.log(mutation)
     if (mutation.addedNodes && mutation.addedNodes.length > 0) {
@@ -47,7 +47,7 @@ const config = {
   subtree: true
 }
 
-observer.observe(document.body, config)
+observer2.observe(document.body, config)
 
 console.log('MAKE EMOJIS BIG')
 addon()

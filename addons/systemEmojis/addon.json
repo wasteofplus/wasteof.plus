@@ -1,0 +1,14 @@
+{
+    "urls": ["https://wasteof.money/", "https://wasteof.money"],
+    "urlcontains": ["wasteof.money"],
+    "name": "System Emoji",
+    "description": "Replace wasteof.money Twemoji with the OS system emoji.",
+    "developers": [
+      { "name": "radi8", "link": "https://github.com/radeeyate" }
+    ],
+    "hasContentScript": true,
+    "hasContentStyle": false,
+    "enabledByDefault": false,
+    "options": []
+  }
+  
