@@ -1,0 +1,30 @@
+.emoji-picker-container {
+    position: absolute;
+    width: calc(100% - 16px);
+    max-width:400px;
+    max-height: 300px;
+    overflow-y:auto;
+    z-index:999;
+}
+.emoji-button {
+    width: 100%;
+    display: flex;
+}
+.emojilabel {
+    font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+.emoji-mart-emoji > img {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+.emoji-button > p {
+    margin-bottom: 0.25rem;
+    margin-top: 0.08rem;
+}
+.placehold {
+    color: #aaa;
+    font-style: italic;
+    height: 0;
+    pointer-events: none;
+    position:absolute;
+}

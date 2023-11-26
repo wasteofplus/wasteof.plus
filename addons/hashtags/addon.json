@@ -1,0 +1,25 @@
+{
+    "urls": [
+        "https://wasteof.money/",
+        "https://wasteof.money",
+        "https://beta.wasteof.money/",
+        "https://beta.wasteof.money"
+    ],
+    "urlcontains": [
+        "wasteof.money/posts",
+        "wasteof.money/users",
+        "wasteof.money/explore",
+        "wasteof.money/messages",
+        "wasteof.money/search"
+    ],
+    "name": "Hashtags",
+    "description": "Adds hashtag links that redirect to search results.",
+    "hasContentScript": true,
+    "hasContentStyle": false,
+    "enabledByDefault": true,
+    "developers": [{
+        "name": "jaked",
+        "link": "https://github.com/jakednolastname"
+    }],
+    "options": []
+}

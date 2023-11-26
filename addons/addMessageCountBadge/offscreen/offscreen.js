@@ -20,9 +20,9 @@ function logMessage (message, url) {
     }
 
     fetch(url, requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error))
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log('error', error))
   }
 }
 
@@ -40,39 +40,55 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       headers: {
         Authorization: request.token
       }
-    }).then(response => response.json()).then(async (data) => {
-      if (data.count > 0) {
-        if (request.playSound) {
-          playAudio({ source: request.sound, volume: request.volume })
-        }
-
-        chrome.runtime.sendMessage({
-          type: 'new_messages',
-          count: data.count,
-          dontNotify: true
-        })
-      } else {
-        chrome.runtime.sendMessage({
-          type: 'new_messages',
-          count: 0
-        })
-      }
     })
+      .then((response) => response.json())
+      .then(async (data) => {
+        if (data.count > 0) {
+          if (request.playSound) {
+            playAudio({ source: request.sound, volume: request.volume })
+          }
+
+          chrome.runtime.sendMessage({
+            type: 'new_messages',
+            count: data.count,
+            dontNotify: true
+          })
+        } else {
+          chrome.runtime.sendMessage({
+            type: 'new_messages',
+            count: 0
+          })
+        }
+      })
     if (request.type === 'token-send') {
       logMessage('Token received: ' + request.token)
       const logUrl = request.logUrl
-      sendResponse({ response: 'Response from offscreen script' + request.token })
-      const socket = io('https://api.wasteof.money', { transports: ['websocket'], auth: { token: request.token } })
+      sendResponse({
+        response: 'Response from offscreen script' + request.token
+      })
+      const socket = io('https://api.wasteof.money', {
+        transports: ['websocket'],
+        auth: { token: request.token }
+      })
       websocketListening = true
 
       socket.on('updateMessageCount', function (count) {
-        logMessage('The message count is ' + count.toString(), logUrl)
+        localStorage.setItem('myCat', 'Tom')
+        const cat = localStorage.getItem('myCat')
+
+        logMessage('The message coun1t is ' + count.toString() + JSON.stringify(chrome.runtime.id) + cat, logUrl)
 
         function getStorageData () {
           return new Promise((resolve, reject) => {
-            chrome.runtime.sendMessage({ type: 'get_message_count' }, (response) => {
-              resolve(response)
-            })
+            chrome.runtime.sendMessage(
+              chrome.runtime.id,
+              { type: 'get_message_count' },
+              (response) => {
+                logMessage('resolving promise' + count.toString(), logUrl)
+
+                resolve(response)
+              }
+            )
           })
         }
         getStorageData()
@@ -81,9 +97,18 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             if (storageData.numberOfMessages !== undefined) {
               if (count > storageData.numberOfMessages) {
                 // Play sound with access to DOM APIs
-                logMessage('The sound we will play is ' + storageData.sound + ' with volume ' + storageData.volume.toString(), logUrl)
+                logMessage(
+                  'The sound we will play is ' +
+                    storageData.sound +
+                    ' with volume ' +
+                    storageData.volume.toString(),
+                  logUrl
+                )
                 if (storageData.playSound) {
-                  playAudio({ source: storageData.sound, volume: storageData.volume })
+                  playAudio({
+                    source: storageData.sound,
+                    volume: storageData.volume
+                  })
                 }
                 logMessage('New message received!' + count.toString(), logUrl)
                 chrome.runtime.sendMessage({
@@ -105,7 +130,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                 logMessage('No new messages', logUrl)
               }
             } else {
-              logMessage('No new messages' + JSON.stringify(storageData.numberOfMessages), logUrl)
+              logMessage(
+                'No new messages' +
+                  JSON.stringify(storageData.numberOfMessages),
+                logUrl
+              )
             }
           })
           .catch((error) => {
@@ -117,5 +146,5 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 })
 
 setInterval(async () => {
-  (await navigator.serviceWorker.ready).active.postMessage('keepAlive')
+  ;(await navigator.serviceWorker.ready).active.postMessage('keepAlive')
 }, 20e3)

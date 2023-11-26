@@ -1,0 +1,23 @@
+{
+    "urls": [
+        "https://wasteof.money/",
+        "https://wasteof.money",
+        "https://beta.wasteof.money/",
+        "https://beta.wasteof.money"
+    ],
+    "urlcontains": [
+        "wasteof.money/posts",
+        "wasteof.money/users",
+        "wasteof.money/explore"
+    ],
+    "name": "Emoji Colon Autocomplete Search",
+    "description": "Allows you to search for emojis by typing a colon and then the emoji name.",
+    "hasContentScript": true,
+    "hasContentStyle": true,
+    "enabledByDefault": true,
+    "developers": [{
+        "name": "imadeanaccount",
+        "link": "https://github.com/imadeanaccount1"
+    }],
+    "options": []
+}

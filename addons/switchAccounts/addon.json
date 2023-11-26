@@ -1,0 +1,13 @@
+{
+  "urls": ["https://wasteof.money/", "https://wasteof.money"],
+  "urlcontains": ["wasteof.money"],
+  "name": "Switch Accounts",
+  "description": "Seamlessly switch between multiple signed-in wasteof accounts.",
+  "developers": [
+    { "name": "imadeanaccount", "link": "https://github.com/imadeanaccount1" }
+  ],
+  "hasContentScript": true,
+  "hasContentStyle": true,
+  "enabledByDefault": false,
+  "options": []
+}

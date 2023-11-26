@@ -1,9 +1,19 @@
 [
-    "addUserStatuses",
-    "profileHoverCards",
-    "chatPresenceNotify",
-    "polls",
-    "addMessageCountBadge",
-    "addMessageNotifications",
-    "discordEmojiCodes"
+  "addUserStatuses",
+  "profileHoverCards",
+  "chatPresenceNotify",
+  "addMessageCountBadge",
+  "addMessageNotifications",
+  "viewReposts",
+  "systemEmojis",
+  "twemojiEverywhere",
+  "switchAccounts",
+  "autolovePosts",
+  "hashtags",
+  "emojiPicker",
+  "emojiAutocomplete",
+  "customNavigation",
+  "bigEmojis",
+  "websiteThemeColors",
+  "discordEmojiCodes"
 ]

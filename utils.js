@@ -1,59 +1,90 @@
-function waitForElm (selector, callback, ignoreClasses) {
-  return new Promise(resolve => {
-    if (document.querySelector(selector)) {
-      return resolve(document.querySelector(selector))
-    }
-
-    const observer = new MutationObserver(mutations => {
-      console.log('mutation', mutations)
+function waitForElm (selector, debug, callback) {
+  import(chrome.runtime.getURL('../debug.js')).then((debug) => {
+    return new Promise(resolve => {
       if (document.querySelector(selector)) {
-        let elementsThatDidntHaveClass = false
-        for (const { addedNodes } of mutations) {
-          for (const node of addedNodes) {
-            if (!node.tagName) continue // not an element
-            if (node.classList.contains('replyCount') ||
-                            node.classList.contains('actionDropdownItem') ||
-                            node.classList.contains('commentActionDropdown') ||
-                            node.classList.contains('readIndicator') ||
-                            node.classList.contains('replyIcon') ||
-                            node.classList.contains('dropdownIcon')) {
-              continue
+        resolve(document.querySelector(selector))
+      }
+
+      const observer = new MutationObserver(mutations => {
+        debug.log('mutation', mutations)
+
+        if (document.querySelector(selector)) {
+          let elementsThatDidntHaveClass = false
+          for (const { addedNodes } of mutations) {
+            for (const node of addedNodes) {
+              if (!node.tagName) continue // not an element
+              if (
+                node.classList.contains('replyCount') ||
+              node.classList.contains('actionDropdownItem') ||
+              node.classList.contains('commentActionDropdown') ||
+              node.classList.contains('readIndicator') ||
+              node.classList.contains('replyIcon') ||
+              node.classList.contains('dropdownIcon')
+              ) {
+                continue
+              } else {
+                elementsThatDidntHaveClass = true
+              }
+            }
+          }
+          if (elementsThatDidntHaveClass) {
+            debug.log('observer ended up!')
+            resolve(document.querySelector(selector))
+            if (callback) {
+              debug.log('mutations', mutations)
+              for (const record of mutations) {
+                debug.log('mutation record', record)
+                const nodelist = []
+                for (const node of record.addedNodes) {
+                  debug.log('onenode', node, node.nodeType === Node.TEXT_NODE)
+                  if (node.nodeType !== Node.TEXT_NODE) {
+                    if (node.matches('div.border-2.mb-4')) {
+                      debug.log('pushing node', node.querySelector('a > div.w-full > a > img.border-2'))
+                      nodelist.push(node.querySelector('a > div.w-full > a > img.border-2'))
+                    }
+                  }
+                }
+                if (nodelist.length > 0) {
+                  callback(nodelist)
+                } else {
+                  debug.log('can\'t call back')
+                }
+              }
             } else {
-              elementsThatDidntHaveClass = true
+              observer.disconnect()
             }
           }
         }
-        if (elementsThatDidntHaveClass) {
-          console.log('observer ended up!')
-          resolve(document.querySelector(selector))
-          if (callback) {
-            callback()
-          } else {
-            observer.disconnect()
-          }
-        }
+      })
+      if (callback) {
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        })
+      } else {
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        })
       }
-    })
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
     })
   })
 }
 
 function observeUrlChange (onUrlChange) {
-  let oldHref = document.location.href
-  const body = document.querySelector('body')
-  const observer = new MutationObserver(mutations => {
-    if (oldHref !== document.location.href) {
-      oldHref = document.location.href
-      console.log('url changed!')
-      onUrlChange(true)
-      observer.disconnect()
-    }
+  import(chrome.runtime.getURL('../debug.js')).then((debug) => {
+    let oldHref = document.location.href
+    const body = document.querySelector('body')
+    const observer = new MutationObserver(mutations => {
+      if (oldHref !== document.location.href) {
+        oldHref = document.location.href
+        debug.log('url changed!')
+        onUrlChange(true)
+        observer.disconnect()
+      }
+    })
+    observer.observe(body, { childList: true, subtree: true })
   })
-  observer.observe(body, { childList: true, subtree: true })
 };
 
 function generateSelector (elem) {
@@ -84,7 +115,7 @@ function generateSelector (elem) {
       elemClasses = elemClasses.replace(/^/g, ' ')
       let newElemClasses = '.'
       for (const className in elemClasses.split('.')) {
-        if (!(className.includes('dark'))) {
+        if (!className.includes('dark')) {
           newElemClasses += className
         }
       }
@@ -101,8 +132,9 @@ function generateSelector (elem) {
       const similarClasses = []
 
       for (let i = 0; i < childrens.length; i++) {
-        if (element.getAttribute('class') ===
-  childrens[i].getAttribute('class')) {
+        if (
+          element.getAttribute('class') === childrens[i].getAttribute('class')
+        ) {
           similarClasses.push(childrens[i])
         }
       }
@@ -191,4 +223,10 @@ function getMessageSummary (message) {
   return 'Giving you a message'
 }
 
-export { waitForElm, observeUrlChange, getMessageSummary, generateSelector, timeDifference }
+export {
+  waitForElm,
+  observeUrlChange,
+  getMessageSummary,
+  generateSelector,
+  timeDifference
+}
