@@ -5,15 +5,13 @@ module.exports = {
     es2021: true,
     webextensions: true
   },
-  extends: 'standard',
+  extends: ['standard'],
   overrides: [
     {
       env: {
         node: true
       },
-      files: [
-        '.eslintrc.{js,cjs}'
-      ],
+      files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
         sourceType: 'script'
       }
@@ -22,6 +20,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest'
   },
-  rules: {
+  rules: {},
+  globals: {
+    $nuxt: true,
+    io: true
   }
 }

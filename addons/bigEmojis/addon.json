@@ -1,0 +1,38 @@
+{
+  "urls": ["https://wasteof.money/", "https://wasteof.money"],
+  "urlcontains": ["wasteof.money"],
+  "name": "Add Big Emojis",
+  "description": "Make single-emoji lines in posts and comments show bigger emojis, similar to apps such as WhatsApp and Discord.",
+  "developers": [
+    { "name": "imadeanaccount", "link": "https://github.com/imadeanaccount1" }
+  ],
+  "hasContentScript": true,
+  "hasContentStyle": true,
+  "enabledByDefault": true,
+  "options": [
+    {
+      "type": "slider",
+      "name": "Large",
+      "default": 48,
+      "settings": {
+        "min": 16,
+        "max": 64,
+        "step": 4
+      },
+      "id": "large",
+      "order": 1
+    },
+    {
+      "type": "slider",
+      "name": "Medium",
+      "default": 32,
+      "settings": {
+        "min": 16,
+        "max": 64,
+        "step": 4
+      },
+      "id": "medium",
+      "order": 2
+    }
+  ]
+}

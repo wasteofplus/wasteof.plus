@@ -9,12 +9,13 @@
     "wasteof.money/posts",
     "wasteof.money/users",
     "wasteof.money/explore",
-    "wasteof.money/messages"
+    "wasteof.money/messages",
+    "wasteof.money/chat"
   ],
-  "name": "User Permission/Status Badges",
-  "description": "Adds admin, verified, beta, and banned badges as well as online indicators to user statuses",
+  "name": "Navigation Customizations",
+  "description": "Customize the top-bar navigation with links to /chat and other pages.",
   "hasContentScript": true,
-  "hasContentStyle": true,
+  "hasContentStyle": false,
   "enabledByDefault": true,
   "developers": [
     {
@@ -22,5 +23,13 @@
       "link": "https://github.com/imadeanaccount1"
     }
   ],
-  "options": []
+  "options": [
+    {
+      "type": "boolean",
+      "name": "Add Chat Link to Top Bar",
+      "default": true,
+      "id": "chatEnabled",
+      "order": 1
+    }
+  ]
 }

@@ -1,10 +1,14 @@
 [
-    "addUserStatuses",
-    "profileHoverCards",
-    "chatPresenceNotify",
-    "polls",
-    "addMessageCountBadge",
-    "addMessageNotifications",
-    "emojiPicker",
-    "emojiAutocomplete"
+  "addUserStatuses",
+  "profileHoverCards",
+  "chatPresenceNotify",
+  "addMessageCountBadge",
+  "addMessageNotifications",
+  "switchAccounts",
+  "autolovePosts",
+  "hashtags",
+  "emojiPicker",
+  "emojiAutocomplete",
+  "customNavigation",
+  "bigEmojis"
 ]

@@ -1,0 +1,30 @@
+#accountListLink {
+    position: absolute !important;
+    /* top: 32px; */
+    width: 260px;
+    margin-left: -16px;
+}
+
+#accountSwitcher {
+    margin-left: 4px;
+}
+
+.switcherStatusIcon {
+    position: relative;
+    height: 100%;
+    margin-left: 2px;
+    width: 12px;
+    height: 12px;
+}
+
+.deleteAcocuntSwitch {
+    position: absolute;
+    right: 0px;
+}
+
+.switcherStatusIcon > svg {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    bottom: -1.5px;
+  }
