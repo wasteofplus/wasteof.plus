@@ -15,8 +15,11 @@ insertPollsButtonSpan.innerHTML = `
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.408 7.5h.01m-6.876 0h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM4.6 11a5.5 5.5 0 0 0 10.81 0H4.6Z"/>
   </svg>`
 insertPollsButton.appendChild(insertPollsButtonSpan)
-insertPollsButton.addEventListener('click', () => {
-  picker.style.display = picker.style.display === 'none' ? 'flex' : 'none'
+insertPollsButton.addEventListener('click', (event) => {
+  console.log(event.target)
+  if (event.target.classList.contains('emojiAddButton')) {
+    picker.style.display = picker.style.display === 'none' ? 'flex' : 'none'
+  }
 })
 modalHeader1.insertBefore(insertPollsButton, modalHeader1.lastChild)
 
@@ -24,6 +27,7 @@ const pickerOptions = {
   set: 'twitter',
   theme: document.documentElement.className === 'dark' ? 'dark' : 'light',
   onEmojiSelect: (emoji) => {
+    console.log('select')
     const selection = window.getSelection()
     console.log(selection.anchorNode)
     if (document.querySelector('div.prose > div').contains(selection.anchorNode)) {
@@ -52,6 +56,9 @@ const pickerOptions = {
 
 // eslint-disable-next-line no-undef
 const picker = new EmojiMart.Picker(pickerOptions)
+picker.addEventListener('click', () => {
+  console.log('click')
+})
 picker.classList.add('actual-picker')
 document.querySelector('.emojiActionButton').appendChild(picker)
 document.querySelector('div > div > div > div > div > div.vfm__content.relative.flex.flex-col.max-h-full.mx-4.rounded > div').style.overflowY = 'visible'
