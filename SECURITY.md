@@ -11,3 +11,6 @@ wasteof.plus takes security seriously and respects that any browser extension of
 ## Reporting a Vulnerability
 
 To report a vulnerability, go to the Security tab of the main repository and click "Report a vulnerability" to open the advisory form. Then, provide information about the vulnerability, how to reproduce it, and in which versions of the software it is present in. We will work quickly to address and respond to any reported vulnerabilities.
+
+# Privacy Policy
+wasteof.plus does not collect or transmit any user data. The extension only communicates from and to wasteof.money pages and to the wasteof.money API, and any of this communication occurs on your machine. We do not transmit **any** data to our own servers.
