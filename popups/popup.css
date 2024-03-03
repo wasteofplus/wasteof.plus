@@ -1,0 +1,203 @@
+.header {
+  height: 60px;
+  width: 100%;
+  /* background-color: #6366f1; */
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blankSpaceDiv {
+  width: 20px;
+  height: 20px;
+}
+
+.whiteicon {
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+  filter: invert(100%);
+  --webkit-filter: invert(100%);
+}
+
+.addonOption {
+  width: 100%;
+}
+
+.content {
+  max-height: 480px;
+  overflow-y: scroll;
+  padding: 0px 8px;
+}
+
+.inline {
+  display: inline;
+  vertical-align: middle;
+}
+
+.developer-link {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.developer-logo {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+
+body {
+  max-height: 540px;
+  height: 540px;
+  min-width: 355px;
+  background-color: #f4f4f4;
+  padding: 0px;
+  margin: 0px;
+  font-family:
+    Space Grotesk,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    Liberation Mono,
+    Courier New,
+    monospace,
+    sans-serif;
+}
+
+.optionFile {
+  width: 205px;
+}
+
+.optionSlider {
+  width: 220px;
+}
+
+.optionText > input {
+  padding: 8px 6px;
+}
+
+.optionText {
+  width: 220px;
+}
+
+.addonOption {
+  margin: 8px 0px;
+}
+
+.title {
+  font-weight: 700;
+}
+
+.cardheader {
+  justify-content: space-between;
+  display: flex;
+}
+
+.optionBoolean {
+  margin-right: 5px !important;
+}
+
+.optionName {
+  margin: auto 0px;
+}
+
+.addonOption {
+  justify-content: space-between;
+  display: flex;
+}
+
+.optionSelect {
+  display: flex;
+  justify-content: end;
+}
+
+.addons {
+  overflow-y: auto;
+}
+
+.optionsHeader {
+  justify-content: space-between;
+  display: flex;
+}
+
+.addonDescription {
+  margin-top: 8px;
+  margin-bottom: 0px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  /* width: 40px;
+    height: 22px;
+     */
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 14px;
+  width: 14px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.switch {
+  position: relative;
+}
+
+.toggle {
+  position: absolute !important;
+  bottom: 3px !important;
+  right: 0px !important;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.addonName {
+  margin: 4px 0px;
+  display: inline;
+}
+
+.optionsLabel {
+  margin: auto 0px;
+}
+
+.optionsExpand {
+  margin: auto 0px;
+}

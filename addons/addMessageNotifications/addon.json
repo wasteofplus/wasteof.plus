@@ -1,0 +1,25 @@
+{
+  "urls": [],
+  "urlcontains": [],
+  "name": "New Message Notifications",
+  "description": "Sends a notification when you get a new message.",
+  "hasContentScript": false,
+  "hasContentStyle": false,
+  "enabledByDefault": false,
+  "developers": [
+    {
+      "name": "wasteof.plus community",
+      "link": "https://github.com/wasteofplus"
+    }
+  ],
+  "options": [
+    {
+      "type": "boolean",
+      "name": "Show Profile Picture",
+      "id": "profilePicture",
+      "default": true,
+      "order": 1
+    }
+  ],
+  "permissions": ["notifications"]
+}
