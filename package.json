@@ -28,7 +28,7 @@
   "dependencies": {
     "flowbite": "^2.5.1",
     "run-script-os": "^1.1.6",
-    "socket.io-client": "^4.7.5",
+    "socket.io-client": "^4.8.1",
     "tailwindcss": "^4.1.7"
   }
 }
